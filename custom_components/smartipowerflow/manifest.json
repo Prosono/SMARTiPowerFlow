@@ -1,7 +1,7 @@
 {
     "domain": "smartiPowerFlow",
     "name": "SMARTi PowerFlow",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "documentation": "https://github.com/Prosono/SMARTiPowerFlow",
     "dependencies": [],
     "codeowners": ["@Prosono"],

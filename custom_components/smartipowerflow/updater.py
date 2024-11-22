@@ -26,11 +26,11 @@ SMARTIUPDATER_PATH = "/config/custom_components/smartipowerflow/"
 
 
 PACKAGES_FILES_TO_DELETE = [
-    "smarti_dashboard_package_powerflow.yaml",
+    "smarti_dashboard_package_powerflow.yaml"
 ]
 
 DASHBOARDS_FILES_TO_DELETE = {
-    "SMARTi_Power_Control_Page_Test.yaml",
+    "SMARTi_Power_Control_Page_Test.yaml"
 }
 
 _LOGGER = logging.getLogger(__name__)
