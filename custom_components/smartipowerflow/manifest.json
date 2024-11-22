@@ -1,6 +1,6 @@
 {
     "domain": "smartiPowerFlow",
-    "name": "SMARTi",
+    "name": "SMARTi PowerFlow",
     "version": "1.0.0",
     "documentation": "https://github.com/Prosono/SMARTiPowerFlow",
     "dependencies": [],

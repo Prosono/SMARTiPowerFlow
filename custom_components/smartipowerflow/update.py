@@ -46,7 +46,7 @@ class SmartiUpdaterEntity(UpdateEntity):
     @property
     def name(self):
         """Return the name of the update entity."""
-        return "SMARTi"
+        return "SMARTi PowerFlow"
 
     @property
     def entity_category(self):
@@ -85,6 +85,6 @@ class SmartiUpdaterEntity(UpdateEntity):
         """Return device information for SMARTi."""
         return DeviceInfo(
             identifiers={(DOMAIN, "smartiPowerFlow")},
-            name="SMARTi",
+            name="SMARTi PowerFlow",
             manufacturer="SMARTi AS",
         )

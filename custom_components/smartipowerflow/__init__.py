@@ -7,7 +7,7 @@ _LOGGER = logging.getLogger(__name__)
 
 async def async_setup(hass: HomeAssistant, config: dict):
     """Set up the SMARTi integration."""
-    _LOGGER.info("Setting up the SMARTi integration.")
+    _LOGGER.info("Setting up the SMARTi PowerFlow integration.")
     return True
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
@@ -25,7 +25,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry):
 
 async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
     """Unload a config entry."""
-    _LOGGER.info("Unloading SMARTi config entry.")
+    _LOGGER.info("Unloading SMARTi PowerFLow config entry.")
 
     await hass.config_entries.async_forward_entry_unload(entry, "update")
 
@@ -34,7 +34,7 @@ async def async_unload_entry(hass: HomeAssistant, entry: ConfigEntry):
 
 async def async_migrate_entry(hass: HomeAssistant, entry: ConfigEntry):
     """Handle migration of config entry if needed."""
-    _LOGGER.info(f"Migrating SMARTi entry from version {entry.version}")
+    _LOGGER.info(f"Migrating SMARTi PowerFlow entry from version {entry.version}")
 
     # Define the current version of your integration
     current_version = 1
