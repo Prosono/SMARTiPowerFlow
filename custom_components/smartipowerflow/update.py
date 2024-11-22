@@ -8,7 +8,7 @@ from .updater import check_for_update, update_files, update_manifest_version
 
 _LOGGER = logging.getLogger(__name__)
 
-DOMAIN = "smarti"
+DOMAIN = "smartiPowerFlow"
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_entities):
     """Set up SMARTi from a config entry."""
@@ -16,7 +16,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry, async_add_e
     if "manifest_version" not in hass.data.get(DOMAIN, {}):
         try:
             import json
-            with open("/config/custom_components/smartiupdater/manifest.json", "r") as manifest_file:
+            with open("/config/custom_components/smartipowerflow/manifest.json", "r") as manifest_file:
                 manifest_data = json.load(manifest_file)
                 hass.data.setdefault(DOMAIN, {})["manifest_version"] = manifest_data.get("version", "unknown")
         except Exception as e:
@@ -37,7 +37,7 @@ class SmartiUpdaterEntity(UpdateEntity):
         # Use the version from the manifest.json
         self._attr_installed_version = hass.data.get(DOMAIN, {}).get("manifest_version", "unknown")
         self._attr_latest_version = None
-        self._attr_release_url = "https://github.com/Prosono/smarti/releases"
+        self._attr_release_url = "https://github.com/Prosono/SMARTiPowerFlow/releases"
         self._attr_entity_picture = "https://brands.home-assistant.io/_/smartiupdater/icon.png"
         self._attr_in_progress = False
         self._attr_supported_features = UpdateEntityFeature.INSTALL
@@ -84,7 +84,7 @@ class SmartiUpdaterEntity(UpdateEntity):
     def device_info(self) -> DeviceInfo:
         """Return device information for SMARTi."""
         return DeviceInfo(
-            identifiers={(DOMAIN, "smarti")},
+            identifiers={(DOMAIN, "smartiPowerFlow")},
             name="SMARTi",
             manufacturer="SMARTi AS",
         )

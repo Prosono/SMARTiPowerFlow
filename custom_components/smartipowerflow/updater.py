@@ -11,12 +11,12 @@ import asyncio
 
 _LOGGER = logging.getLogger(__name__)
 
-DOMAIN = "smarti"
+DOMAIN = "smartiPowerFlow"
 
-GITHUB_REPO_URL = "https://api.github.com/repos/Prosono/smarti/contents/"
+GITHUB_REPO_URL = "https://github.com/Prosono/SMARTiPowerFlow/contents/"
 PACKAGES_URL = GITHUB_REPO_URL + "packages/"
 DASHBOARDS_URL = GITHUB_REPO_URL + "dashboards/"
-SMARTIUPDATER_URL = GITHUB_REPO_URL + "custom_components/smartiupdater/"
+SMARTIUPDATER_URL = GITHUB_REPO_URL + "custom_components/smartipowerflow/"
 #NODE_RED_FLOW_URL = GITHUB_REPO_URL + "node-red-flows/"
 #THEMES_URL = GITHUB_REPO_URL + "themes/smarti_themes/"
 #IMAGES_URL = GITHUB_REPO_URL + "www/images/smarti_images/"
@@ -33,19 +33,11 @@ SMARTIUPDATER_PATH = "/config/custom_components/smartiupdater/"
 #CUSTOM_CARD_RADAR_PATH = "/config/www/community/weather-radar-card/"
 
 PACKAGES_FILES_TO_DELETE = [
-    "smarti_dashboard_package.yaml", 
-    "smarti_dynamic_power_sensor_package.yaml",
-    "smarti_general_automations.yaml", 
-    "smarti_power_control_package.yaml", 
-    "smarti_power_price_package.yaml",
-    "smarti_powerflow_gridfee_package.yaml",
-    "smarti_translation_package.yaml",
-    "smarti_powerflow_gridfee_automations"
+    "smarti_dashboard_package_powerflow.yaml",
 ]
 
 DASHBOARDS_FILES_TO_DELETE = {
-    "SMARTi_Language_Norsk.yaml",
-    "SMARTi_Language_English.yaml"
+    "SMARTi_Power_Control_Page_Test.yaml",
 }
 
 _LOGGER = logging.getLogger(__name__)
@@ -288,7 +280,7 @@ async def check_for_update(session: aiohttp.ClientSession, current_version: str)
         return False, "unknown"
 
 async def update_manifest_version(latest_version: str):
-    manifest_file = "/config/custom_components/smartiupdater/manifest.json"
+    manifest_file = "/config/custom_components/smartipowerflow/manifest.json"
     try:
         async with aiofiles.open(manifest_file, 'r+') as file:
             manifest_data = json.loads(await file.read())
