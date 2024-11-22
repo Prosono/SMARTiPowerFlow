@@ -1,0 +1,568 @@
+automation:
+  - id: "1716895320123"
+    alias: SMARTi HA Auto-update
+    description: Automatically updates all HACs integrations
+    trigger:
+      - platform: time
+        at: 01:00:00
+    condition: []
+    action:
+      - service: update.install
+        data:
+          entity_id:
+            "{% set update_entities = namespace(entities='') %} {% for entity
+            in states.update %}\n  {% if entity.state == 'on' %}\n    {% set update_entities.entities
+            = update_entities.entities + ',' + entity.entity_id %}\n  {% endif %}\n{%
+            endfor %} {{ update_entities.entities[1:] }}\n"
+    mode: single
+  - id: "1716896680279"
+    alias: SMARTi HACS Auto-update
+    description:
+      Automatically update all specified HACS components if they have updates
+      available
+    trigger:
+      - platform: time
+        at: "03:00:00"
+    condition:
+      - condition: template
+        value_template: "{{ not is_state('sensor.hacs', '0') }}"
+    action:
+      - service: logbook.log
+        data_template:
+          name: HACS Auto-update Debug
+          message:
+            "{% set entities = [\n  'update.alarmo_card_update',\n  'update.alarmo_update',\n
+            \ 'update.apexcharts_card_update',\n  'update.auto_entities_update',\n  'update.browser_mod_update',\n
+            \ 'update.button_text_card_update',\n  'update.button_card_update',\n  'update.card_mod_update',\n
+            \ 'update.card_tools_update',\n  'update.digital_clock_update',\n  'update.hacs_update',\n
+            \ 'update.layout_card_update',\n  'update.metrology_metro_fluent_windows_themes_by_mmak_es_update',\n
+            \ 'update.mini_graph_card_update',\n  'update.mushroom_update',\n  'update.node_red_companion_update',\n
+            \ 'update.sankey_chart_card_update',\n  'update.search_card_update',\n  'update.stack_in_card_update',\n
+            \ 'update.tabbed_card_update',\n  'update.uptime_card_update',\n  'update.vertical_stack_in_card_update',\n
+            \ 'update.watchman_update',\n  'update.weather_card_update',\n  'update.weather_chart_card_update',\n
+            \ 'update.template_entity_row_update',\n  'update.flexible_horseshoe_card_for_lovelace_update',\n
+            \ 'update.weather_radar_card_update'\n] %} {% set update_entities = entities
+            | select('in', states.update | selectattr('state', 'eq', 'on') | map(attribute='entity_id')
+            | list) | list %} Detected update entities: {{ update_entities }}\n"
+      - service: update.install
+        data_template:
+          entity_id:
+            "{% set entities = [\n  'update.alarmo_card_update',\n  'update.alarmo_update',\n
+            \ 'update.apexcharts_card_update',\n  'update.auto_entities_update',\n  'update.browser_mod_update',\n
+            \ 'update.button_text_card_update',\n  'update.button_card_update',\n  'update.card_mod_update',\n
+            \ 'update.card_tools_update',\n  'update.digital_clock_update',\n  'update.hacs_update',\n
+            \ 'update.layout_card_update',\n  'update.metrology_metro_fluent_windows_themes_by_mmak_es_update',\n
+            \ 'update.mini_graph_card_update',\n  'update.mushroom_update',\n  'update.node_red_companion_update',\n
+            \ 'update.sankey_chart_card_update',\n  'update.search_card_update',\n  'update.stack_in_card_update',\n
+            \ 'update.tabbed_card_update',\n  'update.uptime_card_update',\n  'update.vertical_stack_in_card_update',\n
+            \ 'update.watchman_update',\n  'update.weather_card_update',\n  'update.weather_chart_card_update',\n
+            \ 'update.template_entity_row_update',\n  'update.flexible_horseshoe_card_for_lovelace_update',\n
+            \ 'update.weather_radar_card_update'\n] %} {% set update_entities = entities
+            | select('in', states.update | selectattr('state', 'eq', 'on') | map(attribute='entity_id')
+            | list) | list %} {% if update_entities | length > 0 %}\n  {{ update_entities
+            | join(',') }}\n{% else %}\n  none\n{% endif %}\n"
+      - service: homeassistant.reload_core_config
+        data: {}
+    mode: single
+  - id: "1717143003040"
+    alias: SMARTi Gas Alarm
+    description: Alerts all users if a gas sensor has activated
+    trigger:
+      - platform: state
+        entity_id: sensor.active_gas_sensors
+    condition:
+      - condition: template
+        value_template: "{{ trigger.to_state.state | int >= 1 }}"
+    action:
+      - service: notify.notify
+        data_template:
+          message: Gas Alarm! Triggered by {{ trigger.entity_id }}
+    mode: single
+  - id: "1717143183186"
+    alias: SMARTi Fire alarm
+    description: Alerts all users if a smoke detector has activated
+    trigger:
+      - platform: state
+        entity_id: sensor.active_smoke_detectors
+    condition:
+      - condition: template
+        value_template: "{{ trigger.to_state.state | int >= 1 }}"
+    action:
+      - service: notify.notify
+        data_template:
+          message: Fire Alarm! Triggered by {{ trigger.entity_id }}
+    mode: single
+  - id: "1717143832186"
+    alias: SMARTi Water Leak Alarm
+    description: Alerts all users if a water sensor has activated
+    trigger:
+      - platform: state
+        entity_id: sensor.active_water_sensors
+    condition:
+      - condition: template
+        value_template: "{{ trigger.to_state.state | int >= 1 }}"
+    action:
+      - service: notify.notify
+        data_template:
+          message: Water Leak Alarm! Triggered by {{ trigger.entity_id }}
+    mode: single
+  - id: "1717144589650"
+    alias: SMARTi Power Outage Alert
+    description: Alerts if the dynamic power sensor value is 0 for more than 5 minutes
+    trigger:
+      platform: numeric_state
+      entity_id: sensor.dynamic_power_sensor
+      below: 0.01
+      for: 00:10:00
+    condition: []
+    action:
+      - service: notify.notify
+        data:
+          message:
+            "Power Outage: SMARTi has detected that measured value of the power
+            meter measurmeent device has been 0 for more than 10 minutes. This could indicate
+            a power outage"
+    mode: single
+  - id: "1717144717455"
+    alias: SMARTi Save Power Settings Before Shutdown
+    description:
+      Saves the selected power settings chosen for the SMARTi Dashboard before
+      system shutdown
+    trigger:
+      - platform: homeassistant
+        event: shutdown
+    condition: []
+    action:
+      - service: input_text.set_value
+        target:
+          entity_id: input_text.dynamic_power_sensor_storage
+        data:
+          value:
+            "{% set val = states('input_select.home_power_measurement_device')
+            %} {{ val if val not in ['None', 'unknown', ''] else 'no sensor selected'
+            }}
+
+            "
+  - id: "1717144762954"
+    alias: SMARTi Restore Power Settings
+    description:
+      Restores the selected power settings in the SMARTi dashboard after
+      Home Assistant starts
+    trigger:
+      - platform: homeassistant
+        event: start
+    condition: []
+    action:
+      - variables:
+          all_sensors:
+            "{% set ns = namespace(sensors=[]) %}  {% for i in range(1, 8)
+            %}\n  {% set part = states('sensor.available_power_sensors_part' ~ i) %}\n
+            \ {% if part not in ['unavailable', 'none', '', 'unknown'] %}\n    {% set
+            ns.sensors = ns.sensors + part.split(', ') %}\n  {% endif %}\n{% endfor %}
+            \ {{ ns.sensors | unique | list }}\n"
+          stored_sensor: "{{ states('input_text.dynamic_power_sensor_storage') }}"
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ all_sensors | length > 0 }}"
+            sequence:
+              - service: input_select.set_options
+                target:
+                  entity_id: input_select.home_power_measurement_device
+                data:
+                  options: "{{ all_sensors }}"
+              - delay: 00:00:05
+              - choose:
+                  - conditions:
+                      - condition: template
+                        value_template: "{{ stored_sensor in all_sensors }}"
+                    sequence:
+                      - service: input_select.select_option
+                        target:
+                          entity_id: input_select.home_power_measurement_device
+                        data:
+                          option: "{{ stored_sensor }}"
+    mode: single
+  - id: "1717255609684"
+    alias: SMARTi Theme Auto Change
+    description: Trigger at HA startup / sun up / sun down / every hour
+    trigger:
+      - event: start
+        platform: homeassistant
+      - entity_id: sun.sun
+        platform: state
+        to: above_horizon
+        id: up
+      - entity_id: sun.sun
+        platform: state
+        to: below_horizon
+        id: down
+      - platform: time_pattern
+        hours: /1
+    condition: []
+    action:
+      - choose:
+          - conditions:
+              - condition: state
+                entity_id: sun.sun
+                state: below_horizon
+            sequence:
+              - data:
+                  name: Metro Orange
+                  mode: dark
+                action: frontend.set_theme
+          - conditions:
+              - condition: state
+                entity_id: sun.sun
+                state: above_horizon
+            sequence:
+              - data:
+                  name: Metro Orange
+                action: frontend.set_theme
+    mode: single
+  - id: "1717740780258"
+    alias: SMARTi Save Default Dashboard Before Shutdown
+    description: Saves the selected ddefault dashboard chosen for the SMARTi installation
+    trigger:
+      - platform: homeassistant
+        event: shutdown
+    condition: []
+    action:
+      - service: input_text.set_value
+        target:
+          entity_id: input_text.default_dashboard
+        data:
+          value: "{{ states('input_select.default_dashboard') }}"
+    mode: single
+  - id: "1717741319907"
+    alias: SMARTi Restore Default Dashboard After Startup
+    description: Restores the selected default dashboard after Home Assistant restarts
+    trigger:
+      - platform: homeassistant
+        event: start
+    condition: []
+    action:
+      - delay: 00:00:30
+      - service: logbook.log
+        data:
+          name: Debug
+          message:
+            "Restoring default dashboard: {{ states('input_text.default_dashboard')
+            }}"
+      - service: input_select.select_option
+        target:
+          entity_id: input_select.default_dashboard
+        data:
+          option: "{{ states('input_text.default_dashboard') }}"
+    mode: single
+  - id: "1717849580017"
+    alias: SMARTi Notify Main Fuse Overload
+    description: Notify if energy usage exceeds main fuse size for more than 5 minutes
+    trigger:
+      - platform: state
+        entity_id: input_text.dynamic_power_sensor_storage
+        to: dynamic_power_sensor
+      - platform: numeric_state
+        entity_id: sensor.dynamic_power_sensor
+        above: 0
+        for:
+          minutes: 5
+    condition:
+      - condition: template
+        value_template:
+          "{{ is_state('input_text.dynamic_power_sensor_storage', 'dynamic_power_sensor')
+          }}"
+      - condition: template
+        value_template:
+          "{% set voltage = states('input_select.voltage_level') %} {%
+          set main_fuse_size = states('input_select.main_fuse_size') %} {% set phase_selection
+          = states('input_select.phases_selection') %}
+
+          {{ voltage != 'unknown' and main_fuse_size != 'unknown' and phase_selection
+          != 'unknown' }}
+
+          "
+    action:
+      - variables:
+          current_consumption:
+            "{% if states('sensor.dynamic_power_sensor') == 'unknown'
+            %}\n  0.0\n{% else %}\n  {{ states('sensor.dynamic_power_sensor') | float
+            }}\n{% endif %}\n"
+          voltage_level:
+            "{% set voltage_dict = {'100V': 100.0, '110V': 110.0, '115V':
+            115.0, '120V': 120.0, '127V': 127.0, '220V': 220.0, '230V': 230.0,
+            '240V': 240.0, '400V': 400.0} %} {{ voltage_dict.get(states('input_select.voltage_level'),
+            0.0) }}
+
+            "
+          main_fuse_size:
+            "{{ states('input_select.main_fuse_size').replace('A', '')
+            | float }}
+
+            "
+          phase_selection:
+            "{% if is_state('input_select.phases_selection', 'One Phase')
+            %}\n  1\n{% elif is_state('input_select.phases_selection', 'Three Phase')
+            %}\n  3\n{% else %}\n  0\n{% endif %}\n"
+          is_single_phase: "{{ phase_selection == 1 }}"
+          max_power_limit:
+            "{% if is_single_phase %}\n  {{ main_fuse_size * voltage_level
+            }}\n{% else %}\n  {{ (main_fuse_size * voltage_level * 1.732) / 3 }}\n{% endif
+            %}\n"
+      - service: input_number.set_value
+        target:
+          entity_id: input_number.max_power_limit
+        data:
+          value: "{{ max_power_limit }}"
+      - condition: template
+        value_template: "{{ current_consumption > max_power_limit }}"
+      - service: notify.notify
+        data:
+          message:
+            Main fuse overload detected! Current energy usage exceeds the main
+            fuse size for more than 5 minutes.
+  - id: "1717960930252"
+    alias: SMARTi Update Power Measurement Device List
+    description:
+      Update the list of power measurement devices at startup, every hour,
+      and on button press
+    trigger:
+      - platform: homeassistant
+        event: start
+    action:
+      - variables:
+          all_sensors:
+            "{% set ns = namespace(sensors=[]) %} {% for i in range(1, 8) %}\n
+            \ {% set part = states('sensor.available_power_sensors_part' ~ i) %}\n  {%
+            if part not in ['unavailable', 'none', '', 'unknown'] %}\n    {% set ns.sensors
+            = ns.sensors + part.split(', ') %}\n  {% endif %}\n{% endfor %} {{ ns.sensors
+            | unique | list }}\n"
+      - condition: template
+        value_template: "{{ all_sensors | length > 0 }}"
+      - service: input_select.set_options
+        target:
+          entity_id: input_select.home_power_measurement_device
+        data:
+          options: "{{ all_sensors }}"
+      - delay: 00:00:05
+      - service: input_select.select_option
+        target:
+          entity_id: input_select.home_power_measurement_device
+        data:
+          option: "{{ states('input_text.dynamic_power_sensor_storage') }}"
+  - id: "1718111730296"
+    alias: SMARTi SMARTi Atuomated Backup
+    description: Backs up the SMARTi Home Assistant installation once a month
+    use_blueprint:
+      path: appels/monthly-backup-schedule.yaml
+      input:
+        timeofday_entity: 04:30:00
+  - id: "1718353737319"
+    alias: SMARTi Reset Hourly Energy Usage
+    description: Resets the hourly energy usage calcualted by SMARTi
+    trigger:
+      - platform: time_pattern
+        hours: /1
+        minutes: 0
+    action:
+      - service: utility_meter.reset
+        data:
+          entity_id: utility_meter.hourly_energy_usage
+  - id: "1718353832879"
+    alias: SMARTi Reset Monthly Peaks
+    description: Resets the monthly top values used for caluculating the capacity steps
+    trigger:
+      - platform: time
+        at: 00:00:00
+    condition:
+      - condition: template
+        value_template: "{{ now().day == 1 }}"
+    action:
+      - service: input_number.set_value
+        data:
+          entity_id: input_number.peak_1
+          value: 0
+      - service: input_number.set_value
+        data:
+          entity_id: input_number.peak_2
+          value: 0
+      - service: input_number.set_value
+        data:
+          entity_id: input_number.peak_3
+          value: 0
+  - id: "1718353993177"
+    alias: SMARTi Update Current Energy Level
+    description: Updates the calculated energy level
+    trigger:
+      - platform: state
+        entity_id: sensor.monthly_peak_energy
+    action:
+      - service: homeassistant.update_entity
+        entity_id: sensor.current_energy_level
+  - id: "1718354077935"
+    alias: SMARTi Calculate Remaining Energy
+    description: Updates the remaining energy for the hours not to break the user limit
+    trigger:
+      - platform: state
+        entity_id: sensor.dynamic_power_sensor, input_number.energy_target
+    action:
+      - service: homeassistant.update_entity
+        entity_id: sensor.remaining_energy
+  - id: "1718354278151"
+    alias: SMARTi Check Hourly Energy Usage and Alert
+    description: Checks the hourly energy usage against the set value and the peaks and alerts if you are at risk of overstepping the limit
+    trigger:
+      - platform: state
+        entity_id: input_number.daily_highest_hour
+    condition:
+      - condition: template
+        value_template: >
+          {% set peak_day_1 = states('input_number.peak_day_1') | float(0) %}
+          {% set peak_day_2 = states('input_number.peak_day_2') | float(0) %}
+          {% set peak_day_3 = states('input_number.peak_day_3') | float(0) %}
+          {% set daily_highest_hour = states('input_number.daily_highest_hour') | float(0) %}
+          {% set target_energy = states('input_number.energy_target') | float(0) %}
+          {% set average_peak = (peak_day_1 + peak_day_2 + peak_day_3) / 3 %}
+
+          {{ (daily_highest_hour > target_energy) or (average_peak > target_energy) }}
+
+    action:
+      - service: persistent_notification.create
+        data_template:
+          title: Energy Alert
+          message: >
+            {% set peak_day_1 = states('input_number.peak_day_1') | float(0) %}
+            {% set peak_day_2 = states('input_number.peak_day_2') | float(0) %}
+            {% set peak_day_3 = states('input_number.peak_day_3') | float(0) %}
+            {% set daily_highest_hour = states('input_number.daily_highest_hour') | float(0) %}
+            {% set target_energy = states('input_number.energy_target') | float(0) %}
+            {% set average_peak = (peak_day_1 + peak_day_2 + peak_day_3) / 3 %}
+
+            {% if daily_highest_hour > target_energy %}
+              Daily highest hourly energy usage of {{ daily_highest_hour }} kWh has exceeded the target energy level of {{ target_energy }} kWh.
+            {% elif average_peak > target_energy %}
+              The average energy usage over the last 3 days of {{ average_peak }} kWh has exceeded the target energy level of {{ target_energy }} kWh.
+            {% endif %}
+  - id: "1718354347241"
+    alias: SMARTi Store Daily Peak and Update Monthly Peaks
+    description: Stores the daily peaks and updates the monthly peaks
+    trigger:
+      - platform: time
+        at: "23:59:00"
+    action:
+      - variables:
+          daily_highest_hour:
+            "{{ states('input_number.daily_highest_hour') | float
+            }}"
+          peak_day_1: "{{ states('input_number.peak_day_1') | float }}"
+          peak_day_2: "{{ states('input_number.peak_day_2') | float }}"
+          peak_day_3: "{{ states('input_number.peak_day_3') | float }}"
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ daily_highest_hour > peak_day_1 }}"
+            sequence:
+              - service: input_number.set_value
+                data:
+                  entity_id: input_number.peak_day_3
+                  value: "{{ peak_day_2 }}"
+              - service: input_number.set_value
+                data:
+                  entity_id: input_number.peak_day_2
+                  value: "{{ peak_day_1 }}"
+              - service: input_number.set_value
+                data:
+                  entity_id: input_number.peak_day_1
+                  value: "{{ daily_highest_hour }}"
+          - conditions:
+              - condition: template
+                value_template:
+                  "{{ daily_highest_hour > peak_day_2 and daily_highest_hour
+                  <= peak_day_1 }}"
+            sequence:
+              - service: input_number.set_value
+                data:
+                  entity_id: input_number.peak_day_3
+                  value: "{{ peak_day_2 }}"
+              - service: input_number.set_value
+                data:
+                  entity_id: input_number.peak_day_2
+                  value: "{{ daily_highest_hour }}"
+          - conditions:
+              - condition: template
+                value_template:
+                  "{{ daily_highest_hour > peak_day_3 and daily_highest_hour
+                  <= peak_day_2 }}"
+            sequence:
+              - service: input_number.set_value
+                data:
+                  entity_id: input_number.peak_day_3
+                  value: "{{ daily_highest_hour }}"
+      - service: system_log.write
+        data_template:
+          message:
+            "Daily Highest Hour: {{ daily_highest_hour }}, Peak Day 1: {{ peak_day_1
+            }}, Peak Day 2: {{ peak_day_2 }}, Peak Day 3: {{ peak_day_3 }}
+
+            "
+          level: info
+      - service: input_number.set_value
+        data:
+          entity_id: input_number.daily_highest_hour
+          value: 0
+  - id: "1718354385937"
+    alias: SMARTi Update Daily Highest Hour
+    description: Updates the highest daily hour
+    trigger:
+      - platform: time_pattern
+        hours: /1
+    action:
+      - service: input_number.set_value
+        data_template:
+          entity_id: input_number.daily_highest_hour
+          value:
+            "{% set current_hour_peak = states('input_number.current_hour_peak')
+            | float %} {% set daily_highest_hour = states('input_number.daily_highest_hour')
+            | float %} {{ [current_hour_peak, daily_highest_hour] | max }}
+
+            "
+      - service: input_number.set_value
+        data:
+          entity_id: input_number.current_hour_peak
+          value: 0
+  - id: "1718354423858"
+    alias: SMARTi Reset Monthly Data
+    description: Sets the monthly data to 0 at the first of each month
+    trigger:
+      - platform: time
+        at: 00:00:00
+    condition:
+      - condition: template
+        value_template: "{{ now().day == 1 }}"
+    action:
+      - service: utility_meter.reset
+        entity_id: utility_meter.hourly_energy_usage
+      - service: input_number.set_value
+        target:
+          entity_id:
+            - input_number.peak_day_1
+            - input_number.peak_day_2
+            - input_number.peak_day_3
+        data:
+          value: 0
+  - id: "1718354467762"
+    alias: SMARTi - Update Current Hour Peak
+    description: Updates the current hour peak value
+    trigger:
+      - platform: state
+        entity_id: utility_meter.hourly_energy_usage
+    action:
+      - service: input_number.set_value
+        data_template:
+          entity_id: input_number.current_hour_peak
+          value:
+            "{% set current_usage = states('utility_meter.hourly_energy_usage') | float
+            %} {% set current_hour_peak = states('input_number.current_hour_peak') |
+            float %} {{ [current_usage, current_hour_peak] | max }}
+
+            "

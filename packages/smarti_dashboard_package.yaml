@@ -1,0 +1,6 @@
+lovelace:
+    smarti-power-control: # URL path with a hyphen
+      mode: yaml
+      title: "SMARTi Power Flow"
+      filename: dashboards/SMARTi_Power_Flow_Page.yaml
+      show_in_sidebar: true
