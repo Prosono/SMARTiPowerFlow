@@ -13,24 +13,17 @@ _LOGGER = logging.getLogger(__name__)
 
 DOMAIN = "smartiPowerFlow"
 
-GITHUB_REPO_URL = "https://github.com/Prosono/SMARTiPowerFlow/contents/"
+GITHUB_REPO_URL = "https://api.github.com/repos/Prosono/SMARTiPowerFlow/contents/"
 PACKAGES_URL = GITHUB_REPO_URL + "packages/"
 DASHBOARDS_URL = GITHUB_REPO_URL + "dashboards/"
 SMARTIUPDATER_URL = GITHUB_REPO_URL + "custom_components/smartipowerflow/"
-#NODE_RED_FLOW_URL = GITHUB_REPO_URL + "node-red-flows/"
-#THEMES_URL = GITHUB_REPO_URL + "themes/smarti_themes/"
-#IMAGES_URL = GITHUB_REPO_URL + "www/images/smarti_images/"
-#CUSTOM_CARD_RADAR_URL = GITHUB_REPO_URL + "www/community/weather-radar-card/"
 
 VERSION_URL = GITHUB_REPO_URL + "version.json"
 
 PACKAGES_PATH = "/config/packages/"
-#THEMES_PATH = "/config/themes/smarti_themes/"
 DASHBOARDS_PATH = "/config/dashboards/"
 SMARTIUPDATER_PATH = "/config/custom_components/smartipowerflow/"
-#IMAGES_PATH = "/config/www/images/smarti_images"
-#NODE_RED_PATH = "/share/node-red-flows/"
-#CUSTOM_CARD_RADAR_PATH = "/config/www/community/weather-radar-card/"
+
 
 PACKAGES_FILES_TO_DELETE = [
     "smarti_dashboard_package_powerflow.yaml",
@@ -159,18 +152,12 @@ async def clear_directory(directory_path: str):
 
 async def update_files(session: aiohttp.ClientSession, config_data: dict):
     # Clear the packages and dashboards directories before downloading new files
-    #await clear_directory(PACKAGES_PATH)   # Await the coroutine
     await clear_specific_files(PACKAGES_PATH, PACKAGES_FILES_TO_DELETE)
     await clear_specific_files(DASHBOARDS_PATH, DASHBOARDS_FILES_TO_DELETE)
-    #await clear_directory(DASHBOARDS_PATH) # Await the coroutine
 
     ensure_directory(PACKAGES_PATH)
     ensure_directory(DASHBOARDS_PATH)
     ensure_directory(SMARTIUPDATER_PATH)
-    #ensure_directory(THEMES_PATH)
-    #ensure_directory(IMAGES_PATH)
-    #ensure_directory(NODE_RED_PATH)
-    #nsure_directory(CUSTOM_CARD_RADAR_PATH)
 
     # Get and download package files
     package_files = await get_files_from_github(PACKAGES_URL, session)
@@ -199,47 +186,6 @@ async def update_files(session: aiohttp.ClientSession, config_data: dict):
             dest_path = os.path.join(SMARTIUPDATER_PATH, file_name)
             _LOGGER.info(f"Saving SmartiUpdater file to {dest_path}")
             await download_file(file_url, dest_path, session)
-
-    # Download Node-RED files and log at each step
- #   if config_data.get("update_node_red"):
- #       node_red_files = await get_files_from_github(NODE_RED_FLOW_URL, session)
- #       for file_url in node_red_files:
- #           if file_url:
- #               file_name = os.path.basename(file_url)  # This should be 'flows.json'
- #               dest_path = os.path.join(NODE_RED_PATH, file_name)  # Correctly append 'flows.json'
- #               _LOGGER.info(f"Saving Node-RED file to {dest_path}")
- #               await download_file(file_url, dest_path, session)
-
-#        _LOGGER.info("Starting merge of strømpriser flow.")
-#        await merge_strømpriser_flow(session)
-
-    # Get and download Themes files
-    #themes_files = await get_files_from_github(THEMES_URL, session)
-    #for file_url in themes_files:
-    #    if file_url:
-    #        file_name = os.path.basename(file_url)
-    #        dest_path = os.path.join(THEMES_PATH, file_name)
-    #        _LOGGER.info(f"Saving themes file to {dest_path}")
-    #        await download_file(file_url, dest_path, session)
-
-    # Get and download IMAGE files
-    #image_files = await get_files_from_github(IMAGES_URL, session)
-    #for file_url in image_files:
-    #    if file_url:
-    #        file_name = os.path.basename(file_url)
-    #        dest_path = os.path.join(IMAGES_PATH, file_name)
-    #        _LOGGER.info(f"Saving image file to {dest_path}")
-    #        await download_file(file_url, dest_path, session)
-
-    # Get and download CUSTOM CARDS files
-    #radar_card_files = await get_files_from_github(CUSTOM_CARD_RADAR_URL, session)
-    #for file_url in radar_card_files:
-    #    if file_url:
-    #        file_name = os.path.basename(file_url)
-    #        dest_path = os.path.join(CUSTOM_CARD_RADAR_PATH, file_name)
-    #        _LOGGER.info(f"Saving card files to {dest_path}")
-    #        await download_file(file_url, dest_path, session)
-
 
 
 async def get_latest_version(session: aiohttp.ClientSession):
@@ -291,75 +237,3 @@ async def update_manifest_version(latest_version: str):
         _LOGGER.info(f"Updated manifest file version to {latest_version}")
     except Exception as e:
         _LOGGER.error(f"Error updating manifest file: {str(e)}")
-
-
-
-# # Implement the merge function for Node-RED flows
-# async def merge_strømpriser_flow(session: aiohttp.ClientSession):
-#     strømpriser_file_url = os.path.join(NODE_RED_PATH, 'flows.json')  # Correct path to local flows.json
-#     temp_file_url = os.path.join(NODE_RED_PATH, 'temp_flows.json')    # Temporary path for downloaded flows.json
-
-#     # Function to set file permissions
-#     def set_file_permissions(filepath: str):
-#         """Set the file permissions to ensure it's writable."""
-#         try:
-#             if os.path.isfile(filepath):  # Ensure it's a file
-#                 os.chmod(filepath, stat.S_IRUSR | stat.S_IWUSR)  # Read and write permissions for the owner
-#                 _LOGGER.info(f"Permissions set to writable for {filepath}.")
-#             else:
-#                 _LOGGER.error(f"{filepath} is not a file. Cannot set permissions.")
-#         except Exception as e:
-#             _LOGGER.error(f"Failed to set permissions for {filepath}: {str(e)}")
-
-#     # Download the strømpriser flow (flows.json) from GitHub to a temporary location
-#     await download_file(NODE_RED_FLOW_URL + "flows.json", temp_file_url, session)
-
-#     # Ensure the existing flows.json file is present at the local path
-#     if not os.path.exists(strømpriser_file_url):
-#         _LOGGER.error(f"The file {strømpriser_file_url} does not exist. Exiting merge.")
-#         return
-
-#     log_file_size(strømpriser_file_url, "Before merge")
-
-#     try:
-#         # Read the existing flows.json from the local path
-#         async with aiofiles.open(strømpriser_file_url, 'r') as file:
-#             existing_flows = json.loads(await file.read())
-
-#         # Read the newly downloaded flows.json from GitHub
-#         async with aiofiles.open(temp_file_url, 'r') as file:
-#             new_flows = json.loads(await file.read())
-
-#         # Find the "Strømpriser" flow in the new_flows data
-#         strømpriser_flow = next((flow for flow in new_flows if flow.get('label') == 'Strømpriser'), None)
-
-#         if strømpriser_flow:
-#             _LOGGER.debug(f"Found strømpriser flow: {strømpriser_flow}")
-#         else:
-#             _LOGGER.error("No strømpriser flow found in the fetched data.")
-#             return
-
-#         # Merge the new strømpriser flow into the existing flows
-#         updated_flows = [
-#             flow if flow.get('label') != 'Strømpriser' else strømpriser_flow
-#             for flow in existing_flows
-#         ]
-
-#         # Append the strømpriser flow if it's not already in the list
-#         if not any(flow.get('label') == 'Strømpriser' for flow in updated_flows):
-#             updated_flows.append(strømpriser_flow)
-
-#         # Write the merged flows back to the original flows.json file
-#         async with aiofiles.open(strømpriser_file_url, 'w', encoding='utf-8') as file:
-#             await file.write(json.dumps(updated_flows, indent=4))
-#             await file.flush()  # Ensure all data is written to disk
-#             _LOGGER.info(f"Merged strømpriser flow successfully into {strømpriser_file_url}.")
-#             _LOGGER.debug(f"Final updated flows content: {json.dumps(updated_flows, indent=4)}")
-
-#         log_file_size(strømpriser_file_url, "After writing")
-
-#         # Remove the temporary file after merging
-#         os.remove(temp_file_url)
-
-#     except Exception as e:
-#         _LOGGER.error(f"Error merging strømpriser flow: {str(e)}")
