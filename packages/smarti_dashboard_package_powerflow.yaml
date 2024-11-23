@@ -1,4 +1,5 @@
 lovelace:
+  dashboards:
     smarti-power-control: # URL path with a hyphen
       mode: yaml
       title: "SMARTi Power Flow Test Page"
