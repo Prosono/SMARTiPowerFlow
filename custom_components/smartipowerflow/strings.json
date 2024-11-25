@@ -1,5 +1,11 @@
 {
     "config": {
+        "error": {
+            "invalid_email": "Please enter a valid email address.",
+            "subscription_not_found": "Subscription not found. Please ensure you have an active subscription.",
+            "unexpected_error": "An unexpected error occurred. Please try again later.",
+            "connection_error": "Unable to contact the subscription service. Please check your connection."
+        },
         "step": {
             "user": {
                 "title": "SMARTi PowerFlow™ Setup",

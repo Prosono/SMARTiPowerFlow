@@ -24,7 +24,7 @@ class SmartiUpdaterFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
             # Validate email
             email = user_input.get("email")
             if not email or "@" not in email:
-                errors["email"] = "Please enter a valid email address."
+                errors["email"] = "invalid_email"  # Match this key to your `strings.json`
             else:
                 # Check subscription via Flask app using aiohttp
                 try:
@@ -41,15 +41,15 @@ class SmartiUpdaterFlowHandler(config_entries.ConfigFlow, domain=DOMAIN):
                                 )
                             elif response.status == 403:
                                 _LOGGER.warning("Subscription not found.")
-                                errors["base"] = "Subscription not found. Please ensure you have an active subscription."
+                                errors["base"] = "subscription_not_found"
                             else:
                                 _LOGGER.error(
                                     f"Unexpected response: {response.status}"
                                 )
-                                errors["base"] = "An unexpected error occurred. Please try again later."
+                                errors["base"] = "unexpected_error"
                 except ClientError as e:
                     _LOGGER.error(f"Error contacting subscription service: {e}")
-                    errors["base"] = "Unable to contact the subscription service. Please check your connection."
+                    errors["base"] = "connection_error"
 
         # Display the form
         schema = vol.Schema({
