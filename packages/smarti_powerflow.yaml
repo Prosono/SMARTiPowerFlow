@@ -1,0 +1,1922 @@
+################################### INPUTS ###################################
+
+###### INPUT BUTTON #################################################
+input_button:
+  ###### SETTINGS RELATED #################################
+  update_power_measurement_devices:
+    name: Update Power Measurement Devices
+    icon: mdi:update
+
+  ###### DASHBOARD RELATED ################################
+  delete_category_1_device_button:
+    name: "Delete Selected Device from Category 1"
+
+  delete_category_2_device_button:
+    name: "Delete Selected Device from Category 2"
+
+  delete_category_3_device_button:
+    name: "Delete Selected Device from Category 3"
+
+  add_device_category_1_button:
+    name: "Add Selected Device to Category 1"
+
+  add_device_category_2_button:
+    name: "Add Selected Device to Category 2"
+
+  add_device_category_3_button:
+    name: "Add Selected Device to Category 2"
+
+###### INPUT TEXT #################################################
+input_text:
+  ###### SETTING RELATED ################################
+  dynamic_power_sensor_storage:
+    name: "Dynamic Power Sensor Storage"
+
+  frequency_storage:
+    name: "Frequency Selection Storage"
+
+  phases_storage:
+    name: "Phases Selection Storage"
+
+  main_fuse_storage:
+    name: "Main Fuse Selection Storage"
+
+  voltage_level_storage:
+    name: "Voltage_Level_Storage"
+
+  lowest_price_hours:
+    name: Lowest Price Hours
+    initial: "[]"
+
+  ###### CONTROL RELATED ################################
+  category_1_devices:
+    name: Devices in Category 1
+    max: 255
+  category_2_devices:
+    name: Devices in Category 2
+    max: 255
+  category_3_devices:
+    name: Devices in Category 3
+    max: 255
+
+  hvac_mode_1:
+    name: HVAC Mode 1
+  hvac_mode_2:
+    name: HVAC Mode 2
+  hvac_mode_3:
+    name: HVAC Mode 3
+  hvac_mode_4:
+    name: HVAC Mode 4
+  hvac_mode_5:
+    name: HVAC Mode 5
+  hvac_mode_6:
+    name: HVAC Mode 6
+  hvac_mode_7:
+    name: HVAC Mode 7
+  hvac_mode_8:
+    name: HVAC Mode 8
+  hvac_mode_9:
+    name: HVAC Mode 9
+  hvac_mode_10:
+    name: HVAC Mode 10
+  hvac_mode_11:
+    name: HVAC Mode 11
+  hvac_mode_12:
+    name: HVAC Mode 12
+  hvac_mode_13:
+    name: HVAC Mode 13
+  hvac_mode_14:
+    name: HVAC Mode 14
+  hvac_mode_15:
+    name: HVAC Mode 15
+  hvac_mode_16:
+    name: HVAC Mode 16
+  hvac_mode_17:
+    name: HVAC Mode 17
+  hvac_mode_18:
+    name: HVAC Mode 18
+  hvac_mode_19:
+    name: HVAC Mode 19
+  hvac_mode_20:
+    name: HVAC Mode 20
+
+###### INPUT SELECT #################################################
+input_select:
+  ###### GRID FEE RELATED #################################
+  new_category_1_device:
+    name: Add Device to Category 1
+    options: ["Select a device"]
+
+  new_category_2_device:
+    name: Add Device to Category 2
+    options: ["Select a device"]
+
+  new_category_3_device:
+    name: Add Device to Category 3
+    options: ["Select a device"]
+
+  category_1_devices:
+    name: Devices in Category 1
+    options: ["No devices added"]
+
+  category_2_devices:
+    name: Devices in Category 2
+    options: ["No devices added"]
+
+  category_3_devices:
+    name: Devices in Category 3
+    options: ["No devices added"]
+
+  delete_category_1_device:
+    name: "Delete Device from Category 1"
+    options: ["Select a device"]
+
+  delete_category_2_device:
+    name: "Delete Device from Category 2"
+    options: ["Select a device"]
+
+  delete_category_3_device:
+    name: "Delete Device from Category 3"
+    options: ["Select a device"]
+
+  ###### CONTROL RELATED #################################
+  power_mode:
+    name: Power Mode
+    options:
+      - nettleie
+      - pris
+      - flex
+
+  ###### NORDPOOL RELATED #################################
+  price_zone:
+    name: "Price Zone"
+    options:
+      - NO1
+      - NO2
+      - NO3
+      - NO4
+      - NO5
+    initial: NO1
+    icon: mdi:map-marker
+
+  ###### SETTINGS RELATED #################################
+  main_fuse_size:
+    name: Main Fuse Size
+    options:
+      - 10A
+      - 15A
+      - 20A
+      - 25A
+      - 32A
+      - 40A
+      - 50A
+      - 60A
+
+  phases_selection:
+    name: Phases Selection
+    options:
+      - One Phase
+      - Three Phase
+
+  voltage_level:
+    name: Voltage Level
+    options:
+      - 100V
+      - 110V
+      - 115V
+      - 120V
+      - 127V
+      - 220V
+      - 230V
+      - 240V
+      - 400V
+    icon: mdi:flash
+
+  frequency_hz:
+    name: Frequency (Hz)
+    options:
+      - 50Hz
+      - 60Hz
+    icon: mdi:current-ac
+
+  home_power_measurement_device:
+    name: Home Power Measurement Device
+    options:
+      - None
+    icon: mdi:flash
+
+  nettselskap:
+    name: Nettselskap
+    options:
+      - Elvia
+      - BKK
+      - Norgesnett
+      - Mellom
+      - L-nett
+      - Glitre Nett
+      - Lede
+      - Linja
+      - Tensio
+      - Noranett
+
+  osnket_trinn:
+    name: Ønsket trinn
+    options:
+      - 0-2 kWh
+      - 2-5 kWh
+      - 5-10 kWh
+      - 10-15 kWh
+      - 15-20 kWh
+
+###### INPUT NUMBER #################################################
+input_number:
+  energy_target:
+    name: Target Energy (kWh)
+    min: 0.0
+    max: 20.0
+    step: 1.0
+    mode: box
+
+  price_0_2:
+    name: Price 0-2 kWh
+    min: 0
+    max: 2000
+    step: 1
+    mode: box
+
+  price_2_5:
+    name: Price 2-5 kWh
+    min: 0
+    max: 2000
+    step: 1
+    mode: box
+
+  price_5_10:
+    name: Price 5-10 kWh
+    min: 0
+    max: 2000
+    step: 1
+    mode: box
+
+  price_10_15:
+    name: Price 10-15 kWh
+    min: 0
+    max: 2000
+    step: 1
+    mode: box
+
+  price_15_20:
+    name: Price 15-20 kWh
+    min: 0
+    max: 2000
+    step: 1
+    mode: box
+
+  peak_day_1:
+    name: Peak Day 1
+    min: 0
+    max: 2000.0
+    step: 0.1
+    mode: box
+
+  peak_day_2:
+    name: Peak Day 2
+    min: 0
+    max: 2000.0
+    step: 0.1
+    mode: box
+
+  peak_day_3:
+    name: Peak Day 3
+    min: 0
+    max: 2000.0
+    step: 0.1
+    mode: box
+
+  current_hour_peak:
+    name: Current Hour Peak
+    min: 0
+    max: 2000.0
+    step: 0.1
+    mode: box
+
+  daily_highest_hour:
+    name: Daily Highest Hour
+    min: 0
+    max: 2000.0
+    step: 0.1
+    mode: box
+
+  cheapest_hours:
+    name: Number of Cheapest Hours
+    min: 0
+    max: 24
+    step: 1
+    mode: slider
+
+###### INPUT BOOLEAN #################################################
+input_boolean:
+  ###### NORDPOOL RELATED #################################
+  include_vat:
+    name: "Include VAT"
+    icon: mdi:percent
+
+  ###### GRID FEE RELATED #################################
+  device_turned_off_1:
+    name: Device Turned Off 1
+  device_turned_off_2:
+    name: Device Turned Off 2
+  device_turned_off_3:
+    name: Device Turned Off 3
+  device_turned_off_4:
+    name: Device Turned Off 4
+  device_turned_off_5:
+    name: Device Turned Off 5
+  device_turned_off_6:
+    name: Device Turned Off 6
+  device_turned_off_7:
+    name: Device Turned Off 7
+  device_turned_off_8:
+    name: Device Turned Off 8
+  device_turned_off_9:
+    name: Device Turned Off 9
+  device_turned_off_10:
+    name: Device Turned Off 10
+  device_turned_off_11:
+    name: Device Turned Off 11
+  device_turned_off_12:
+    name: Device Turned Off 12
+  device_turned_off_13:
+    name: Device Turned Off 13
+  device_turned_off_14:
+    name: Device Turned Off 14
+  device_turned_off_15:
+    name: Device Turned Off 15
+  device_turned_off_16:
+    name: Device Turned Off 16
+  device_turned_off_17:
+    name: Device Turned Off 17
+  device_turned_off_18:
+    name: Device Turned Off 18
+  device_turned_off_19:
+    name: Device Turned Off 19
+  device_turned_off_20:
+    name: Device Turned Off 20
+
+  ###### POWER FLOW DASHBOARD RELATED #################################
+  advanced_mode_view:
+    name: Advanced View
+
+################################### UTILITY METERS ###################################
+
+utility_meter:
+  hourly_energy_usage:
+    source: sensor.energy_consumed
+    cycle: hourly
+
+################################### TEMPLATES ###################################
+
+template:
+  - sensor:
+      ###### GRID FEE RELATED #################################
+      - name: "category_1_device_entities_part1"
+        state: >
+          {% set devices = state_attr('input_select.category_1_devices', 'options') %}
+          {% if devices and devices != ['No devices added'] %}
+            {{ devices[0:5] | join(', ') }}
+          {% else %}
+            unknown
+          {% endif %}
+      - name: "category_1_device_entities_part2"
+        state: >
+          {% set devices = state_attr('input_select.category_1_devices', 'options') %}
+          {% if devices and devices | length > 5 %}
+            {{ devices[5:10] | join(', ') }}
+          {% else %}
+            unknown
+          {% endif %}
+      - name: "category_1_device_entities_part3"
+        state: >
+          {% set devices = state_attr('input_select.category_1_devices', 'options') %}
+          {% if devices and devices | length > 10 %}
+            {{ devices[10:15] | join(', ') }}
+          {% else %}
+            unknown
+          {% endif %}
+      - name: "category_1_device_entities_part4"
+        state: >
+          {% set devices = state_attr('input_select.category_1_devices', 'options') %}
+          {% if devices and devices | length > 15 %}
+            {{ devices[15:20] | join(', ') }}
+          {% else %}
+            unknown
+          {% endif %}
+
+      # Category 2 Parts
+      - name: "category_2_device_entities_part1"
+        state: >
+          {% set devices = state_attr('input_select.category_2_devices', 'options') %}
+          {% if devices and devices != ['No devices added'] %}
+            {{ devices[0:5] | join(', ') }}
+          {% else %}
+            unknown
+          {% endif %}
+      - name: "category_2_device_entities_part2"
+        state: >
+          {% set devices = state_attr('input_select.category_2_devices', 'options') %}
+          {% if devices and devices | length > 5 %}
+            {{ devices[5:10] | join(', ') }}
+          {% else %}
+            unknown
+          {% endif %}
+      - name: "category_2_device_entities_part3"
+        state: >
+          {% set devices = state_attr('input_select.category_2_devices', 'options') %}
+          {% if devices and devices | length > 10 %}
+            {{ devices[10:15] | join(', ') }}
+          {% else %}
+            unknown
+          {% endif %}
+      - name: "category_2_device_entities_part4"
+        state: >
+          {% set devices = state_attr('input_select.category_2_devices', 'options') %}
+          {% if devices and devices | length > 15 %}
+            {{ devices[15:20] | join(', ') }}
+          {% else %}
+            unknown
+          {% endif %}
+
+      # Category 3 Parts
+      - name: "category_3_device_entities_part1"
+        state: >
+          {% set devices = state_attr('input_select.category_3_devices', 'options') %}
+          {% if devices and devices != ['No devices added'] %}
+            {{ devices[0:5] | join(', ') }}
+          {% else %}
+            unknown
+          {% endif %}
+      - name: "category_3_device_entities_part2"
+        state: >
+          {% set devices = state_attr('input_select.category_3_devices', 'options') %}
+          {% if devices and devices | length > 5 %}
+            {{ devices[5:10] | join(', ') }}
+          {% else %}
+            unknown
+          {% endif %}
+      - name: "category_3_device_entities_part3"
+        state: >
+          {% set devices = state_attr('input_select.category_3_devices', 'options') %}
+          {% if devices and devices | length > 10 %}
+            {{ devices[10:15] | join(', ') }}
+          {% else %}
+            unknown
+          {% endif %}
+      - name: "category_3_device_entities_part4"
+        state: >
+          {% set devices = state_attr('input_select.category_3_devices', 'options') %}
+          {% if devices and devices | length > 15 %}
+            {{ devices[15:20] | join(', ') }}
+          {% else %}
+            unknown
+          {% endif %}
+
+      # Part 1 (devices 0-4)
+      - name: "category_1_device_power_entities_part1"
+        state: >
+          {% set devices = state_attr('input_select.category_1_devices', 'options') | list %}
+          {% set power_sensors = namespace(sensors=[]) %}
+
+          {% for device in devices[0:5] if device != "No devices added" %}
+            {% set base_name = device.split('.')[1] %}
+            {% set power_sensor_id = 'sensor.' ~ base_name ~ '_power' %}
+
+            {% if states(power_sensor_id) != 'unknown' and states(power_sensor_id) != 'unavailable' %}
+              {% set power_sensors.sensors = power_sensors.sensors + [power_sensor_id] %}
+            {% endif %}
+          {% endfor %}
+
+          {{ power_sensors.sensors | join(', ') if power_sensors.sensors else 'No power sensors available' }}
+
+      # Part 2 (devices 5-9)
+      - name: "category_1_device_power_entities_part2"
+        state: >
+          {% set devices = state_attr('input_select.category_1_devices', 'options') | list %}
+          {% set power_sensors = namespace(sensors=[]) %}
+
+          {% for device in devices[5:10] if device != "No devices added" %}
+            {% set base_name = device.split('.')[1] %}
+            {% set power_sensor_id = 'sensor.' ~ base_name ~ '_power' %}
+
+            {% if states(power_sensor_id) != 'unknown' and states(power_sensor_id) != 'unavailable' %}
+              {% set power_sensors.sensors = power_sensors.sensors + [power_sensor_id] %}
+            {% endif %}
+          {% endfor %}
+
+          {{ power_sensors.sensors | join(', ') if power_sensors.sensors else 'No power sensors available' }}
+
+      # Part 3 (devices 10-14)
+      - name: "category_1_device_power_entities_part3"
+        state: >
+          {% set devices = state_attr('input_select.category_1_devices', 'options') | list %}
+          {% set power_sensors = namespace(sensors=[]) %}
+
+          {% for device in devices[10:15] if device != "No devices added" %}
+            {% set base_name = device.split('.')[1] %}
+            {% set power_sensor_id = 'sensor.' ~ base_name ~ '_power' %}
+
+            {% if states(power_sensor_id) != 'unknown' and states(power_sensor_id) != 'unavailable' %}
+              {% set power_sensors.sensors = power_sensors.sensors + [power_sensor_id] %}
+            {% endif %}
+          {% endfor %}
+
+          {{ power_sensors.sensors | join(', ') if power_sensors.sensors else 'No power sensors available' }}
+
+      # Part 4 (devices 15-19)
+      - name: "category_1_device_power_entities_part4"
+        state: >
+          {% set devices = state_attr('input_select.category_1_devices', 'options') | list %}
+          {% set power_sensors = namespace(sensors=[]) %}
+
+          {% for device in devices[15:20] if device != "No devices added" %}
+            {% set base_name = device.split('.')[1] %}
+            {% set power_sensor_id = 'sensor.' ~ base_name ~ '_power' %}
+
+            {% if states(power_sensor_id) != 'unknown' and states(power_sensor_id) != 'unavailable' %}
+              {% set power_sensors.sensors = power_sensors.sensors + [power_sensor_id] %}
+            {% endif %}
+          {% endfor %}
+
+          {{ power_sensors.sensors | join(', ') if power_sensors.sensors else 'No power sensors available' }}
+
+      - name: "Total Controllable Power"
+        unit_of_measurement: "W"
+        state: >
+          {% set category_1_devices = state_attr('input_select.category_1_devices', 'options') | default([]) %}
+          {% set category_2_devices = state_attr('input_select.category_2_devices', 'options') | default([]) %}
+          {% set category_3_devices = state_attr('input_select.category_3_devices', 'options') | default([]) %}
+
+          {% set all_categories = category_1_devices + category_2_devices + category_3_devices %}
+          {% set total_power = namespace(value=0) %}
+
+          {% for device in all_categories if device != "No devices added" %}
+            {% set base_name = device.split('.')[1] if device | regex_match('.*\\..*') else device %}
+            {% set power_sensor = 'sensor.' ~ base_name ~ '_power' %}
+            {% if states(power_sensor) is defined and states(power_sensor) not in ['unknown', 'unavailable'] %}
+              {% set total_power.value = total_power.value + (states(power_sensor) | float(0)) %}
+            {% endif %}
+          {% endfor %}
+
+          {{ total_power.value }}
+
+      - name: "Power Difference (W)"
+        unit_of_measurement: "W"
+        state: >
+          {% set dynamic_power = states('sensor.dynamic_power_sensor') | float(0) %}
+          {% set total_controllable_power = states('sensor.total_controllable_power') | float(0) %}
+          {{ (dynamic_power - total_controllable_power) | round(2) }}
+
+      - name: "Controllable Power Percentage"
+        unit_of_measurement: "%"
+        state: >
+          {% set dynamic_power = states('sensor.dynamic_power_sensor') | float(0) %}
+          {% set total_controllable_power = states('sensor.total_controllable_power') | float(0) %}
+
+          {% if dynamic_power > 0 %}
+            {{ ((total_controllable_power / dynamic_power) * 100) | round(2) }}
+          {% else %}
+            0
+          {% endif %}
+
+      - name: "Non-controllable Power Percentage"
+        unit_of_measurement: "%"
+        state: >
+          {% set dynamic_power = states('sensor.dynamic_power_sensor') | float(0) %}
+          {% set total_controllable_power = states('sensor.total_controllable_power') | float(0) %}
+          {% set non_controllable_power = dynamic_power - total_controllable_power %}
+
+          {% if dynamic_power > 0 %}
+            {{ ((non_controllable_power / dynamic_power) * 100) | round(2) }}
+          {% else %}
+            0
+          {% endif %}
+
+      - name: "Dynamic Power (kW)"
+        unique_id: dynamic_power_kw
+        unit_of_measurement: "kW"
+        icon: mdi:flash
+        state: >
+          {% set power_watts = states('sensor.dynamic_power_sensor') | float(0) %}
+          {{ (power_watts / 1000) | round(3) }}
+
+      ###### NORDPOOL RELATED #################################
+      - name: "Power Saver Payload"
+        state: "{{ states('sensor.power_saver_status') }}"
+        attributes:
+          hours: >
+            {% set now_time = now().replace(hour=0, minute=0, second=0, microsecond=0) %}
+            {% set val = states('input_text.lowest_price_hours') %}
+            {% if val and val.startswith('[') %}
+              {% set lowest_hours = val | from_json %}
+            {% else %}
+              {% set lowest_hours = [] %}
+            {% endif %}
+            {% set ns = namespace(data=[]) %}
+            {% for i in range(48) %}
+              {% set time = (now_time + timedelta(hours=i)).isoformat() %}
+              {% if i in lowest_hours %}
+                {% set onOff = 1 %}
+              {% else %}
+                {% set onOff = 0 %}
+              {% endif %}
+              {% set ns.data = ns.data + [{'start': time, 'onOff': onOff}] %}
+            {% endfor %}
+            {{ ns.data }}
+
+      - name: "Power Saver Status"
+        icon: mdi:flash-alert
+        state: >
+          {% set current_hour = now().hour | int %}
+          {% set val = states('input_text.lowest_price_hours') %}
+          {% if val and val.startswith('[') %}
+            {% set lowest_hours = val | from_json %}
+          {% else %}
+            {% set lowest_hours = [] %}
+          {% endif %}
+          {% if current_hour in lowest_hours %}
+            "On"
+          {% else %}
+            "Off"
+          {% endif %}
+
+      - name: "Nordpool Price"
+        unit_of_measurement: "NOK/kWh"
+        state: >
+          {% set zone = states('input_select.price_zone') %}
+          {% set zone_number = zone[-1:] %}
+          {% set sensor_name = 'sensor.nordpool_kwh_no' ~ zone_number ~ '_nok_3_10_025' %}
+          {{ states(sensor_name) | float(0) }}
+        attributes:
+          today: >
+            {% set zone = states('input_select.price_zone') %}
+            {% set zone_number = zone[-1:] %}
+            {% set sensor_name = 'sensor.nordpool_kwh_no' ~ zone_number ~ '_nok_3_10_025' %}
+            {{ state_attr(sensor_name, 'today') }}
+          current_price: >
+            {% set zone = states('input_select.price_zone') %}
+            {% set zone_number = zone[-1:] %}
+            {% set sensor_name = 'sensor.nordpool_kwh_no' ~ zone_number ~ '_nok_3_10_025' %}
+            {{ state_attr(sensor_name, 'current_price') }}
+          tomorrow: >
+            {% set zone = states('input_select.price_zone') %}
+            {% set zone_number = zone[-1:] %}
+            {% set sensor_name = 'sensor.nordpool_kwh_no' ~ zone_number ~ '_nok_3_10_025' %}
+            {{ state_attr(sensor_name, 'tomorrow') }}
+          region: "{{ zone }}"
+          hours: >
+            {% set zone = states('input_select.price_zone') %}
+            {% set zone_number = zone[-1:] %}
+            {% set sensor_name = 'sensor.nordpool_kwh_no' ~ zone_number ~ '_nok_3_10_025' %}
+            {% set prices_today = state_attr(sensor_name, 'today') or [] %}
+            {% set prices_tomorrow = state_attr(sensor_name, 'tomorrow') or [] %}
+            {% set prices = prices_today + prices_tomorrow %}
+            {% set now_time = now().replace(hour=0, minute=0, second=0, microsecond=0) %}
+            {% set ns = namespace(data=[]) %}
+            {% for i in range(prices | length) %}
+              {% set time = (now_time + timedelta(hours=i)).isoformat() %}
+              {% set price = prices[i] %}
+              {% set ns.data = ns.data + [{'start': time, 'price': price}] %}
+            {% endfor %}
+            {{ ns.data }}
+
+      - name: "Adjusted Electricity Price"
+        unit_of_measurement: "NOK/kWh"
+        state: >
+          {% set price = states('sensor.nordpool_price') | float(0) %}
+          {% if is_state('input_boolean.include_vat', 'on') %}
+            {{ (price * 1.25) | round(4) }}
+          {% else %}
+            {{ price | round(4) }}
+          {% endif %}
+        attributes:
+          hours: >
+            {% set prices = state_attr('sensor.nordpool_price', 'hours') %}
+            {% if prices %}
+              {% set include_vat = is_state('input_boolean.include_vat', 'on') %}
+              {% set ns = namespace(data=[]) %}
+              {% for item in prices %}
+                {% set price = item.price | float(0) %}
+                {% if include_vat %}
+                  {% set price = (price * 1.25) | round(4) %}
+                {% else %}
+                  {% set price = price | round(4) %}
+                {% endif %}
+                {% set ns.data = ns.data + [{'start': item.start, 'price': price}] %}
+              {% endfor %}
+              {{ ns.data }}
+            {% else %}
+              []
+            {% endif %}
+
+      - name: "Grid Tariff"
+        unit_of_measurement: "NOK/kWh"
+        state: >
+          {% set hour = now().hour %}
+          {% set weekday = now().weekday() %}
+          {% if weekday in [5, 6] %}
+            {% if 6 <= hour < 22 %}
+              {{ 0.3875 }}
+            {% else %}
+              {{ 0.5075 }}
+            {% endif %}
+          {% else %}
+            {% if 6 <= hour < 22 %}
+              {{ 0.5075 }}
+            {% else %}
+              {{ 0.3875 }}
+            {% endif %}
+          {% endif %}
+        attributes:
+          hours: >
+            {% set now_time = now().replace(hour=0, minute=0, second=0, microsecond=0) %}
+            {% set ns = namespace(data=[]) %}
+            {% for i in range(48) %}
+              {% set current_time = now_time + timedelta(hours=i) %}
+              {% set time = current_time.isoformat() %}
+              {% set weekday = current_time.weekday() %}
+              {% set hour = current_time.hour %}
+              {% if weekday in [5, 6] %}
+                {% if 6 <= hour < 22 %}
+                  {% set price = 0.3875 %}
+                {% else %}
+                  {% set price = 0.5075 %}
+                {% endif %}
+              {% else %}
+                {% if 6 <= hour < 22 %}
+                  {% set price = 0.5075 %}
+                {% else %}
+                  {% set price = 0.3875 %}
+                {% endif %}
+              {% endif %}
+              {% set ns.data = ns.data + [{'start': time, 'price': price}] %}
+            {% endfor %}
+            {{ ns.data }}
+
+      - name: "Government Support"
+        unit_of_measurement: "NOK/kWh"
+        state: >
+          {% set price = states('sensor.adjusted_electricity_price') | float(0) %}
+          {% if is_state('input_boolean.include_vat', 'on') %}
+            {% set threshold = 0.9125 %}
+          {% else %}
+            {% set threshold = 0.73 %}
+          {% endif %}
+          {% if price > threshold %}
+            {{ ((price - threshold) * 0.9) | round(4) }}
+          {% else %}
+            0.00
+          {% endif %}
+        attributes:
+          hours: >
+            {% set adjusted_prices = state_attr('sensor.adjusted_electricity_price', 'hours') %}
+            {% if adjusted_prices %}
+              {% set include_vat = is_state('input_boolean.include_vat', 'on') %}
+              {% set threshold = 0.9125 if include_vat else 0.73 %}
+              {% set ns = namespace(data=[]) %}
+              {% for item in adjusted_prices %}
+                {% set price = item.price | float(0) %}
+                {% if price > threshold %}
+                  {% set support = ((price - threshold) * 0.9) | round(4) %}
+                {% else %}
+                  {% set support = 0.00 %}
+                {% endif %}
+                {% set ns.data = ns.data + [{'start': item.start, 'price': support}] %}
+              {% endfor %}
+              {{ ns.data }}
+            {% else %}
+              []
+            {% endif %}
+
+      - name: "Effective Electricity Price"
+        unit_of_measurement: "NOK/kWh"
+        state: >
+          {{
+            (
+              states('sensor.adjusted_electricity_price') | float(0)
+              + states('sensor.grid_tariff') | float(0)
+              - states('sensor.government_support') | float(0)
+            ) | round(4)
+          }}
+        attributes:
+          hours: >
+            {% set adjusted_prices = state_attr('sensor.adjusted_electricity_price', 'hours') %}
+            {% set grid_prices = state_attr('sensor.grid_tariff', 'hours') %}
+            {% set support_prices = state_attr('sensor.government_support', 'hours') %}
+            {% if adjusted_prices and grid_prices and support_prices %}
+              {% set ns = namespace(data=[]) %}
+              {% for i in range(adjusted_prices | length) %}
+                {% set total_price = (adjusted_prices[i].price | float(0))
+                                    + (grid_prices[i].price | float(0))
+                                    - (support_prices[i].price | float(0)) %}
+                {% set time = adjusted_prices[i].start %}
+                {% set ns.data = ns.data + [{'start': time, 'price': total_price | round(4)}] %}
+              {% endfor %}
+              {{ ns.data }}
+            {% else %}
+              []
+            {% endif %}
+
+      - name: "Current Hour Price"
+        unit_of_measurement: "NOK/kWh"
+        icon: mdi:currency-usd
+        state: >
+          {{ state_attr('sensor.nordpool_price', 'current_price') | float(0) }}
+
+      ###### GRID FEE RELATED #################################
+      - name: "Hourly Energy Usage Divided"
+        unit_of_measurement: "kWh"
+        state: >
+          {% set hourly_usage = states('sensor.hourly_energy_usage') | float(0) %}
+          {% if hourly_usage > 30 %}
+            {{ (hourly_usage / 1000) | round(2) }}
+          {% else %}
+            {{ hourly_usage | round(2) }}
+          {% endif %}
+
+      ###### DYNAMIC POWER SENSOR RELATED #################################
+      - name: "available_power_sensors_part1"
+        state: >
+          {%- set excluded_sensors = ['sensor.available_power_this_hour', 'sensor.dynamic_power_sensor', 'sensor.monthly_peak_energy', 'sensor.hourly_energy_consumed', 'sensor.dynamic_power_max', 'sensor.dynamic_power_min', 'sensor.energy_consumed', 'sensor.energy_used_this_hour', 'sensor.energy_estimate_this_hour', 'sensor.average_peak_hour_energy', 'sensor.energy_level_upper_threshold'] %}
+          {%- set sensors = states.sensor
+              | selectattr('attributes.unit_of_measurement', 'in', ['W', 'kWh'])
+              | rejectattr('entity_id', 'in', excluded_sensors)
+              | map(attribute='entity_id')
+              | list %}
+          {{ sensors[0:5] | join(', ') }}
+
+      - name: "available_power_sensors_part2"
+        state: >
+          {%- set excluded_sensors = ['sensor.available_power_this_hour', 'sensor.dynamic_power_sensor', 'sensor.monthly_peak_energy', 'sensor.hourly_energy_consumed', 'sensor.dynamic_power_max', 'sensor.dynamic_power_min', 'sensor.energy_consumed', 'sensor.energy_used_this_hour', 'sensor.energy_estimate_this_hour', 'sensor.average_peak_hour_energy', 'sensor.energy_level_upper_threshold'] %}
+          {%- set sensors = states.sensor
+              | selectattr('attributes.unit_of_measurement', 'in', ['W', 'kWh'])
+              | rejectattr('entity_id', 'in', excluded_sensors)
+              | map(attribute='entity_id')
+              | list %}
+          {{ sensors[5:10] | join(', ') }}
+
+      - name: "available_power_sensors_part3"
+        state: >
+          {%- set excluded_sensors = ['sensor.available_power_this_hour', 'sensor.dynamic_power_sensor', 'sensor.monthly_peak_energy', 'sensor.hourly_energy_consumed', 'sensor.dynamic_power_max', 'sensor.dynamic_power_min', 'sensor.energy_consumed', 'sensor.energy_used_this_hour', 'sensor.energy_estimate_this_hour', 'sensor.average_peak_hour_energy', 'sensor.energy_level_upper_threshold'] %}
+          {%- set sensors = states.sensor
+              | selectattr('attributes.unit_of_measurement', 'in', ['W', 'kWh'])
+              | rejectattr('entity_id', 'in', excluded_sensors)
+              | map(attribute='entity_id')
+              | list %}
+          {{ sensors[10:15] | join(', ') }}
+
+      - name: "available_power_sensors_part4"
+        state: >
+          {%- set excluded_sensors = ['sensor.available_power_this_hour', 'sensor.dynamic_power_sensor', 'sensor.monthly_peak_energy', 'sensor.hourly_energy_consumed', 'sensor.dynamic_power_max', 'sensor.dynamic_power_min', 'sensor.energy_consumed', 'sensor.energy_used_this_hour', 'sensor.energy_estimate_this_hour', 'sensor.average_peak_hour_energy', 'sensor.energy_level_upper_threshold'] %}
+          {%- set sensors = states.sensor
+              | selectattr('attributes.unit_of_measurement', 'in', ['W', 'kWh'])
+              | rejectattr('entity_id', 'in', excluded_sensors)
+              | map(attribute='entity_id')
+              | list %}
+          {{ sensors[15:20] | join(', ') }}
+
+      - name: "available_power_sensors_part5"
+        state: >
+          {%- set excluded_sensors = ['sensor.available_power_this_hour', 'sensor.dynamic_power_sensor', 'sensor.monthly_peak_energy', 'sensor.hourly_energy_consumed', 'sensor.dynamic_power_max', 'sensor.dynamic_power_min', 'sensor.energy_consumed', 'sensor.energy_used_this_hour', 'sensor.energy_estimate_this_hour', 'sensor.average_peak_hour_energy', 'sensor.energy_level_upper_threshold'] %}
+          {%- set sensors = states.sensor
+              | selectattr('attributes.unit_of_measurement', 'in', ['W', 'kWh'])
+              | rejectattr('entity_id', 'in', excluded_sensors)
+              | map(attribute='entity_id')
+              | list %}
+          {{ sensors[20:25] | join(', ') }}
+
+      - name: "available_power_sensors_part6"
+        state: >
+          {%- set excluded_sensors = ['sensor.available_power_this_hour', 'sensor.dynamic_power_sensor', 'sensor.monthly_peak_energy', 'sensor.hourly_energy_consumed', 'sensor.dynamic_power_max', 'sensor.dynamic_power_min', 'sensor.energy_consumed', 'sensor.energy_used_this_hour', 'sensor.energy_estimate_this_hour', 'sensor.average_peak_hour_energy', 'sensor.energy_level_upper_threshold'] %}
+          {%- set sensors = states.sensor
+              | selectattr('attributes.unit_of_measurement', 'in', ['W', 'kWh'])
+              | rejectattr('entity_id', 'in', excluded_sensors)
+              | map(attribute='entity_id')
+              | list %}
+          {{ sensors[25:30] | join(', ') }}
+
+      - name: "available_power_sensors_part7"
+        state: >
+          {%- set excluded_sensors = ['sensor.available_power_this_hour', 'sensor.dynamic_power_sensor', 'sensor.monthly_peak_energy', 'sensor.hourly_energy_consumed', 'sensor.dynamic_power_max', 'sensor.dynamic_power_min', 'sensor.energy_consumed', 'sensor.energy_used_this_hour', 'sensor.energy_estimate_this_hour', 'sensor.average_peak_hour_energy', 'sensor.energy_level_upper_threshold'] %}
+          {%- set sensors = states.sensor
+              | selectattr('attributes.unit_of_measurement', 'in', ['W', 'kWh'])
+              | rejectattr('entity_id', 'in', excluded_sensors)
+              | map(attribute='entity_id')
+              | list %}
+          {{ sensors[30:35] | join(', ') }}
+
+      - name: "available_power_sensors_part8"
+        state: >
+          {%- set excluded_sensors = ['sensor.available_power_this_hour', 'sensor.dynamic_power_sensor', 'sensor.monthly_peak_energy', 'sensor.hourly_energy_consumed', 'sensor.dynamic_power_max', 'sensor.dynamic_power_min', 'sensor.energy_consumed', 'sensor.energy_used_this_hour', 'sensor.energy_estimate_this_hour', 'sensor.average_peak_hour_energy', 'sensor.energy_level_upper_threshold'] %}
+          {%- set sensors = states.sensor
+              | selectattr('attributes.unit_of_measurement', 'in', ['W', 'kWh'])
+              | rejectattr('entity_id', 'in', excluded_sensors)
+              | map(attribute='entity_id')
+              | list %}
+          {{ sensors[35:40] | join(', ') }}
+
+      - name: "dynamic_power_sensor"
+        state: >
+          {{ states(states('input_select.home_power_measurement_device')) }}
+        attributes:
+          unit_of_measurement: >
+            {{ state_attr(states('input_select.home_power_measurement_device'), 'unit_of_measurement') }}
+          device_class: >
+            {{ state_attr(states('input_select.home_power_measurement_device'), 'device_class') }}
+          friendly_name: >
+            {{ state_attr(states('input_select.home_power_measurement_device'), 'friendly_name') }}
+
+################################### SENSORS ###################################
+
+sensor:
+  - platform: integration
+    source: sensor.dynamic_power_sensor
+    name: Energy Consumed
+    unit_prefix: k
+    round: 2
+
+  - platform: template
+    sensors:
+      dynamic_energy_price_0_2:
+        value_template: >
+          {% set nettselskap = states('input_select.nettselskap') %}
+          {% set prices = {
+            'Elvia': 120,
+            'BKK': 145,
+            'Norgesnett': 115,
+            'Mellom': 243,
+            'L-nett': 285,
+            'Glitre Nett': 155,
+            'Lede': 262,
+            'Linja': 275,
+            'Tensio': 144,
+            'Noranett': 360
+          } %}
+          {{ prices.get(nettselskap, 0) }}
+        unit_of_measurement: "NOK"
+
+      dynamic_energy_price_2_5:
+        value_template: >
+          {% set nettselskap = states('input_select.nettselskap') %}
+          {% set prices = {
+            'Elvia': 190,
+            'BKK': 240,
+            'Norgesnett': 191,
+            'Mellom': 364,
+            'L-nett': 285,
+            'Glitre Nett': 195,
+            'Lede': 262,
+            'Linja': 343,
+            'Tensio': 287,
+            'Noranett': 510
+          } %}
+          {{ prices.get(nettselskap, 0) }}
+        unit_of_measurement: "NOK"
+
+      dynamic_energy_price_5_10:
+        value_template: >
+          {% set nettselskap = states('input_select.nettselskap') %}
+          {% set prices = {
+            'Elvia': 305,
+            'BKK': 400,
+            'Norgesnett': 314,
+            'Mellom': 607,
+            'L-nett': 435,
+            'Glitre Nett': 335,
+            'Lede': 449,
+            'Linja': 411,
+            'Tensio': 520,
+            'Noranett': 740
+          } %}
+          {{ prices.get(nettselskap, 0) }}
+        unit_of_measurement: "NOK"
+
+      dynamic_energy_price_10_15:
+        value_template: >
+          {% set nettselskap = states('input_select.nettselskap') %}
+          {% set prices = {
+            'Elvia': 420,
+            'BKK': 570,
+            'Norgesnett': 560,
+            'Mellom': 801,
+            'L-nett': 585,
+            'Glitre Nett': 690,
+            'Lede': 633,
+            'Linja': 686,
+            'Tensio': 789,
+            'Noranett': 860
+          } %}
+          {{ prices.get(nettselskap, 0) }}
+        unit_of_measurement: "NOK"
+
+      dynamic_energy_price_15_20:
+        value_template: >
+          {% set nettselskap = states('input_select.nettselskap') %}
+          {% set prices = {
+            'Elvia': 535,
+            'BKK': 735,
+            'Norgesnett': 744,
+            'Mellom': 1008,
+            'L-nett': 735,
+            'Glitre Nett': 900,
+            'Lede': 819,
+            'Linja': 824,
+            'Tensio': 1057,
+            'Noranett': 1030
+          } %}
+          {{ prices.get(nettselskap, 0) }}
+        unit_of_measurement: "NOK"
+
+      monthly_peak_energy:
+        value_template: >
+          {% set peak_1 = states('input_number.peak_day_1') | float %}
+          {% set peak_2 = states('input_number.peak_day_2') | float %}
+          {% set peak_3 = states('input_number.peak_day_3') | float %}
+          {{ (peak_1 + peak_2 + peak_3) / 3 }}
+        unit_of_measurement: "kWh"
+
+      current_energy_level:
+        value_template: >
+          {% set monthly_peak = states('sensor.monthly_peak_energy') | float(0) %}
+          {% if monthly_peak <= 2 %}
+            0-2 kWh
+          {% elif monthly_peak <= 5 %}
+            2-5 kWh
+          {% elif monthly_peak <= 10 %}
+            5-10 kWh
+          {% elif monthly_peak <= 15 %}
+            10-15 kWh
+          {% elif monthly_peak <= 20 %}
+            15-20 kWh
+          {% else %}
+            Above 20 kWh
+          {% endif %}
+
+      remaining_energy:
+        value_template: >
+          {% set current_hourly_usage = states('sensor.hourly_energy_usage') | float(0) %}
+          {% set target = states('input_number.energy_target') | float(0) %}
+          {% if current_hourly_usage > 30 %}
+            {% set current_hourly_usage = current_hourly_usage / 1000 %}
+          {% endif %}
+          {{ target - current_hourly_usage }}
+
+################################### AUTOMATIONS ###################################
+
+###### NORDPOOL RELATED #################################
+automation:
+  - alias: "Calculate Lowest Priced Hours"
+    triggers:
+      - trigger: time
+        at: "00:05:00" # Runs at 5 minutes past midnight
+      - trigger: homeassistant
+        event: start # Runs when Home Assistant starts
+      - trigger: state
+        entity_id: input_number.cheapest_hours # Recalculate when the user changes the number
+    actions:
+      - variables:
+          today: "{{ state_attr('sensor.nordpool_price', 'today') or [] }}"
+          tomorrow: "{{ state_attr('sensor.nordpool_price', 'tomorrow') or [] }}"
+          prices: "{{ today + tomorrow }}"
+      - variables:
+          indexed_prices: >
+            {% set ns = namespace(prices=[]) %}
+            {% for i in range(prices | length) %}
+              {% set ns.prices = ns.prices + [{'index': i, 'price': prices[i]}] %}
+            {% endfor %}
+            {{ ns.prices }}
+          sorted_prices: >
+            {{ indexed_prices | sort(attribute='price') }}
+          lowest_hours: >
+            {% set count = states('input_number.cheapest_hours') | int %}
+            {{ sorted_prices[:count] | map(attribute='index') | list }}
+      - action: input_text.set_value
+        target:
+          entity_id: input_text.lowest_price_hours
+        data:
+          value: "{{ lowest_hours | to_json }}"
+
+  ###### GRID FEE RELATED #################################
+  - alias: "Monitor Power Consumption for Category 1 (Turn Off)"
+    mode: restart
+    triggers:
+      - trigger: state
+        entity_id: sensor.dynamic_power_sensor
+    conditions:
+      - condition: template
+        value_template: "{{ states('sensor.dynamic_power_sensor') | float(0) > (states('input_number.energy_target') | float(0) * 1000) }}"
+      - condition: template
+        value_template: "{{ states('sensor.total_controllable_power') | float(0) > 0 }}"
+    actions:
+      - action: logbook.log
+        data:
+          name: "Power Management"
+          message: "Starting Category 1 peak day check due to high power consumption"
+      - action: script.check_category_1_peak_days
+
+  - alias: "Monitor Power Consumption Decrease for Category 1 (Turn On)"
+    mode: restart
+    triggers:
+      - trigger: state
+        entity_id: sensor.dynamic_power_sensor
+    condition:
+      - condition: template
+        value_template: "{{ states('sensor.dynamic_power_sensor') | float(0) < (states('input_number.energy_target') | float(0) * 1000) }}"
+    actions:
+      - action: logbook.log
+        data:
+          name: "Power Management"
+          message: "Starting power gap calculation to turn on devices in Category 1 due to low power consumption"
+      - action: script.calculate_power_gap_to_turn_on
+
+  - alias: "Delete Device from Category 1"
+    triggers:
+      - trigger: state
+        entity_id: input_button.delete_category_1_device_button # Trigger on button press
+    actions:
+      # Step 1: Remove the selected device from input_text.category_1_devices
+      - action: input_text.set_value
+        target:
+          entity_id: input_text.category_1_devices
+        data:
+          value: >
+            {% set device_to_delete = states('input_select.delete_category_1_device') %}
+            {% set current_devices = states('input_text.category_1_devices').split(',') %}
+            {% set updated_devices = current_devices | reject('equalto', device_to_delete) | list %}
+            {{ updated_devices | join(',') if updated_devices | length > 0 else 'No devices added' }}
+      # Step 2: Update input_select.category_1_devices, enforcing a non-empty list
+      - action: input_select.set_options
+        target:
+          entity_id: input_select.category_1_devices
+        data:
+          options: >
+            {% set current_text = states('input_text.category_1_devices') %}
+            {% if current_text == 'No devices added' or current_text | length == 0 %}
+              ['No devices added']
+            {% else %}
+              {{ current_text.split(',') | list }}
+            {% endif %}
+
+  - alias: "Delete Device from Category 2"
+    triggers:
+      - trigger: state
+        entity_id: input_button.delete_category_2_device_button
+    actions:
+      - action: input_select.set_options
+        target:
+          entity_id: input_select.category_2_devices
+        data:
+          options: >
+            {{ state_attr('input_select.category_2_devices', 'options') | reject('equalto', states('input_select.delete_category_2_device')) | list }}
+
+  - alias: "Delete Device from Category 3"
+    triggers:
+      - trigger: state
+        entity_id: input_button.delete_category_3_device_button
+    actions:
+      - action: input_select.set_options
+        target:
+          entity_id: input_select.category_3_devices
+        data:
+          options: >
+            {{ state_attr('input_select.category_3_devices', 'options') | reject('equalto', states('input_select.delete_category_3_device')) | list }}
+
+  - alias: "Populate Category 1 Device Deletion List"
+    triggers:
+      - trigger: state
+        entity_id: input_select.category_1_devices
+    actions:
+      - action: input_select.set_options
+        target:
+          entity_id: input_select.delete_category_1_device
+        data:
+          options: "{{ state_attr('input_select.category_1_devices', 'options') }}"
+
+  - alias: "Populate Category 2 Device Deletion List"
+    triggers:
+      - trigger: state
+        entity_id: input_select.category_2_devices
+    actions:
+      - action: input_select.set_options
+        target:
+          entity_id: input_select.delete_category_2_device
+        data:
+          options: "{{ state_attr('input_select.category_2_devices', 'options') }}"
+
+  - alias: "Populate Category 3 Device Deletion List"
+    triggers:
+      - trigger: state
+        entity_id: input_select.category_3_devices
+    actions:
+      - action: input_select.set_options
+        target:
+          entity_id: input_select.delete_category_3_device
+        data:
+          options: "{{ state_attr('input_select.category_3_devices', 'options') }}"
+
+  - id: "add_device_category_1"
+    alias: "Add Device to Category 1"
+    triggers:
+      - trigger: state
+        entity_id: input_button.add_device_category_1_button # Trigger on button press
+    actions:
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ states('input_select.new_category_1_device') != 'Select a device' }}"
+            sequence:
+              - action: input_text.set_value
+                target:
+                  entity_id: input_text.category_1_devices
+                data:
+                  value: >
+                    {% set new_device = states('input_select.new_category_1_device') %}
+                    {% set current_devices = states('input_text.category_1_devices').split(',') %}
+                    {% if new_device not in current_devices %}
+                      {{ (current_devices + [new_device]) | join(',') }}
+                    {% else %}
+                      {{ current_devices | join(',') }}
+                    {% endif %}
+              - action: input_select.set_options
+                target:
+                  entity_id: input_select.category_1_devices
+                data:
+                  options: >
+                    {{ states('input_text.category_1_devices').split(',') | list }}
+
+  - id: "add_device_category_2"
+    alias: "Add Device to Category 2"
+    triggers:
+      - trigger: state
+        entity_id: input_button.add_device_category_2_button # Trigger on button press
+    actions:
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ states('input_select.new_category_2_device') != 'Select a device' }}"
+            sequence:
+              - action: input_select.set_options
+                target:
+                  entity_id: input_select.category_2_devices
+                data:
+                  options: >
+                    {{ (state_attr('input_select.category_2_devices', 'options') | list + [states('input_select.new_category_2_device')]) | unique | list }}
+              - choose:
+                  - conditions:
+                      - condition: template
+                        value_template: >
+                          {{ 'input_number.priority_' ~ states('input_select.new_category_2_device') | replace(' ', '_') | replace('.', '_') | replace('-', '_') | lower }} is defined }}
+                    sequence:
+                      - action: input_number.set_value
+                        target:
+                          entity_id: >
+                            input_number.priority_{{ states('input_select.new_category_2_device') | replace(' ', '_') | replace('.', '_') | replace('-', '_') | lower }}_category_2
+                        data:
+                          value: 1
+
+  - id: "add_device_category_3"
+    alias: "Add Device to Category 3"
+    triggers:
+      - trigger: state
+        entity_id: input_button.add_device_category_3_button # Trigger on button press
+    actions:
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ states('input_select.new_category_3_device') != 'Select a device' }}"
+            sequence:
+              - action: input_select.set_options
+                target:
+                  entity_id: input_select.category_3_devices
+                data:
+                  options: >
+                    {{ (state_attr('input_select.category_3_devices', 'options') | list + [states('input_select.new_category_3_device')]) | unique | list }}
+              - choose:
+                  - conditions:
+                      - condition: template
+                        value_template: >
+                          {{ 'input_number.priority_' ~ states('input_select.new_category_3_device') | replace(' ', '_') | replace('.', '_') | replace('-', '_') | lower }} is defined }}
+                    sequence:
+                      - action: input_number.set_value
+                        target:
+                          entity_id: >
+                            input_number.priority_{{ states('input_select.new_category_3_device') | replace(' ', '_') | replace('.', '_') | replace('-', '_') | lower }}_category_3
+                        data:
+                          value: 1
+
+  - id: "populate_category_device_options"
+    alias: "Populate Category Device Options"
+    triggers:
+      - trigger: homeassistant
+        event: start
+    actions:
+      - action: input_select.set_options
+        target:
+          entity_id:
+            - input_select.new_category_1_device
+            - input_select.new_category_2_device
+            - input_select.new_category_3_device
+        data:
+          options: >
+            {% set high_power_domains = ['switch', 'fan', 'climate', 'humidifier', 'water_heater'] %}
+            {% set entities = namespace(list=[]) %}
+            {% for domain in high_power_domains %}
+              {% for entity in states[domain] %}
+                {% set base_name = entity.entity_id.split('.')[1] %}
+                {% set power_sensors = states.sensor
+                  | selectattr("entity_id", "search", base_name ~ ".*_(power|energy)$")
+                  | map(attribute="entity_id")
+                  | list %}
+                {% if power_sensors %}
+                  {% set entities.list = entities.list + [entity.entity_id] %}
+                {% endif %}
+              {% endfor %}
+            {% endfor %}
+            {{ entities.list | unique | list if entities.list else ['No high power devices found'] }}
+
+  - alias: "Populate Category 1 Devices on Startup"
+    triggers:
+      - trigger: homeassistant
+        event: start
+    actions:
+      - action: input_select.set_options
+        target:
+          entity_id: input_select.category_1_devices
+        data:
+          options: >
+            {% set current_text = states('input_text.category_1_devices') %}
+            {% if current_text == 'No devices added' or current_text | length == 0 %}
+              ['No devices added']
+            {% else %}
+              {{ current_text.split(',') | list }}
+            {% endif %}
+
+  - id: "1718354467762"
+    alias: SMARTi - Update Current Hour Peak
+    description: Updates the current hour peak value
+    triggers:
+      - trigger: state
+        entity_id: utility_meter.hourly_energy_usage
+    actions:
+      - action: input_number.set_value
+        data_template:
+          entity_id: input_number.current_hour_peak
+          value: >
+            {% set current_usage = states('utility_meter.hourly_energy_usage') | float %}
+            {% set current_hour_peak = states('input_number.current_hour_peak') | float %}
+            {{ [current_usage, current_hour_peak] | max }}
+
+  - id: "1718354423858"
+    alias: SMARTi Reset Monthly Data
+    description: Sets the monthly data to 0 at the first of each month
+    triggers:
+      - trigger: time
+        at: 00:00:00
+    conditions:
+      - condition: template
+        value_template: "{{ now().day == 1 }}"
+    actions:
+      - action: utility_meter.reset
+        entity_id: utility_meter.hourly_energy_usage
+      - action: input_number.set_value
+        target:
+          entity_id:
+            - input_number.peak_day_1
+            - input_number.peak_day_2
+            - input_number.peak_day_3
+        data:
+          value: 0
+
+  - id: "1718354385937"
+    alias: SMARTi Update Daily Highest Hour
+    description: Updates the highest daily hour
+    triggers:
+      - trigger: time_pattern
+        hours: "/1"
+    actions:
+      - action: input_number.set_value
+        data_template:
+          entity_id: input_number.daily_highest_hour
+          value: >
+            {% set current_hour_peak = states('input_number.current_hour_peak') | float %}
+            {% set daily_highest_hour = states('input_number.daily_highest_hour') | float %}
+            {{ [current_hour_peak, daily_highest_hour] | max }}
+      - action: input_number.set_value
+        data:
+          entity_id: input_number.current_hour_peak
+          value: 0
+
+  - id: "1718354347241"
+    alias: SMARTi Store Daily Peak and Update Monthly Peaks
+    description: Stores the daily peaks and updates the monthly peaks
+    triggers:
+      - trigger: time
+        at: "23:59:00"
+    actions:
+      - variables:
+          daily_highest_hour:
+            "{{ states('input_number.daily_highest_hour') | float
+            }}"
+          peak_day_1: "{{ states('input_number.peak_day_1') | float }}"
+          peak_day_2: "{{ states('input_number.peak_day_2') | float }}"
+          peak_day_3: "{{ states('input_number.peak_day_3') | float }}"
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ daily_highest_hour > peak_day_1 }}"
+            sequence:
+              - action: input_number.set_value
+                data:
+                  entity_id: input_number.peak_day_3
+                  value: "{{ peak_day_2 }}"
+              - action: input_number.set_value
+                data:
+                  entity_id: input_number.peak_day_2
+                  value: "{{ peak_day_1 }}"
+              - action: input_number.set_value
+                data:
+                  entity_id: input_number.peak_day_1
+                  value: "{{ daily_highest_hour }}"
+          - conditions:
+              - condition: template
+                value_template:
+                  "{{ daily_highest_hour > peak_day_2 and daily_highest_hour
+                  <= peak_day_1 }}"
+            sequence:
+              - action: input_number.set_value
+                data:
+                  entity_id: input_number.peak_day_3
+                  value: "{{ peak_day_2 }}"
+              - action: input_number.set_value
+                data:
+                  entity_id: input_number.peak_day_2
+                  value: "{{ daily_highest_hour }}"
+          - conditions:
+              - condition: template
+                value_template:
+                  "{{ daily_highest_hour > peak_day_3 and daily_highest_hour
+                  <= peak_day_2 }}"
+            sequence:
+              - action: input_number.set_value
+                data:
+                  entity_id: input_number.peak_day_3
+                  value: "{{ daily_highest_hour }}"
+      - action: system_log.write
+        data_template:
+          message:
+            "Daily Highest Hour: {{ daily_highest_hour }}, Peak Day 1: {{ peak_day_1
+            }}, Peak Day 2: {{ peak_day_2 }}, Peak Day 3: {{ peak_day_3 }}"
+          level: info
+      - action: input_number.set_value
+        data:
+          entity_id: input_number.daily_highest_hour
+          value: 0
+
+  - id: "1718354278151"
+    alias: SMARTi Check Hourly Energy Usage and Alert
+    description: Checks the hourly energy usage against the set value and the peaks and alerts if you are at risk of overstepping the limit
+    triggers:
+      - trigger: state
+        entity_id: input_number.daily_highest_hour
+    conditions:
+      - condition: template
+        value_template: >
+          {% set peak_day_1 = states('input_number.peak_day_1') | float(0) %}
+          {% set peak_day_2 = states('input_number.peak_day_2') | float(0) %}
+          {% set peak_day_3 = states('input_number.peak_day_3') | float(0) %}
+          {% set daily_highest_hour = states('input_number.daily_highest_hour') | float(0) %}
+          {% set target_energy = states('input_number.energy_target') | float(0) %}
+          {% set average_peak = (peak_day_1 + peak_day_2 + peak_day_3) / 3 %}
+          {{ (daily_highest_hour > target_energy) or (average_peak > target_energy) }}
+    actions:
+      - action: persistent_notification.create
+        data_template:
+          title: Energy Alert
+          message: >
+            {% set peak_day_1 = states('input_number.peak_day_1') | float(0) %}
+            {% set peak_day_2 = states('input_number.peak_day_2') | float(0) %}
+            {% set peak_day_3 = states('input_number.peak_day_3') | float(0) %}
+            {% set daily_highest_hour = states('input_number.daily_highest_hour') | float(0) %}
+            {% set target_energy = states('input_number.energy_target') | float(0) %}
+            {% set average_peak = (peak_day_1 + peak_day_2 + peak_day_3) / 3 %}
+
+            {% if daily_highest_hour > target_energy %}
+              Daily highest hourly energy usage of {{ daily_highest_hour }} kWh has exceeded the target energy level of {{ target_energy }} kWh.
+            {% elif average_peak > target_energy %}
+              The average energy usage over the last 3 days of {{ average_peak }} kWh has exceeded the target energy level of {{ target_energy }} kWh.
+            {% endif %}
+
+  - id: "1718353993177"
+    alias: SMARTi Update Current Energy Level
+    description: Updates the calculated energy level
+    triggers:
+      - trigger: state
+        entity_id: sensor.monthly_peak_energy
+    actions:
+      - action: homeassistant.update_entity
+        entity_id: sensor.current_energy_level
+
+  - id: "1718353832879"
+    alias: SMARTi Reset Monthly Peaks
+    description: Resets the monthly top values used for caluculating the capacity steps
+    triggers:
+      - trigger: time
+        at: 00:00:00
+    conditions:
+      - condition: template
+        value_template: "{{ now().day == 1 }}"
+    actions:
+      - action: input_number.set_value
+        data:
+          entity_id: input_number.peak_1
+          value: 0
+      - action: input_number.set_value
+        data:
+          entity_id: input_number.peak_2
+          value: 0
+      - action: input_number.set_value
+        data:
+          entity_id: input_number.peak_3
+          value: 0
+
+  - id: "1718353737319"
+    alias: SMARTi Reset Hourly Energy Usage
+    description: Resets the hourly energy usage calcualted by SMARTi
+    triggers:
+      - trigger: time_pattern
+        hours: /1
+        minutes: 0
+    actions:
+      - action: utility_meter.reset
+        data:
+          entity_id: utility_meter.hourly_energy_usage
+
+  - id: "1717960930252"
+    alias: SMARTi Update Power Measurement Device List
+    description:
+      Update the list of power measurement devices at startup, every hour,
+      and on button press
+    triggers:
+      - trigger: homeassistant
+        event: start
+    actions:
+      - variables:
+          all_sensors:
+            "{% set ns = namespace(sensors=[]) %} {% for i in range(1, 8) %}\n
+            \ {% set part = states('sensor.available_power_sensors_part' ~ i) %}\n  {%
+            if part not in ['unavailable', 'none', '', 'unknown'] %}\n    {% set ns.sensors
+            = ns.sensors + part.split(', ') %}\n  {% endif %}\n{% endfor %} {{ ns.sensors
+            | unique | list }}\n"
+      - condition: template
+        value_template: "{{ all_sensors | length > 0 }}"
+      - action: input_select.set_options
+        target:
+          entity_id: input_select.home_power_measurement_device
+        data:
+          options: "{{ all_sensors }}"
+      - delay: 00:00:05
+      - action: input_select.select_option
+        target:
+          entity_id: input_select.home_power_measurement_device
+        data:
+          option: "{{ states('input_text.dynamic_power_sensor_storage') }}"
+
+  - id: "1717849580017"
+    alias: SMARTi Notify Main Fuse Overload
+    description: Notify if energy usage exceeds main fuse size for more than 5 minutes
+    triggers:
+      - trigger: state
+        entity_id: input_text.dynamic_power_sensor_storage
+        to: dynamic_power_sensor
+      - trigger: numeric_state
+        entity_id: sensor.dynamic_power_sensor
+        above: 0
+        for:
+          minutes: 5
+    conditions:
+      - condition: template
+        value_template:
+          "{{ is_state('input_text.dynamic_power_sensor_storage', 'dynamic_power_sensor')
+          }}"
+      - condition: template
+        value_template:
+          "{% set voltage = states('input_select.voltage_level') %} {%
+          set main_fuse_size = states('input_select.main_fuse_size') %} {% set phase_selection
+          = states('input_select.phases_selection') %}
+          {{ voltage != 'unknown' and main_fuse_size != 'unknown' and phase_selection
+          != 'unknown' }}"
+    actions:
+      - variables:
+          current_consumption:
+            "{% if states('sensor.dynamic_power_sensor') == 'unknown'
+            %}\n  0.0\n{% else %}\n  {{ states('sensor.dynamic_power_sensor') | float
+            }}\n{% endif %}\n"
+          voltage_level:
+            "{% set voltage_dict = {'100V': 100.0, '110V': 110.0, '115V':
+            115.0, '120V': 120.0, '127V': 127.0, '220V': 220.0, '230V': 230.0,
+            '240V': 240.0, '400V': 400.0} %} {{ voltage_dict.get(states('input_select.voltage_level'),
+            0.0) }}"
+          main_fuse_size:
+            "{{ states('input_select.main_fuse_size').replace('A', '')
+            | float }}"
+          phase_selection:
+            "{% if is_state('input_select.phases_selection', 'One Phase')
+            %}\n  1\n{% elif is_state('input_select.phases_selection', 'Three Phase')
+            %}\n  3\n{% else %}\n  0\n{% endif %}\n"
+          is_single_phase: "{{ phase_selection == 1 }}"
+          max_power_limit:
+            "{% if is_single_phase %}\n  {{ main_fuse_size * voltage_level
+            }}\n{% else %}\n  {{ (main_fuse_size * voltage_level * 1.732) / 3 }}\n{% endif
+            %}\n"
+      - action: input_number.set_value
+        target:
+          entity_id: input_number.max_power_limit
+        data:
+          value: "{{ max_power_limit }}"
+      - condition: template
+        value_template: "{{ current_consumption > max_power_limit }}"
+      - action: notify.notify
+        data:
+          message:
+            Main fuse overload detected! Current energy usage has exceeded the main
+            fuse size for more than 5 minutes.
+
+  - id: "1717144762954"
+    alias: SMARTi Restore Power Settings
+    description:
+      Restores the selected power settings in the SMARTi dashboard after
+      Home Assistant starts
+    triggers:
+      - trigger: homeassistant
+        event: start
+    conditions: []
+    actions:
+      - variables:
+          all_sensors:
+            "{% set ns = namespace(sensors=[]) %}  {% for i in range(1, 8)
+            %}\n  {% set part = states('sensor.available_power_sensors_part' ~ i) %}\n
+            \ {% if part not in ['unavailable', 'none', '', 'unknown'] %}\n    {% set
+            ns.sensors = ns.sensors + part.split(', ') %}\n  {% endif %}\n{% endfor %}
+            \ {{ ns.sensors | unique | list }}\n"
+          stored_sensor: "{{ states('input_text.dynamic_power_sensor_storage') }}"
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ all_sensors | length > 0 }}"
+            sequence:
+              - action: input_select.set_options
+                target:
+                  entity_id: input_select.home_power_measurement_device
+                data:
+                  options: "{{ all_sensors }}"
+              - delay: 00:00:05
+              - choose:
+                  - conditions:
+                      - condition: template
+                        value_template: "{{ stored_sensor in all_sensors }}"
+                    sequence:
+                      - action: input_select.select_option
+                        target:
+                          entity_id: input_select.home_power_measurement_device
+                        data:
+                          option: "{{ stored_sensor }}"
+
+  - id: "1717144717455"
+    alias: SMARTi Save Power Settings Before Shutdown
+    description:
+      Saves the selected power settings chosen for the SMARTi Dashboard before
+      system shutdown
+    triggers:
+      - trigger: homeassistant
+        event: shutdown
+    conditions: []
+    actions:
+      - action: input_text.set_value
+        target:
+          entity_id: input_text.dynamic_power_sensor_storage
+        data:
+          value:
+            "{% set val = states('input_select.home_power_measurement_device')
+            %} {{ val if val not in ['None', 'unknown', ''] else 'no sensor selected'
+            }}"
+
+  - id: "1717144589650"
+    alias: SMARTi Power Outage Alert
+    description: Alerts if the dynamic power sensor value is 0 for more than 5 minutes
+    triggers:
+      trigger: numeric_state
+      entity_id: sensor.dynamic_power_sensor
+      below: 0.01
+      for: 00:10:00
+    condition: []
+    actions:
+      - action: notify.notify
+        data:
+          message:
+            "Power Outage: SMARTi has detected that measured value of the power
+            meter measurmeent device has been 0 for more than 10 minutes. This could indicate
+            a power outage"
+    mode: single
+################################### SCRIPTS ###################################
+###### GRID FEE RELATED #################################
+script:
+  check_category_1_peak_days:
+    alias: Check Category 1 Peak Days
+    sequence:
+      - action: logbook.log
+        data:
+          name: "Power Management"
+          message: "Checking peak days for Category 1"
+      - choose:
+          - conditions:
+              - condition: state
+                entity_id: input_number.peak_day_1
+                state: "0"
+            sequence:
+              - action: script.check_category_1_monthly_peak
+                data:
+                  baseline: "{{ states('sensor.dynamic_power_sensor') }}"
+          - conditions:
+              - condition: state
+                entity_id: input_number.peak_day_2
+                state: "0"
+            sequence:
+              - action: script.check_category_1_monthly_peak
+                data:
+                  # Average of peak_day_1 and current measurement
+                  baseline: "{{ ((states('input_number.peak_day_1') | float) * 1000 + states('sensor.dynamic_power_sensor') | float) / 2 }}"
+          - conditions:
+              - condition: state
+                entity_id: input_number.peak_day_3
+                state: "0"
+            sequence:
+              - action: script.check_category_1_monthly_peak
+                data:
+                  # Average of peak_day_1, peak_day_2, and current measurement
+                  baseline: "{{ ((states('input_number.peak_day_1') | float) * 1000 + (states('input_number.peak_day_2') | float) * 1000 + states('sensor.dynamic_power_sensor') | float) / 3 }}"
+        default:
+          - action: script.check_category_1_monthly_peak
+    mode: single
+
+  check_category_1_monthly_peak:
+    alias: Check Monthly Peak for Category 1
+    sequence:
+      - action: logbook.log
+        data:
+          name: "Power Management"
+          message: "Checking monthly peak for Category 1"
+      - condition: template
+        # Multiply monthly peak energy by 1000 to convert from kW to W
+        value_template: "{{ states('sensor.dynamic_power_sensor') | float(0) > (states('input_number.monthly_peak_energy') | float(0) * 1000) }}"
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ states('sensor.dynamic_power_sensor') | float(0) > (states('input_number.monthly_peak_energy') | float(0) * 1000) }}"
+            sequence:
+              - action: script.calculate_power_gap_to_turn_off
+          - conditions:
+              - condition: template
+                value_template: "{{ not (states('sensor.dynamic_power_sensor') | float(0) > (states('input_number.monthly_peak_energy') | float(0) * 1000)) }}"
+            sequence:
+              - action: script.notify_insufficient_power_category_1
+    mode: single
+
+  calculate_power_gap_to_turn_off:
+    alias: Calculate Power Gap to Turn Off Devices in Category 1
+    sequence:
+      - delay: "00:00:01"
+      - action: logbook.log
+        data:
+          name: "Power Management"
+          message: "Starting power gap calculation. Initial power_gap: {{ states('sensor.dynamic_power_sensor') | float(0) - (states('input_number.energy_target') | float(0) * 1000) }} W"
+      - variables:
+          category_1_devices: "{{ state_attr('input_select.category_1_devices', 'options') | select('!=', 'No devices added') | list }}"
+          power_gap: "{{ states('sensor.dynamic_power_sensor') | float(0) - (states('input_number.energy_target') | float(0) * 1000) }}"
+      - repeat:
+          count: 20 # Maximum devices to iterate
+          sequence:
+            - variables:
+                entity_id: "{{ category_1_devices[repeat.index - 1] if repeat.index - 1 < category_1_devices | length else None }}"
+                input_boolean_id: "input_boolean.device_turned_off_{{ repeat.index }}"
+                input_text_id: "input_text.hvac_mode_{{ repeat.index }}" # Corresponding input_text for HVAC mode
+                power_sensor: "{{ 'sensor.' ~ entity_id.split('.')[1] ~ '_power' if entity_id else None }}"
+                device_power: "{{ states(power_sensor) | float(0) if power_sensor else 0 }}"
+                hvac_mode: >
+                  {% set mode = state_attr(entity_id, 'hvac_mode') %}
+                  {% if mode in ['off', 'dry', 'heat', 'auto', 'heat/cool', 'fan only', 'cool'] %}
+                    {{ mode }}
+                  {% else %}
+                    'off'
+                  {% endif %}
+
+            # Check conditions to proceed with turning off the device
+            - condition: template
+              value_template: "{{ entity_id is not none and power_gap > 0 and device_power > 0 }}"
+
+            # Determine action based on entity type and turn off the device
+            - choose:
+                - conditions:
+                    - condition: template
+                      value_template: "{{ entity_id.startswith('climate.') }}"
+                  sequence:
+                    # Save the current HVAC mode to input_text before turning off
+                    - action: input_text.set_value
+                      target:
+                        entity_id: "{{ input_text_id }}"
+                      data:
+                        value: "{{ hvac_mode | string }}" # Ensuring mode is stored as a simple string
+                    # Turn off the HVAC entity
+                    - action: climate.set_hvac_mode
+                      target:
+                        entity_id: "{{ entity_id }}"
+                      data:
+                        hvac_mode: "off"
+                    - action: logbook.log
+                      data:
+                        name: "Power Management"
+                        message: "Turning off {{ entity_id }} (climate entity) to reduce power by {{ device_power }} W. Current power gap before turn-off: {{ power_gap }} W"
+
+                - conditions:
+                    - condition: template
+                      value_template: "{{ entity_id.startswith('switch.') }}"
+                  sequence:
+                    - action: homeassistant.turn_off
+                      target:
+                        entity_id: "{{ entity_id }}"
+                    - action: logbook.log
+                      data:
+                        name: "Power Management"
+                        message: "Turning off {{ entity_id }} (switch entity) to reduce power by {{ device_power }} W. Current power gap before turn-off: {{ power_gap }} W"
+
+            # Set the input boolean to 'on' to track the turned-off status
+            - action: input_boolean.turn_on
+              target:
+                entity_id: "{{ input_boolean_id }}"
+
+            # Log action and update power gap after device turn-off
+            - action: logbook.log
+              data:
+                name: "Power Management"
+                message: "Device {{ entity_id }} turned off. Updated power gap after turn-off: {{ power_gap }} W"
+
+            # Recalculate power gap after each turn-off action
+            - variables:
+                power_gap: "{{ states('sensor.dynamic_power_sensor') | float(0) - (states('input_number.energy_target') | float(0) * 1000) }}"
+            - delay: "00:00:15"
+
+  calculate_power_gap_to_turn_on:
+    alias: Turn On Devices After Power Gap Is Resolved
+    sequence:
+      - variables:
+          category_1_devices: "{{ state_attr('input_select.category_1_devices', 'options') | select('!=', 'No devices added') | list }}"
+      - repeat:
+          count: 20 # Maximum devices to iterate
+          sequence:
+            - variables:
+                entity_id: "{{ category_1_devices[repeat.index - 1] if repeat.index - 1 < category_1_devices | length else None }}"
+                input_boolean_id: "input_boolean.device_turned_off_{{ repeat.index }}"
+
+            # Only proceed if the device's input boolean is 'on', indicating it was turned off by the automation
+            - condition: template
+              value_template: "{{ is_state(input_boolean_id, 'on') }}"
+
+            # Choose action to turn device back on based on its type
+            - choose:
+                - conditions:
+                    - condition: template
+                      value_template: "{{ entity_id.startswith('climate.') }}"
+                  sequence:
+                    - action: climate.set_hvac_mode
+                      target:
+                        entity_id: "{{ entity_id }}"
+                      data:
+                        hvac_mode: "auto"
+                    - action: logbook.log
+                      data:
+                        name: "Power Management"
+                        message: "Turning on {{ entity_id }} (climate entity) as power usage is within target."
+
+                - conditions:
+                    - condition: template
+                      value_template: "{{ entity_id.startswith('switch.') }}"
+                  sequence:
+                    - action: homeassistant.turn_on
+                      target:
+                        entity_id: "{{ entity_id }}"
+                    - action: logbook.log
+                      data:
+                        name: "Power Management"
+                        message: "Turning on {{ entity_id }} (switch entity) as power usage is within target."
+
+            # Reset the input boolean to 'off' after turning the device back on
+            - action: input_boolean.turn_off
+              target:
+                entity_id: "{{ input_boolean_id }}"
