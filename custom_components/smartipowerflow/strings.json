@@ -1,0 +1,10 @@
+{
+    "config": {
+        "step": {
+            "user": {
+                "title": "SMARTi PowerFlow™ Setup",
+                "description": "Before usage, please ensure you have an active subscription to SMARTi PowerFlow™. You can purchase a subscription here: [SMARTi PowerFlow™]({subscription_url})."
+            }
+        }
+    }
+}
