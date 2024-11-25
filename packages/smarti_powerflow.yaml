@@ -363,6 +363,13 @@ input_boolean:
   device_turned_off_20:
     name: Device Turned Off 20
 
+  mode_pris:
+    name: Nettleie
+  mode_nettleie:
+    name: Pris
+  mode_flex:
+    name: Flex    
+
   ###### POWER FLOW DASHBOARD RELATED #################################
   advanced_mode_view:
     name: Advanced View
