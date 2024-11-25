@@ -1,43 +1,16 @@
 views:
-  - title: Home
+  - title: SMARTi PowerFlow™
     cards:
       - type: custom:gap-card
-      - type: horizontal-stack
-        cards:
-          - type: custom:mushroom-title-card
-            title: PowerFlow™
-            subtitle: Gjør smart strømstyring enkelt
-          - type: custom:button-card
-            name: null
-            tap_action:
-              action: none
-            styles:
-              card:
-                - background-color: transparent
-                - background-image: url('https://i.postimg.cc/FR44CnTF/Power-Flow-Logo.png')
-                - background-size: cover
-                - background-position: center
-                - border-radius: 8px
-                - border: 1px solid rgba(0, 0, 0, 0.1)
-                - padding: 8px 12px
-                - margin: 4px
-                - height: 100px
-                - width: 100px
-                - display: flex
-                - align-items: center
-                - justify-content: center
-                - text-align: center
-              name:
-                - color: white
-                - font-size: 16px
-                - font-weight: bold
-                - text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5)
-          - type: custom:gap-card
         visibility:
           - condition: screen
             media_query: '(min-width: 768px)'
-      - type: vertical-stack
+      - type: horizontal-stack
         cards:
+          - type: custom:mushroom-title-card
+            title: SMARTi PowerFlow™
+            subtitle: 'Velg aktive PowerFlow moduser:'
+          - type: custom:gap-card
           - type: custom:button-card
             name: null
             tap_action:
@@ -45,11 +18,12 @@ views:
             styles:
               card:
                 - background-color: transparent
-                - background-image: url('https://i.postimg.cc/FR44CnTF/Power-Flow-Logo.png')
+                - background-image: >-
+                    url('https://i.postimg.cc/3JQD604C/Powwe-Flo-Logo-drawio.png')
                 - background-size: cover
                 - background-position: center
                 - border-radius: 8px
-                - border: 1px solid rgba(0, 0, 0, 0.1)
+                - border: 0px solid rgba(0, 0, 0, 0.1)
                 - padding: 8px 12px
                 - margin: 4px
                 - height: 100px
@@ -63,14 +37,48 @@ views:
                 - font-size: 16px
                 - font-weight: bold
                 - text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5)
+        visibility:
+          - condition: screen
+            media_query: '(min-width: 768px)'
+      - type: horizontal-stack
+        cards:
           - type: custom:mushroom-title-card
-            title: PowerFlow™
-            subtitle: Gjør smart strømstyring enkelt
-          - type: custom:gap-card
+            title: SMARTi PowerFlow™
+            subtitle: 'Velg aktive PowerFlow moduser:'
+          - type: custom:button-card
+            name: null
+            tap_action:
+              action: none
+            styles:
+              card:
+                - background-color: transparent
+                - background-image: >-
+                    url('https://i.postimg.cc/3JQD604C/Powwe-Flo-Logo-drawio.png')
+                - background-size: cover
+                - background-position: center
+                - border-radius: 8px
+                - border: 0px solid rgba(0, 0, 0, 0.1)
+                - padding: 8px 12px
+                - margin: 4px
+                - margin-top: 40px
+                - height: 50px
+                - width: 50px
+                - display: flex
+                - align-items: center
+                - justify-content: center
+                - text-align: center
+              name:
+                - color: white
+                - font-size: 16px
+                - font-weight: bold
+                - text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.5)
         visibility:
           - condition: screen
             media_query: '(min-width: 0px) and (max-width: 767px)'
       - type: custom:gap-card
+        visibility:
+          - condition: screen
+            media_query: '(min-width: 768px)'
       - type: horizontal-stack
         cards:
           - type: custom:gap-card
@@ -87,7 +95,7 @@ views:
               card:
                 - background-color: >
                     [[[ return states['input_boolean.mode_nettleie'].state ==
-                    'on' ? '#39c015' : '#E0E0E0'; ]]]
+                    'on' ? 'var(--primary-color)' : 'var(--disabled-color)'; ]]]
                 - color: >
                     [[[ return states['input_boolean.mode_nettleie'].state ==
                     'on' ? 'white' : '#424242'; ]]]
@@ -122,7 +130,7 @@ views:
               card:
                 - background-color: >
                     [[[ return states['input_boolean.mode_pris'].state == 'on' ?
-                    '#39c015' : '#E0E0E0'; ]]]
+                    'var(--primary-color)' : 'var(--disabled-color)'; ]]]
                 - color: >
                     [[[ return states['input_boolean.mode_pris'].state == 'on' ?
                     'white' : '#424242'; ]]]
@@ -158,7 +166,7 @@ views:
             custom_fields:
               overlay: >
                 [[[ return states['input_boolean.mode_flex'].state == 'off' ?
-                'Kommer snart...' : ''; ]]]
+                'Kommer snart' : ''; ]]]
             styles:
               card:
                 - background-color: >
@@ -208,6 +216,10 @@ views:
         visibility:
           - condition: screen
             media_query: '(min-width: 768px)'
+      - type: custom:gap-card
+        visibility:
+          - condition: screen
+            media_query: '(min-width: 768px)'
       - type: horizontal-stack
         cards:
           - type: custom:button-card
@@ -223,7 +235,7 @@ views:
               card:
                 - background-color: >
                     [[[ return states['input_boolean.mode_nettleie'].state ==
-                    'on' ? '#39c015' : '#E0E0E0'; ]]]
+                    'on' ? 'var(--primary-color)' : 'var(--disabled-color)'; ]]]
                 - color: >
                     [[[ return states['input_boolean.mode_nettleie'].state ==
                     'on' ? 'white' : '#424242'; ]]]
@@ -258,7 +270,7 @@ views:
               card:
                 - background-color: >
                     [[[ return states['input_boolean.mode_pris'].state == 'on' ?
-                    '#39c015' : '#E0E0E0'; ]]]
+                    'var(--primary-color)' : 'var(--disabled-color)'; ]]]
                 - color: >
                     [[[ return states['input_boolean.mode_pris'].state == 'on' ?
                     'white' : '#424242'; ]]]
@@ -294,7 +306,7 @@ views:
             custom_fields:
               overlay: >
                 [[[ return states['input_boolean.mode_flex'].state == 'off' ?
-                'Kommer snart...' : ''; ]]]
+                'Kommer snart' : ''; ]]]
             styles:
               card:
                 - background-color: >
@@ -343,7 +355,53 @@ views:
         visibility:
           - condition: screen
             media_query: '(min-width: 0px) and (max-width: 767px)'
+      - type: custom:button-card
+        styles:
+          card:
+            - height: 5px
+            - max-height: 10px
+            - padding: 0
+            - margin: 0
+            - background-color: var(--primary-color);
+        card_mod:
+          style: |
+            ha-card {
+              border-radius: 1px;
+              height: 2px;
+              max-height: 2px;
+              padding: 0;
+              margin: 0;
+              background: var(--primary-color);
+            }
+      - type: horizontal-stack
+        cards:
+          - type: custom:mushroom-entity-card
+            entity: sensor.power_saver_status
+            name: Billigste time
+            icon_color: primary
+            layout: vertical
+          - type: custom:mushroom-entity-card
+            entity: sensor.effective_electricity_price
+            icon: mdi:currency-usd
+            icon_color: primary
+            layout: vertical
+            name: Effektiv Strømpris
+          - type: custom:mushroom-entity-card
+            entity: sensor.current_energy_level
+            icon: mdi:currency-usd
+            name: Nåværende Energinivå
+            icon_color: primary
+            layout: vertical
+          - type: custom:mushroom-entity-card
+            entity: input_number.energy_target
+            icon: mdi:currency-usd
+            name: Brukervalgt energinivå
+            icon_color: primary
+            layout: vertical
       - type: custom:gap-card
+        visibility:
+          - condition: screen
+            media_query: '(min-width: 0px)'
       - type: custom:mod-card
         card_mod:
           style:
@@ -376,30 +434,9 @@ views:
               card:
                 type: vertical-stack
                 cards:
-                  - type: horizontal-stack
-                    cards:
-                      - type: custom:mushroom-entity-card
-                        entity: sensor.power_saver_status
-                        name: Powersaver
-                        icon_color: primary
-                        layout: vertical
-                      - type: custom:mushroom-entity-card
-                        entity: sensor.effective_electricity_price
-                        icon: mdi:currency-usd
-                        icon_color: primary
-                        layout: vertical
-                      - type: custom:mushroom-entity-card
-                        entity: sensor.current_energy_level
-                        icon: mdi:currency-usd
-                        name: Nåværende Energinivå
-                        icon_color: primary
-                        layout: vertical
-                      - type: custom:mushroom-entity-card
-                        entity: input_number.energy_target
-                        icon: mdi:currency-usd
-                        name: Brukervalgt energinivå
-                        icon_color: primary
-                        layout: vertical
+                  - type: custom:mushroom-title-card
+                    title: Nettleie
+                    subtitle: Styrer enheter kun basert på satt effektledd
                   - type: custom:mushroom-title-card
                     title: null
                     subtitle: Smart Nettleiestyring
@@ -412,7 +449,7 @@ views:
                         icon: mdi:flash
                       - entity: sensor.non_controllable_power_percentage
                         name: Ikke-Styrbar Effekt
-                        color: rgba(255, 152, 0, 0.85)
+                        color: var(--primary-color)
                         icon: mdi:power-plug-off
                     max: 100
                     height: 40px
@@ -454,71 +491,58 @@ views:
                     layout: vertical
                     name: Gjenstående kW/h (for ikke å bryte effektledd)
                     fill_container: false
-                  - type: custom:apexcharts-card
-                    graph_span: 1h
-                    update_interval: 1s
-                    header:
-                      show: true
-                      title: Forbruk (Siste time)
-                      show_states: true
-                      colorize_states: true
-                    series:
-                      - entity: sensor.dynamic_power_kw
-                        name: Nåværende Forbruk
-                        type: line
-                        color: green
-                        stroke_width: 2
-                      - entity: input_number.energy_target
-                        name: Kapasitetsmål (kWh)
-                        type: line
-                        color: var(--primary-color)
-                        stroke_width: 2
-                      - entity: sensor.remaining_energy
-                        name: Kapasitetsmål (kWh)
-                        type: line
-                        color: var(--accent-color)
-                        stroke_width: 2
-                    yaxis:
-                      - min: 0
-                        decimals: 1
-                    apex_config:
-                      chart:
-                        height: 300
-                      plotOptions:
-                        line:
-                          curve: smooth
-                      legend:
+                  - type: conditional
+                    conditions:
+                      - entity: input_boolean.advanced_mode_view
+                        state: 'on'
+                    card:
+                      type: custom:apexcharts-card
+                      graph_span: 1h
+                      update_interval: 1s
+                      header:
                         show: true
+                        title: Forbruk (Siste time)
+                        show_states: true
+                        colorize_states: true
+                      series:
+                        - entity: sensor.dynamic_power_kw
+                          name: Nåværende Forbruk
+                          type: line
+                          color: green
+                          stroke_width: 2
+                        - entity: input_number.energy_target
+                          name: Kapasitetsmål (kWh)
+                          type: line
+                          color: var(--primary-color)
+                          stroke_width: 2
+                        - entity: sensor.remaining_energy
+                          name: Kapasitetsmål (kWh)
+                          type: line
+                          color: var(--accent-color)
+                          stroke_width: 2
+                        - entity: sensor.hourly_energy_usage_divided
+                          name: Forbruk denne timen
+                          type: line
+                          color: var(--primary-color)
+                          stroke_width: 2
+                      yaxis:
+                        - min: 0
+                          decimals: 1
+                      apex_config:
+                        chart:
+                          height: 300
+                        plotOptions:
+                          line:
+                            curve: smooth
+                        legend:
+                          show: true
                   - type: custom:mushroom-title-card
                     title: Enheter
-                    subtitle: Enheter som styres etter nettleie
+                    subtitle: Viser statusen til enheter som styres etter nettleie
                   - type: horizontal-stack
                     cards:
                       - type: vertical-stack
                         cards:
-                          - type: entities
-                            entities:
-                              - entity: input_select.new_category_1_device
-                                name: Select Device to Add
-                          - type: custom:button-card
-                            name: Legg til enhet
-                            icon: mdi:plus-circle
-                            tap_action:
-                              action: call-service
-                              service: input_button.press
-                              service_data:
-                                entity_id: input_button.add_device_category_1_button
-                            styles:
-                              card:
-                                - background-color: green
-                                - color: white
-                                - height: 50px
-                                - display: flex
-                                - align-items: center
-                                - justify-content: center
-                              name:
-                                - font-size: 14px
-                                - font-weight: bold
                           - type: custom:auto-entities
                             card:
                               title: Devices in Category 1
@@ -551,29 +575,6 @@ views:
                             debug: true
                       - type: vertical-stack
                         cards:
-                          - type: entities
-                            entities:
-                              - entity: input_select.delete_category_1_device
-                                name: Select Device to Delete
-                          - type: custom:button-card
-                            name: Confirm Deletion
-                            icon: mdi:delete
-                            tap_action:
-                              action: call-service
-                              service: input_button.press
-                              service_data:
-                                entity_id: input_button.delete_category_1_device_button
-                            styles:
-                              card:
-                                - background-color: red
-                                - color: white
-                                - height: 50px
-                                - display: flex
-                                - align-items: center
-                                - justify-content: center
-                              name:
-                                - font-size: 14px
-                                - font-weight: bold
                           - type: custom:auto-entities
                             card:
                               title: Category 1 Device Power Consumption
@@ -606,69 +607,98 @@ views:
                               secondary_info: state
                             debug: true
                   - type: custom:mushroom-title-card
-                    title: Inntillinger
-                    subtitle: Innstillinger for smart nettleietyring
-                  - type: custom:numberbox-card
-                    border: true
-                    entity: input_number.energy_target
-                    name: false
-                    card_mod:
-                      style: |
-                        .cur-num{font-size:35px !important}
-                        ha-card {
-                          border-radius: 15px;
-                          padding: 12px;
-                          backdrop-filter: blur(6px);
-                          color: var(--primary-text-color);
-                          display: flex;
-                          flex-direction: column;
-                          align-items: center;
-                        }
-                        .body {
-                          display: block !important;
-                          font-size: 1em;
-                          font-weight: bold;
-                          color: var(--primary-color);
-                          margin-top: 8px;
-                        }
-                        .body::after {
-                          content: "Kilowattgrense per time";
-                          font-size: 1em;
-                          font-weight: 500;
-                          color: var(--secondary-text-color);
-                          margin-top: 6px;
-                          display: block;
-                          text-transform: uppercase;
-                          letter-spacing: 0.05em;
-                        }              
-                  - type: custom:mushroom-title-card
-                    title: Forbruk
-                    subtitle: Forbruk for enheter stryt av Nettleie
-                  - type: custom:auto-entities
+                    title: Legg til / fjern enhet
+                    subtitle: Enheter som styres etter nettleie
+                  - type: horizontal-stack
+                    cards:
+                      - type: vertical-stack
+                        cards:
+                          - type: entities
+                            entities:
+                              - entity: input_select.new_category_1_device
+                                name: Select Device to Add
+                          - type: custom:button-card
+                            name: Legg til enhet
+                            icon: mdi:plus-circle
+                            tap_action:
+                              action: call-service
+                              service: input_button.press
+                              service_data:
+                                entity_id: input_button.add_device_category_1_button
+                            styles:
+                              card:
+                                - background-color: rgba(76, 175, 80, 0.85)
+                                - color: white
+                                - height: 50px
+                                - display: flex
+                                - align-items: center
+                                - justify-content: center
+                              name:
+                                - font-size: 14px
+                                - font-weight: bold
+                      - type: vertical-stack
+                        cards:
+                          - type: entities
+                            entities:
+                              - entity: input_select.delete_category_1_device
+                                name: Select Device to Delete
+                          - type: custom:button-card
+                            name: Slett Enhet
+                            icon: mdi:delete
+                            tap_action:
+                              action: call-service
+                              service: input_button.press
+                              service_data:
+                                entity_id: input_button.delete_category_1_device_button
+                            styles:
+                              card:
+                                - background-color: red
+                                - color: white
+                                - height: 50px
+                                - display: flex
+                                - align-items: center
+                                - justify-content: center
+                              name:
+                                - font-size: 14px
+                                - font-weight: bold
+                  - type: conditional
+                    conditions:
+                      - entity: input_boolean.advanced_mode_view
+                        state: 'on'
                     card:
-                      title: Category 1 Device Power Consumption
-                      type: history-graph
-                      hours_to_show: 24
-                      refresh_interval: 60
-                    filter:
-                      template: >
-                        {% set entities_str = [
-                          states('sensor.category_1_device_power_entities_part1'),
-                          states('sensor.category_1_device_power_entities_part2'),
-                          states('sensor.category_1_device_power_entities_part3'),
-                          states('sensor.category_1_device_power_entities_part4')
-                        ] | join(',') %} {% set exclude_entities = ['No power
-                        sensors available', 'unknown', '', None] %} {% set
-                        entity_list = entities_str.split(',') | map('trim') |
-                        list %} {% set entity_ids = entity_list | reject('in',
-                        exclude_entities) | list %} {% set entities =
-                        expand(entity_ids)
-                          | rejectattr('state', 'equalto', 'unavailable')
-                          | sort(attribute='attributes.friendly_name' or 'entity_id')
-                          | map(attribute='entity_id')
-                          | list %}
-                        {{ entities }}
-                    debug: true
+                      type: custom:mushroom-title-card
+                      title: Forbruk
+                      subtitle: Forbruk for enheter stryt av Nettleie
+                  - type: conditional
+                    conditions:
+                      - entity: input_boolean.advanced_mode_view
+                        state: 'on'
+                    card:
+                      type: custom:auto-entities
+                      card:
+                        title: Category 1 Device Power Consumption
+                        type: history-graph
+                        hours_to_show: 24
+                        refresh_interval: 60
+                      filter:
+                        template: >
+                          {% set entities_str = [
+                            states('sensor.category_1_device_power_entities_part1'),
+                            states('sensor.category_1_device_power_entities_part2'),
+                            states('sensor.category_1_device_power_entities_part3'),
+                            states('sensor.category_1_device_power_entities_part4')
+                          ] | join(',') %} {% set exclude_entities = ['No power
+                          sensors available', 'unknown', '', None] %} {% set
+                          entity_list = entities_str.split(',') | map('trim') |
+                          list %} {% set entity_ids = entity_list | reject('in',
+                          exclude_entities) | list %} {% set entities =
+                          expand(entity_ids)
+                            | rejectattr('state', 'equalto', 'unavailable')
+                            | sort(attribute='attributes.friendly_name' or 'entity_id')
+                            | map(attribute='entity_id')
+                            | list %}
+                          {{ entities }}
+                      debug: true
             - attributes:
                 label: Pris
                 icon: mdi:currency-usd
@@ -682,13 +712,6 @@ views:
                       - type: custom:mushroom-title-card
                         title: Pris
                         subtitle: Styr kun etter pris
-                      - type: entities
-                        title: Electricity Price Controls
-                        entities:
-                          - entity: input_select.price_zone
-                            name: Price Zone
-                          - entity: input_boolean.include_vat
-                            name: Include VAT
                   - type: custom:apexcharts-card
                     graph_span: 48h
                     header:
@@ -901,128 +924,148 @@ views:
                     title: Ops...
                     subtitle: Flex er ikke tiljgengelig for øyeblikket.
             - attributes:
-                label: Innstillinger
+                label: PowerFlow™ innstillinger
                 icon: mdi:cog
-                isFadingIndicator: true
-                isMinWidthIndicator: true
               card:
-                type: horizontal-stack
+                type: vertical-stack
                 cards:
-                  - type: vertical-stack
+                  - type: custom:mushroom-title-card
+                    title: PowerFlow™ Settings
+                    subtitle: Power specific settings
+                  - type: entities
+                    entities:
+                      - entity: input_boolean.advanced_mode_view
+                        name: Avansert visning
+                  - type: horizontal-stack
                     cards:
-                      - type: entities
-                        entities:
-                          - entity: input_select.new_category_1_device
-                            name: Select Device to Add
-                      - type: custom:button-card
-                        name: Legg til enhet
-                        icon: mdi:plus-circle
+                      - type: custom:mushroom-select-card
+                        entity: input_select.home_power_measurement_device
+                        icon_color: primary
+                        primary_info: name
+                        secondary_info: last-changed
+                        name: Strømmålerliste
+                      - type: custom:mushroom-template-card
+                        primary: Klikk for å oppdatere strømmålerlisten
+                        secondary: >
+                          Sist Oppdatert: {% set last_triggered =
+                          state_attr('automation.update_power_measurement_device_list',
+                          'last_triggered') %} {% if last_triggered %}
+                            {% set time_diff = (now() - last_triggered).total_seconds() %}
+                            {% if time_diff < 60 %}
+                              {{ time_diff | round }} seconds ago
+                            {% elif time_diff < 3600 %}
+                              {{ (time_diff / 60) | round }} minutes ago
+                            {% elif time_diff < 86400 %}
+                              {{ (time_diff / 3600) | round }} hours ago
+                            {% else %}
+                              {{ (time_diff / 86400) | round }} days ago
+                            {% endif %}
+                          {% else %}
+                            Never triggered
+                          {% endif %}
+                        icon: mdi:lightning-bolt
+                        badge_icon: mdi:update
+                        badge_color: primary
                         tap_action:
                           action: call-service
-                          service: input_button.press
+                          service: automation.trigger
                           service_data:
-                            entity_id: input_button.add_device_category_1_button
-                        styles:
-                          card:
-                            - background-color: green
-                            - color: white
-                            - height: 50px
-                            - display: flex
-                            - align-items: center
-                            - justify-content: center
-                          name:
-                            - font-size: 14px
-                            - font-weight: bold
-                      - type: custom:auto-entities
-                        card:
-                          title: Devices in Category 1
-                          type: custom:layout-card
-                          layout_type: grid
-                          card_param: cards
-                        filter:
-                          template: >
-                            {% set entities_str = [
-                              states('sensor.category_1_device_entities_part1'),
-                              states('sensor.category_1_device_entities_part2'),
-                              states('sensor.category_1_device_entities_part3'),
-                              states('sensor.category_1_device_entities_part4')
-                            ] | join(',') %} {% set exclude_entities = ['No
-                            devices added', 'unknown', '', None] %} {% set
-                            entity_ids = entities_str.split(',') | map('trim') |
-                            reject('in', exclude_entities) | list %} {% set
-                            entities = expand(entity_ids)
-                              | rejectattr('state', 'equalto', 'unavailable')
-                              | sort(attribute='attributes.friendly_name')
-                              | map(attribute='entity_id')
-                              | list %}
-                            {{ entities }}
-                        card_options:
-                          type: custom:mushroom-entity-card
-                          layout: horizontal
-                          fill_container: true
-                          primary_info: name
-                          secondary_info: state
-                        debug: true
-                  - type: vertical-stack
-                    cards:
-                      - type: entities
-                        entities:
-                          - entity: input_select.delete_category_1_device
-                            name: Select Device to Delete
-                      - type: custom:button-card
-                        name: Confirm Deletion
-                        icon: mdi:delete
-                        tap_action:
-                          action: call-service
-                          service: input_button.press
-                          service_data:
-                            entity_id: input_button.delete_category_1_device_button
-                        styles:
-                          card:
-                            - background-color: red
-                            - color: white
-                            - height: 50px
-                            - display: flex
-                            - align-items: center
-                            - justify-content: center
-                          name:
-                            - font-size: 14px
-                            - font-weight: bold
-                      - type: custom:auto-entities
-                        card:
-                          title: Category 1 Device Power Consumption
-                          type: custom:layout-card
-                          layout_type: grid
-                          card_param: cards
-                        filter:
-                          template: >
-                            {% set entities_str = [
-                              states('sensor.category_1_device_power_entities_part1'),
-                              states('sensor.category_1_device_power_entities_part2'),
-                              states('sensor.category_1_device_power_entities_part3'),
-                              states('sensor.category_1_device_power_entities_part4')
-                            ] | join(',') %} {% set exclude_entities = ['No
-                            power sensors available', 'unknown', '', None] %} {%
-                            set entity_list = entities_str.split(',') |
-                            map('trim') | list %} {% set entity_ids =
-                            entity_list | reject('in', exclude_entities) | list
-                            %} {% set entities = expand(entity_ids)
-                              | rejectattr('state', 'equalto', 'unavailable')
-                              | sort(attribute='attributes.friendly_name')
-                              | map(attribute='entity_id')
-                              | list %}
-                            {{ entities }}
-                        card_options:
-                          type: custom:mushroom-entity-card
-                          layout: horizontal
-                          fill_container: true
-                          primary_info: name
-                          secondary_info: state
-                        debug: true
-      - type: entities
-        entities:
-          - entity: input_number.cheapest_hours
-            name: Select Cheapest Hours
+                            entity_id: automation.update_power_measurement_device_list
+                        fill_container: true
+                        layout: vertical
+                        card_mod:
+                          style: |
+                            ha-card {
+                              --ha-card-background: var(--ha-card-background) !important;
+                            }
+                  - type: custom:mushroom-select-card
+                    entity: input_select.frequency_hz
+                    icon_color: primary
+                    primary_info: name
+                    secondary_info: last-changed
+                    name: Frekvens (Hz)
+                  - type: custom:mushroom-select-card
+                    entity: input_select.phases_selection
+                    icon_color: primary
+                    primary_info: name
+                    secondary_info: last-changed
+                    name: Faser
+                  - type: custom:mushroom-select-card
+                    entity: input_select.main_fuse_size
+                    icon_color: primary
+                    primary_info: name
+                    secondary_info: last-changed
+                    name: Hovedsikring (A)
+                  - type: custom:mushroom-select-card
+                    entity: input_select.voltage_level
+                    icon_color: primary
+                    primary_info: name
+                    secondary_info: last-changed
+                    name: Spenningsnivå (V)
+                  - type: custom:mushroom-select-card
+                    entity: input_select.stromsoner
+                    name: Strømsone
+                    icon_color: primary
+                    primary_info: name
+                  - type: custom:mushroom-select-card
+                    entity: input_select.nettselskap
+                    icon_color: primary
+                  - type: entities
+                    entities:
+                      - entity: input_boolean.advanced_mode_view
+                        name: Avansert visning
+                  - type: custom:mushroom-title-card
+                    title: Inntillinger Nettleie
+                    subtitle: Innstillinger for smart nettleietyring
+                  - type: custom:numberbox-card
+                    border: true
+                    entity: input_number.energy_target
+                    name: false
+                    card_mod:
+                      style: |
+                        .cur-num{font-size:35px !important}
+                        ha-card {
+                          border-radius: 15px;
+                          padding: 12px;
+                          backdrop-filter: blur(6px);
+                          color: var(--primary-text-color);
+                          display: flex;
+                          flex-direction: column;
+                          align-items: center;
+                        }
+                        .body {
+                          display: block !important;
+                          font-size: 1em;
+                          font-weight: bold;
+                          color: var(--primary-color);
+                          margin-top: 8px;
+                        }
+                        .body::after {
+                          content: "Kilowattgrense per time";
+                          font-size: 1em;
+                          font-weight: 500;
+                          color: var(--secondary-text-color);
+                          margin-top: 6px;
+                          display: block;
+                          text-transform: uppercase;
+                          letter-spacing: 0.05em;
+                        }        
+                  - type: custom:mushroom-title-card
+                    title: Inntillinger Pris
+                    subtitle: Innstillinger for smart prisstyring
+                  - type: entities
+                    entities:
+                      - entity: input_number.cheapest_hours
+                        name: Antall timer for billig strøm
+                  - type: entities
+                    title: Electricity Price Controls
+                    entities:
+                      - entity: input_select.price_zone
+                        name: Price Zone
+                      - entity: input_boolean.include_vat
+                        name: Include VAT
+      - type: entity
+        entity: sensor.hourly_energy_usage
     badges:
       - type: custom:button-card
         name: Update Device Options
@@ -1049,216 +1092,5 @@ views:
     layout:
       max_width: 2000
       max_cols: 1
-  - title: Electricity Prices Dashboard
-    cards:
-      - type: entities
-        title: Electricity Price Controls
-        entities:
-          - entity: input_select.price_zone
-            name: Price Zone
-          - entity: input_boolean.include_vat
-            name: Include VAT
-      - type: custom:apexcharts-card
-        graph_span: 48h
-        header:
-          title: Electricity Prices
-          show: true
-        span:
-          start: day
-        apex_config:
-          chart:
-            height: 390px
-        now:
-          show: true
-          label: Now
-        experimental:
-          color_threshold: true
-        yaxis:
-          - id: price
-            opposite: false
-            decimals: 2
-            min: 0
-            apex_config:
-              tickAmount: 5
-              labels:
-                show: true
-              legend:
-                show: false
-          - id: powersaver
-            opposite: true
-            decimals: 0
-            min: 0
-            max: 1
-            apex_config:
-              tickAmount: 7
-              labels:
-                show: true
-              legend:
-                show: true
-        series:
-          - entity: sensor.effective_electricity_price
-            name: Effective Electricity Price
-            opacity: 1
-            float_precision: 2
-            extend_to: now
-            yaxis_id: price
-            curve: smooth
-            color: red
-            stroke_width: 2
-            show:
-              legend_value: false
-              in_header: true
-              name_in_header: false
-              datalabels: false
-            data_generator: |
-              const data = entity.attributes.hours.map(hour => {
-                return [new Date(hour.start), hour.price];
-              });
-              return data;
-          - entity: sensor.nordpool_price
-            name: Nordpool Price
-            opacity: 1
-            float_precision: 2
-            extend_to: now
-            yaxis_id: price
-            curve: smooth
-            color: '#6B9EFF'
-            stroke_width: 2
-            show:
-              legend_value: false
-              in_header: true
-              name_in_header: false
-              datalabels: false
-            data_generator: |
-              const data = entity.attributes.hours.map(hour => {
-                return [new Date(hour.start), hour.price];
-              });
-              return data;
-          - entity: sensor.government_support
-            name: Government Support
-            opacity: 1
-            float_precision: 2
-            extend_to: now
-            yaxis_id: price
-            curve: stepline
-            color: green
-            stroke_width: 1
-            show:
-              legend_value: false
-              in_header: true
-              name_in_header: false
-              datalabels: false
-            data_generator: |
-              const data = entity.attributes.hours.map(hour => {
-                return [new Date(hour.start), hour.price];
-              });
-              return data;
-          - entity: sensor.grid_tariff
-            name: Grid Tariff
-            opacity: 1
-            float_precision: 2
-            extend_to: now
-            yaxis_id: price
-            curve: stepline
-            color: '#FF8800'
-            stroke_width: 3
-            show:
-              legend_value: false
-              in_header: true
-              name_in_header: false
-              datalabels: false
-            data_generator: |
-              const data = entity.attributes.hours.map(hour => {
-                return [new Date(hour.start), hour.price];
-              });
-              return data;
-      - type: custom:apexcharts-card
-        header:
-          show: true
-          title: Pris i dag + Forbruk + Powersaver
-        now:
-          show: true
-          label: Nå
-        graph_span: 2d
-        span:
-          start: day
-        apex_config:
-          chart:
-            height: 400px
-          stroke:
-            width: 2
-          dataLabels:
-            enabled: true
-          fill:
-            type: solid
-          legend:
-            show: true
-          yaxis:
-            - id: price
-              show: true
-              min: 0
-              max: 2.5
-              tickAmount: 6
-              opposite: true
-              decimalsInFloat: 1
-              floating: false
-              forceNiceScale: true
-              extend_to: end
-            - id: usage
-              decimalsInFloat: 0
-              show: true
-              min: 0
-              forceNiceScale: true
-            - id: powersaver
-              show: false
-              decimalsInFloat: 0
-              floating: false
-              extend_to: now
-        series:
-          - entity: sensor.effective_electricity_price
-            yaxis_id: price
-            extend_to: now
-            name: Faktisk strømpris
-            type: line
-            curve: stepline
-            color: tomato
-            float_precision: 2
-            show:
-              legend_value: false
-            data_generator: |
-              return entity.attributes.hours.map((entry) => {
-                return [new Date(entry.start), entry.price];
-              });
-          - entity: sensor.hourly_energy_usage
-            yaxis_id: usage
-            type: column
-            color: var(--primary-color)
-            name: Forbruk
-            group_by:
-              duration: 1h
-              func: max
-            show:
-              legend_value: true
-          - entity: sensor.power_saver_payload
-            data_generator: |
-              return entity.attributes.hours.map((entry) => {
-                return [new Date(entry.start), entry.onOff];
-              });
-            yaxis_id: powersaver
-            name: Power Saver
-            type: area
-            color: rgb(0, 255, 0)
-            opacity: 0.7
-            stroke_width: 2
-            curve: stepline
-            group_by:
-              func: max
-            show:
-              legend_value: false
-              in_header: false
-              name_in_header: false
-              datalabels: false
-    layout:
-      max_width: 2000
-      max_cols: 1
-    type: custom:horizontal-layout
+    background:
+      image: /api/image/serve/48a41f07e2695235c3b28d4c8eddf539/original
