@@ -807,7 +807,7 @@ views:
                             return [new Date(hour.start), hour.price];
                           });
                           return data;
-                      - entity: sensor.grid_tariff
+                      - entity: sensor.effective_grid_tariff
                         name: Grid Tariff
                         opacity: 1
                         float_precision: 2
@@ -850,8 +850,6 @@ views:
                       yaxis:
                         - id: price
                           show: true
-                          min: 0
-                          max: 2.5
                           tickAmount: 6
                           opposite: true
                           decimalsInFloat: 1
@@ -1066,6 +1064,48 @@ views:
                         name: Include VAT
       - type: entity
         entity: sensor.hourly_energy_usage
+      - type: vertical-stack
+        cards:
+          - type: entities
+            title: Grid Tariff Settings
+            entities:
+              - input_boolean.automatic_tariff
+      - type: vertical-stack
+        cards:
+          - type: entities
+            title: Grid Tariff Settings
+            entities:
+              - input_select.nettselskap
+        visibility:
+          - condition: state
+            entity: input_boolean.automatic_tariff
+            state: 'on'
+      - type: vertical-stack
+        cards:
+          - type: entities
+            title: Grid Tariff Settings
+            entities:
+              - entity: input_boolean.use_day_fee
+              - entity: input_number.day_fee
+              - entity: input_datetime.day_tariff_start
+          - type: entities
+            title: Grid Tariff Settings
+            entities:
+              - entity: input_boolean.use_night_fee
+              - entity: input_number.night_fee
+              - entity: input_datetime.night_tariff_start
+          - type: entities
+            title: Grid Tariff Settings
+            entities:
+              - entity: input_boolean.use_weekend_fee
+              - entity: input_number.weekend_fee
+          - type: sensor
+            entity: sensor.effective_grid_tariff
+            name: Effective Grid Tariff
+        visibility:
+          - condition: state
+            entity: input_boolean.automatic_tariff
+            state: 'off'
     badges:
       - type: custom:button-card
         name: Update Device Options
