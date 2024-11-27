@@ -314,6 +314,22 @@ input_number:
     step: 1
     mode: slider
 
+  day_fee:
+    name: Day Fee (NOK/kWh)
+    min: 0
+    max: 10
+    step: 0.01
+  night_fee:
+    name: Night Fee (NOK/kWh)
+    min: 0
+    max: 10
+    step: 0.01
+  weekend_fee:
+    name: Weekend Fee (NOK/kWh)
+    min: 0
+    max: 10
+    step: 0.01
+
 ###### INPUT BOOLEAN #################################################
 input_boolean:
   ###### NORDPOOL RELATED #################################
@@ -368,11 +384,35 @@ input_boolean:
   mode_nettleie:
     name: Pris
   mode_flex:
-    name: Flex    
+    name: Flex
+
+  automatic_tariff:
+    name: Use Automatic Tariff
+    icon: mdi:autorenew
+  use_day_fee:
+    name: Enable Day Fee
+    icon: mdi:weather-sunny
+  use_night_fee:
+    name: Enable Night Fee
+    icon: mdi:weather-night
+  use_weekend_fee:
+    name: Enable Weekend Fee
+    icon: mdi:calendar-weekend
 
   ###### POWER FLOW DASHBOARD RELATED #################################
   advanced_mode_view:
     name: Advanced View
+
+###### INPUT DATETIME #################################################
+input_datetime:
+  day_tariff_start:
+    name: Day Tariff Start
+    has_date: false
+    has_time: true
+  night_tariff_start:
+    name: Night Tariff Start
+    has_date: false
+    has_time: true
 
 ################################### UTILITY METERS ###################################
 
@@ -809,14 +849,14 @@ template:
           {{
             (
               states('sensor.adjusted_electricity_price') | float(0)
-              + states('sensor.grid_tariff') | float(0)
+              + states('sensor.effective_grid_tariff') | float(0)
               - states('sensor.government_support') | float(0)
             ) | round(4)
           }}
         attributes:
           hours: >
             {% set adjusted_prices = state_attr('sensor.adjusted_electricity_price', 'hours') %}
-            {% set grid_prices = state_attr('sensor.grid_tariff', 'hours') %}
+            {% set grid_prices = state_attr('sensor.effective_grid_tariff', 'hours') %}
             {% set support_prices = state_attr('sensor.government_support', 'hours') %}
             {% if adjusted_prices and grid_prices and support_prices %}
               {% set ns = namespace(data=[]) %}
@@ -831,6 +871,105 @@ template:
             {% else %}
               []
             {% endif %}
+
+      - name: "Effective Grid Tariff"
+        unit_of_measurement: "NOK/kWh"
+        state: >
+          {% set now_time = now() %}
+          {% set weekday = now_time.weekday() %}
+
+          {# Fetch input_datetimes safely #}
+          {% set day_start_str = states('input_datetime.day_tariff_start') %}
+          {% set night_start_str = states('input_datetime.night_tariff_start') %}
+
+          {# Convert to datetime with defaults #}
+          {% set day_start = (day_start_str | as_datetime(default=now().replace(hour=6, minute=0, second=0))) | as_local %}
+          {% set night_start = (night_start_str | as_datetime(default=now().replace(hour=22, minute=0, second=0))) | as_local %}
+
+          {# Determine if it's the weekend #}
+          {% set is_weekend = weekday in [5, 6] %}
+
+          {# Tariff values based on automatic_tariff #}
+          {% if is_state('input_boolean.automatic_tariff', 'on') %}
+            {# Use automatic tariff values from sensors (assuming these sensors exist) #}
+            {% set day_fee = states('sensor.automatic_day_fee') | float(0) %}
+            {% set night_fee = states('sensor.automatic_night_fee') | float(0) %}
+            {% set weekend_fee = states('sensor.automatic_weekend_fee') | float(0) %}
+          {% else %}
+            {# Use user-specified tariff values #}
+            {% set day_fee = states('input_number.day_fee') | float(0) %}
+            {% set night_fee = states('input_number.night_fee') | float(0) %}
+            {% set weekend_fee = states('input_number.weekend_fee') | float(0) %}
+          {% endif %}
+
+          {# Determine the applicable tariff #}
+          {% if is_weekend and is_state('input_boolean.use_weekend_fee', 'on') %}
+            {{ weekend_fee }}
+          {% elif day_start.time() <= now_time.time() < night_start.time() and is_state('input_boolean.use_day_fee', 'on') %}
+            {{ day_fee }}
+          {% elif is_state('input_boolean.use_night_fee', 'on') %}
+            {{ night_fee }}
+          {% else %}
+            0
+          {% endif %}
+        attributes:
+          hours: >
+            {% set ns = namespace(data=[]) %}
+            {% set base_time = now().replace(minute=0, second=0, microsecond=0) %}
+
+            {# Fetch input_datetimes safely #}
+            {% set day_start_str = states('input_datetime.day_tariff_start') %}
+            {% set night_start_str = states('input_datetime.night_tariff_start') %}
+
+            {# Convert to datetime with defaults #}
+            {% set day_start = (day_start_str | as_datetime(default=now().replace(hour=6, minute=0, second=0))) %}
+            {% set night_start = (night_start_str | as_datetime(default=now().replace(hour=22, minute=0, second=0))) %}
+
+            {# Loop over the next 48 hours #}
+            {% for i in range(48) %}
+              {% set current_time = base_time + timedelta(hours=i) %}
+              {% set weekday = current_time.weekday() %}
+              
+              {# Determine if it's the weekend #}
+              {% set is_weekend = weekday in [5, 6] %}
+              
+              {# Use day and night start times for the current day #}
+              {% set day_start_today = current_time.replace(hour=day_start.hour, minute=day_start.minute, second=0, microsecond=0) %}
+              {% set night_start_today = current_time.replace(hour=night_start.hour, minute=night_start.minute, second=0, microsecond=0) %}
+              
+              {# Adjust for cases where night_start is before day_start #}
+              {% if night_start_today <= day_start_today %}
+                {% set night_start_today = night_start_today + timedelta(days=1) %}
+              {% endif %}
+              
+              {# Tariff values based on automatic_tariff #}
+              {% if is_state('input_boolean.automatic_tariff', 'on') %}
+                {# Use automatic tariff values from sensors (assuming these sensors exist) #}
+                {% set day_fee = states('sensor.automatic_day_fee') | float(0) %}
+                {% set night_fee = states('sensor.automatic_night_fee') | float(0) %}
+                {% set weekend_fee = states('sensor.automatic_weekend_fee') | float(0) %}
+              {% else %}
+                {# Use user-specified tariff values #}
+                {% set day_fee = states('input_number.day_fee') | float(0) %}
+                {% set night_fee = states('input_number.night_fee') | float(0) %}
+                {% set weekend_fee = states('input_number.weekend_fee') | float(0) %}
+              {% endif %}
+              
+              {# Determine the applicable tariff for the current hour #}
+              {% if is_weekend and is_state('input_boolean.use_weekend_fee', 'on') %}
+                {% set tariff = weekend_fee %}
+              {% elif day_start_today.time() <= current_time.time() < night_start_today.time() and is_state('input_boolean.use_day_fee', 'on') %}
+                {% set tariff = day_fee %}
+              {% elif is_state('input_boolean.use_night_fee', 'on') %}
+                {% set tariff = night_fee %}
+              {% else %}
+                {% set tariff = 0 %}
+              {% endif %}
+              
+              {# Append the tariff for the current hour #}
+              {% set ns.data = ns.data + [{'start': current_time.isoformat(), 'price': tariff}] %}
+            {% endfor %}
+            {{ ns.data }}
 
       - name: "Current Hour Price"
         unit_of_measurement: "NOK/kWh"
@@ -1115,34 +1254,40 @@ automation:
   - alias: "Monitor Power Consumption for Category 1 (Turn Off)"
     mode: restart
     triggers:
-      - trigger: state
+      - platform: state
         entity_id: sensor.dynamic_power_sensor
     conditions:
+      - condition: state
+        entity_id: input_boolean.mode_nettleie
+        state: "on"
       - condition: template
         value_template: "{{ states('sensor.dynamic_power_sensor') | float(0) > (states('input_number.energy_target') | float(0) * 1000) }}"
       - condition: template
         value_template: "{{ states('sensor.total_controllable_power') | float(0) > 0 }}"
     actions:
-      - action: logbook.log
+      - service: logbook.log
         data:
           name: "Power Management"
           message: "Starting Category 1 peak day check due to high power consumption"
-      - action: script.check_category_1_peak_days
+      - service: script.check_category_1_peak_days
 
   - alias: "Monitor Power Consumption Decrease for Category 1 (Turn On)"
     mode: restart
-    triggers:
-      - trigger: state
+    trigger:
+      - platform: state
         entity_id: sensor.dynamic_power_sensor
     condition:
+      - condition: state
+        entity_id: input_boolean.mode_nettleie
+        state: "on"
       - condition: template
         value_template: "{{ states('sensor.dynamic_power_sensor') | float(0) < (states('input_number.energy_target') | float(0) * 1000) }}"
-    actions:
-      - action: logbook.log
+    action:
+      - service: logbook.log
         data:
           name: "Power Management"
           message: "Starting power gap calculation to turn on devices in Category 1 due to low power consumption"
-      - action: script.calculate_power_gap_to_turn_on
+      - service: script.calculate_power_gap_to_turn_on
 
   - alias: "Delete Device from Category 1"
     triggers:
@@ -1732,6 +1877,54 @@ automation:
             meter measurmeent device has been 0 for more than 10 minutes. This could indicate
             a power outage"
     mode: single
+
+  - alias: Validate Day and Night Tariff Times
+    trigger:
+      - platform: state
+        entity_id:
+          - input_datetime.day_tariff_start
+          - input_datetime.day_tariff_end
+          - input_datetime.night_tariff_start
+          - input_datetime.night_tariff_end
+    condition: []
+    action:
+      - variables:
+          day_start: "{{ states('input_datetime.day_tariff_start') | as_datetime | default(now()) }}"
+          day_end: "{{ states('input_datetime.day_tariff_end') | as_datetime | default(now()) }}"
+          night_start: "{{ states('input_datetime.night_tariff_start') | as_datetime | default(now()) }}"
+          night_end: "{{ states('input_datetime.night_tariff_end') | as_datetime | default(now()) }}"
+      - choose:
+          - conditions:
+              - condition: template
+                value_template: "{{ day_end > night_start }}"
+            sequence:
+              - service: input_datetime.set_datetime
+                target:
+                  entity_id: input_datetime.night_tariff_start
+                data:
+                  datetime: "{{ day_end }}"
+              - service: persistent_notification.create
+                data:
+                  title: "Tariff Conflict Resolved"
+                  message: >
+                    The day tariff end time overlapped with the night tariff start time.
+                    The night tariff start time has been adjusted to {{ day_end }}.
+          - conditions:
+              - condition: template
+                value_template: "{{ night_end < day_start }}"
+            sequence:
+              - service: input_datetime.set_datetime
+                target:
+                  entity_id: input_datetime.night_tariff_end
+                data:
+                  datetime: "{{ day_start }}"
+              - service: persistent_notification.create
+                data:
+                  title: "Tariff Conflict Resolved"
+                  message: >
+                    The night tariff end time overlapped with the day tariff start time.
+                    The night tariff end time has been adjusted to {{ day_start }}.
+
 ################################### SCRIPTS ###################################
 ###### GRID FEE RELATED #################################
 script:
@@ -1818,16 +2011,14 @@ script:
                 device_power: "{{ states(power_sensor) | float(0) if power_sensor else 0 }}"
                 hvac_mode: >
                   {% set mode = state_attr(entity_id, 'hvac_mode') %}
-                  {% if mode in ['off', 'dry', 'heat', 'auto', 'heat/cool', 'fan only', 'cool'] %}
+                  {% if mode in ['off', 'dry', 'heat', 'auto', 'heat_cool', 'fan_only', 'cool'] %}
                     {{ mode }}
                   {% else %}
                     'off'
                   {% endif %}
-
             # Check conditions to proceed with turning off the device
             - condition: template
               value_template: "{{ entity_id is not none and power_gap > 0 and device_power > 0 }}"
-
             # Determine action based on entity type and turn off the device
             - choose:
                 - conditions:
@@ -1840,6 +2031,11 @@ script:
                         entity_id: "{{ input_text_id }}"
                       data:
                         value: "{{ hvac_mode | string }}" # Ensuring mode is stored as a simple string
+                    # Log saved mode
+                    - action: logbook.log
+                      data:
+                        name: "Power Management"
+                        message: "Saving HVAC mode for {{ entity_id }}: {{ hvac_mode }}"
                     # Turn off the HVAC entity
                     - action: climate.set_hvac_mode
                       target:
@@ -1850,7 +2046,6 @@ script:
                       data:
                         name: "Power Management"
                         message: "Turning off {{ entity_id }} (climate entity) to reduce power by {{ device_power }} W. Current power gap before turn-off: {{ power_gap }} W"
-
                 - conditions:
                     - condition: template
                       value_template: "{{ entity_id.startswith('switch.') }}"
@@ -1862,18 +2057,15 @@ script:
                       data:
                         name: "Power Management"
                         message: "Turning off {{ entity_id }} (switch entity) to reduce power by {{ device_power }} W. Current power gap before turn-off: {{ power_gap }} W"
-
             # Set the input boolean to 'on' to track the turned-off status
             - action: input_boolean.turn_on
               target:
                 entity_id: "{{ input_boolean_id }}"
-
             # Log action and update power gap after device turn-off
             - action: logbook.log
               data:
                 name: "Power Management"
                 message: "Device {{ entity_id }} turned off. Updated power gap after turn-off: {{ power_gap }} W"
-
             # Recalculate power gap after each turn-off action
             - variables:
                 power_gap: "{{ states('sensor.dynamic_power_sensor') | float(0) - (states('input_number.energy_target') | float(0) * 1000) }}"
@@ -1885,32 +2077,46 @@ script:
       - variables:
           category_1_devices: "{{ state_attr('input_select.category_1_devices', 'options') | select('!=', 'No devices added') | list }}"
       - repeat:
-          count: 20 # Maximum devices to iterate
+          count: 20
           sequence:
             - variables:
                 entity_id: "{{ category_1_devices[repeat.index - 1] if repeat.index - 1 < category_1_devices | length else None }}"
                 input_boolean_id: "input_boolean.device_turned_off_{{ repeat.index }}"
-
-            # Only proceed if the device's input boolean is 'on', indicating it was turned off by the automation
+                input_text_id: "input_text.hvac_mode_{{ repeat.index }}"
+                hvac_mode: >
+                  {% set mode = states(input_text_id) %}
+                  {% if mode in ['off', 'dry', 'heat', 'auto', 'heat_cool', 'fan_only', 'cool'] %}
+                    {{ mode }}
+                  {% elif mode == 'unknown' %}
+                    'auto'
+                  {% else %}
+                    'off'  # Default to 'auto' if invalid
+                  {% endif %}
+            # Check if the device was turned off
             - condition: template
               value_template: "{{ is_state(input_boolean_id, 'on') }}"
-
-            # Choose action to turn device back on based on its type
+            # Choose action to turn the device back on
             - choose:
                 - conditions:
                     - condition: template
                       value_template: "{{ entity_id.startswith('climate.') }}"
                   sequence:
+                    # Log the mode being restored
+                    - action: logbook.log
+                      data:
+                        name: "Power Management"
+                        message: "Attempting to restore HVAC mode for {{ entity_id }}: {{ hvac_mode }}"
+                    # Restore the HVAC mode
                     - action: climate.set_hvac_mode
                       target:
                         entity_id: "{{ entity_id }}"
                       data:
-                        hvac_mode: "auto"
+                        hvac_mode: "{{ hvac_mode }}"
+                    # Log restored mode
                     - action: logbook.log
                       data:
                         name: "Power Management"
-                        message: "Turning on {{ entity_id }} (climate entity) as power usage is within target."
-
+                        message: "Restored HVAC mode for {{ entity_id }}: {{ hvac_mode }}"
                 - conditions:
                     - condition: template
                       value_template: "{{ entity_id.startswith('switch.') }}"
@@ -1921,8 +2127,7 @@ script:
                     - action: logbook.log
                       data:
                         name: "Power Management"
-                        message: "Turning on {{ entity_id }} (switch entity) as power usage is within target."
-
+                        message: "Turned on {{ entity_id }} (switch)."
             # Reset the input boolean to 'off' after turning the device back on
             - action: input_boolean.turn_off
               target:
