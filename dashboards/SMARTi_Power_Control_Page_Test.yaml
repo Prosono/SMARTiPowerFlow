@@ -1047,7 +1047,49 @@ views:
                           display: block;
                           text-transform: uppercase;
                           letter-spacing: 0.05em;
-                        }        
+                        }  
+                  - type: vertical-stack
+                    cards:
+                      - type: entities
+                        title: Grid Tariff Settings
+                        entities:
+                          - input_boolean.automatic_tariff
+                  - type: vertical-stack
+                    cards:
+                      - type: entities
+                        title: Grid Tariff Settings
+                        entities:
+                          - input_select.nettselskap
+                    visibility:
+                      - condition: state
+                        entity: input_boolean.automatic_tariff
+                        state: 'on'
+                  - type: vertical-stack
+                    cards:
+                      - type: entities
+                        title: Grid Tariff Settings
+                        entities:
+                          - entity: input_boolean.use_day_fee
+                          - entity: input_number.day_fee
+                          - entity: input_datetime.day_tariff_start
+                      - type: entities
+                        title: Grid Tariff Settings
+                        entities:
+                          - entity: input_boolean.use_night_fee
+                          - entity: input_number.night_fee
+                          - entity: input_datetime.night_tariff_start
+                      - type: entities
+                        title: Grid Tariff Settings
+                        entities:
+                          - entity: input_boolean.use_weekend_fee
+                          - entity: input_number.weekend_fee
+                      - type: sensor
+                        entity: sensor.effective_grid_tariff
+                        name: Effective Grid Tariff
+                    visibility:
+                      - condition: state
+                        entity: input_boolean.automatic_tariff
+                        state: 'off'
                   - type: custom:mushroom-title-card
                     title: Inntillinger Pris
                     subtitle: Innstillinger for smart prisstyring
@@ -1062,50 +1104,6 @@ views:
                         name: Price Zone
                       - entity: input_boolean.include_vat
                         name: Include VAT
-      - type: entity
-        entity: sensor.hourly_energy_usage
-      - type: vertical-stack
-        cards:
-          - type: entities
-            title: Grid Tariff Settings
-            entities:
-              - input_boolean.automatic_tariff
-      - type: vertical-stack
-        cards:
-          - type: entities
-            title: Grid Tariff Settings
-            entities:
-              - input_select.nettselskap
-        visibility:
-          - condition: state
-            entity: input_boolean.automatic_tariff
-            state: 'on'
-      - type: vertical-stack
-        cards:
-          - type: entities
-            title: Grid Tariff Settings
-            entities:
-              - entity: input_boolean.use_day_fee
-              - entity: input_number.day_fee
-              - entity: input_datetime.day_tariff_start
-          - type: entities
-            title: Grid Tariff Settings
-            entities:
-              - entity: input_boolean.use_night_fee
-              - entity: input_number.night_fee
-              - entity: input_datetime.night_tariff_start
-          - type: entities
-            title: Grid Tariff Settings
-            entities:
-              - entity: input_boolean.use_weekend_fee
-              - entity: input_number.weekend_fee
-          - type: sensor
-            entity: sensor.effective_grid_tariff
-            name: Effective Grid Tariff
-        visibility:
-          - condition: state
-            entity: input_boolean.automatic_tariff
-            state: 'off'
     badges:
       - type: custom:button-card
         name: Update Device Options
@@ -1132,5 +1130,4 @@ views:
     layout:
       max_width: 2000
       max_cols: 1
-    background:
-      image: /api/image/serve/48a41f07e2695235c3b28d4c8eddf539/original
+    background: {}

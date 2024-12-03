@@ -877,35 +877,72 @@ template:
         state: >
           {% set now_time = now() %}
           {% set weekday = now_time.weekday() %}
+          {% set nettselskap = states('input_select.nettselskap') %}
 
-          {# Fetch input_datetimes safely #}
-          {% set day_start_str = states('input_datetime.day_tariff_start') %}
-          {% set night_start_str = states('input_datetime.night_tariff_start') %}
+          {# Define the dictionaries #}
+          {% set day_start_times = {
+            'Elvia': '06:00:00',
+            'BKK': '07:00:00',
+            'Norgesnett': '08:00:00',
+          } %}
 
-          {# Convert to datetime with defaults #}
-          {% set day_start = (day_start_str | as_datetime(default=now().replace(hour=6, minute=0, second=0))) | as_local %}
-          {% set night_start = (night_start_str | as_datetime(default=now().replace(hour=22, minute=0, second=0))) | as_local %}
+          {% set night_start_times = {
+            'Elvia': '22:00:00',
+            'BKK': '23:00:00',
+            'Norgesnett': '20:00:00',
+          } %}
 
-          {# Determine if it's the weekend #}
-          {% set is_weekend = weekday in [5, 6] %}
+          {% set day_fees = {
+            'Elvia': 3.48,
+            'BKK': 4.00,
+            'Norgesnett': 2.50,
+          } %}
 
-          {# Tariff values based on automatic_tariff #}
+          {% set night_fees = {
+            'Elvia': 2.48,
+            'BKK': 3.00,
+            'Norgesnett': 1.50,
+          } %}
+
+          {% set weekend_fees = {
+            'Elvia': 1.98,
+            'BKK': 2.00,
+            'Norgesnett': 1.00,
+          } %}
+
+          {# Determine if automatic tariff is on #}
           {% if is_state('input_boolean.automatic_tariff', 'on') %}
-            {# Use automatic tariff values from sensors (assuming these sensors exist) #}
-            {% set day_fee = states('sensor.automatic_day_fee') | float(0) %}
-            {% set night_fee = states('sensor.automatic_night_fee') | float(0) %}
-            {% set weekend_fee = states('sensor.automatic_weekend_fee') | float(0) %}
+            {# Use predefined values #}
+            {% set day_start_str = day_start_times.get(nettselskap, '06:00:00') %}
+            {% set night_start_str = night_start_times.get(nettselskap, '22:00:00') %}
+            {% set day_fee = day_fees.get(nettselskap, 0) %}
+            {% set night_fee = night_fees.get(nettselskap, 0) %}
+            {% set weekend_fee = weekend_fees.get(nettselskap, 0) %}
           {% else %}
-            {# Use user-specified tariff values #}
+            {# Use user-specified values #}
+            {% set day_start_str = states('input_datetime.day_tariff_start') %}
+            {% set night_start_str = states('input_datetime.night_tariff_start') %}
             {% set day_fee = states('input_number.day_fee') | float(0) %}
             {% set night_fee = states('input_number.night_fee') | float(0) %}
             {% set weekend_fee = states('input_number.weekend_fee') | float(0) %}
           {% endif %}
 
+          {# Convert start times to datetime objects #}
+          {% set day_start = now_time.replace(hour=day_start_str.split(':')[0]|int, minute=day_start_str.split(':')[1]|int, second=0, microsecond=0) %}
+          {% set night_start = now_time.replace(hour=night_start_str.split(':')[0]|int, minute=night_start_str.split(':')[1]|int, second=0, microsecond=0) %}
+
+          {# Adjust for next day if necessary #}
+          {% if night_start <= day_start %}
+            {% set night_start = night_start + timedelta(days=1) %}
+          {% endif %}
+
+          {# Determine if it's the weekend #}
+          {% set is_weekend = weekday in [5, 6] %}
+
           {# Determine the applicable tariff #}
           {% if is_weekend and is_state('input_boolean.use_weekend_fee', 'on') %}
             {{ weekend_fee }}
-          {% elif day_start.time() <= now_time.time() < night_start.time() and is_state('input_boolean.use_day_fee', 'on') %}
+          {% elif day_start <= now_time < night_start and is_state('input_boolean.use_day_fee', 'on') %}
             {{ day_fee }}
           {% elif is_state('input_boolean.use_night_fee', 'on') %}
             {{ night_fee }}
@@ -916,57 +953,85 @@ template:
           hours: >
             {% set ns = namespace(data=[]) %}
             {% set base_time = now().replace(minute=0, second=0, microsecond=0) %}
+            {% set nettselskap = states('input_select.nettselskap') %}
 
-            {# Fetch input_datetimes safely #}
-            {% set day_start_str = states('input_datetime.day_tariff_start') %}
-            {% set night_start_str = states('input_datetime.night_tariff_start') %}
+            {# Define the dictionaries #}
+            {% set day_start_times = {
+              'Elvia': '06:00:00',
+              'BKK': '07:00:00',
+              'Norgesnett': '08:00:00',
+            } %}
 
-            {# Convert to datetime with defaults #}
-            {% set day_start = (day_start_str | as_datetime(default=now().replace(hour=6, minute=0, second=0))) %}
-            {% set night_start = (night_start_str | as_datetime(default=now().replace(hour=22, minute=0, second=0))) %}
+            {% set night_start_times = {
+              'Elvia': '22:00:00',
+              'BKK': '23:00:00',
+              'Norgesnett': '20:00:00',
+            } %}
+
+            {% set day_fees = {
+              'Elvia': 3.48,
+              'BKK': 4.00,
+              'Norgesnett': 2.50,          
+            } %}
+
+            {% set night_fees = {
+              'Elvia': 2.48,
+              'BKK': 3.00,
+              'Norgesnett': 1.50,
+            } %}
+
+            {% set weekend_fees = {
+              'Elvia': 1.98,
+              'BKK': 2.00,
+              'Norgesnett': 1.00,
+            } %}
 
             {# Loop over the next 48 hours #}
             {% for i in range(48) %}
               {% set current_time = base_time + timedelta(hours=i) %}
               {% set weekday = current_time.weekday() %}
-              
-              {# Determine if it's the weekend #}
-              {% set is_weekend = weekday in [5, 6] %}
-              
-              {# Use day and night start times for the current day #}
-              {% set day_start_today = current_time.replace(hour=day_start.hour, minute=day_start.minute, second=0, microsecond=0) %}
-              {% set night_start_today = current_time.replace(hour=night_start.hour, minute=night_start.minute, second=0, microsecond=0) %}
-              
-              {# Adjust for cases where night_start is before day_start #}
-              {% if night_start_today <= day_start_today %}
-                {% set night_start_today = night_start_today + timedelta(days=1) %}
-              {% endif %}
-              
-              {# Tariff values based on automatic_tariff #}
+
+              {# Determine if automatic tariff is on #}
               {% if is_state('input_boolean.automatic_tariff', 'on') %}
-                {# Use automatic tariff values from sensors (assuming these sensors exist) #}
-                {% set day_fee = states('sensor.automatic_day_fee') | float(0) %}
-                {% set night_fee = states('sensor.automatic_night_fee') | float(0) %}
-                {% set weekend_fee = states('sensor.automatic_weekend_fee') | float(0) %}
+                {# Use predefined values #}
+                {% set day_start_str = day_start_times.get(nettselskap, '06:00:00') %}
+                {% set night_start_str = night_start_times.get(nettselskap, '22:00:00') %}
+                {% set day_fee = day_fees.get(nettselskap, 0) %}
+                {% set night_fee = night_fees.get(nettselskap, 0) %}
+                {% set weekend_fee = weekend_fees.get(nettselskap, 0) %}
               {% else %}
-                {# Use user-specified tariff values #}
+                {# Use user-specified values #}
+                {% set day_start_str = states('input_datetime.day_tariff_start') %}
+                {% set night_start_str = states('input_datetime.night_tariff_start') %}
                 {% set day_fee = states('input_number.day_fee') | float(0) %}
                 {% set night_fee = states('input_number.night_fee') | float(0) %}
                 {% set weekend_fee = states('input_number.weekend_fee') | float(0) %}
               {% endif %}
-              
-              {# Determine the applicable tariff for the current hour #}
+
+              {# Convert times to datetime objects for the current day #}
+              {% set day_start_today = current_time.replace(hour=day_start_str.split(':')[0]|int, minute=day_start_str.split(':')[1]|int, second=0, microsecond=0) %}
+              {% set night_start_today = current_time.replace(hour=night_start_str.split(':')[0]|int, minute=night_start_str.split(':')[1]|int, second=0, microsecond=0) %}
+
+              {# Adjust night start if necessary #}
+              {% if night_start_today <= day_start_today %}
+                {% set night_start_today = night_start_today + timedelta(days=1) %}
+              {% endif %}
+
+              {# Determine if it's the weekend #}
+              {% set is_weekend = weekday in [5, 6] %}
+
+              {# Determine the applicable tariff #}
               {% if is_weekend and is_state('input_boolean.use_weekend_fee', 'on') %}
                 {% set tariff = weekend_fee %}
-              {% elif day_start_today.time() <= current_time.time() < night_start_today.time() and is_state('input_boolean.use_day_fee', 'on') %}
+              {% elif day_start_today <= current_time < night_start_today and is_state('input_boolean.use_day_fee', 'on') %}
                 {% set tariff = day_fee %}
               {% elif is_state('input_boolean.use_night_fee', 'on') %}
                 {% set tariff = night_fee %}
               {% else %}
                 {% set tariff = 0 %}
               {% endif %}
-              
-              {# Append the tariff for the current hour #}
+
+              {# Append to the data list #}
               {% set ns.data = ns.data + [{'start': current_time.isoformat(), 'price': tariff}] %}
             {% endfor %}
             {{ ns.data }}
