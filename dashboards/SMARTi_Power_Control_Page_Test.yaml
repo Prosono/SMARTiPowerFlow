@@ -373,31 +373,54 @@ views:
               margin: 0;
               background: var(--primary-color);
             }
-      - type: horizontal-stack
-        cards:
-          - type: custom:mushroom-entity-card
-            entity: sensor.power_saver_status
-            name: Billigste time
-            icon_color: primary
-            layout: vertical
-          - type: custom:mushroom-entity-card
-            entity: sensor.effective_electricity_price
-            icon: mdi:currency-usd
-            icon_color: primary
-            layout: vertical
-            name: Effektiv Strømpris
-          - type: custom:mushroom-entity-card
-            entity: sensor.current_energy_level
-            icon: mdi:currency-usd
-            name: Nåværende Energinivå
-            icon_color: primary
-            layout: vertical
-          - type: custom:mushroom-entity-card
-            entity: input_number.energy_target
-            icon: mdi:currency-usd
-            name: Brukervalgt energinivå
-            icon_color: primary
-            layout: vertical
+      - type: custom:bar-card
+        title: Styrbar Effekt
+        entities:
+          - entity: sensor.controllable_power_percentage
+            name: Styrbar Effekt
+            color: rgba(76, 175, 80, 0.85)
+            icon: mdi:flash
+          - entity: sensor.non_controllable_power_percentage
+            name: Ikke-Styrbar Effekt
+            color: var(--primary-color)
+            icon: mdi:power-plug-off
+        max: 100
+        height: 40px
+        stack: vertical
+        positions:
+          icon: inside
+          indicator: inside
+          title: inside
+          name: inside
+          value: inside
+        style: |
+          bar-card-title {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+          }
+          bar-card-bar {
+            border-radius: 15px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+            margin: 5px;
+          }
+          bar-card-value {
+            font-weight: bold;
+            font-size: 1.1em;
+          }
+          bar-card-name {
+            font-size: 1em;
+            color: var(--secondary-text-color);
+          }
+                          
+        visibility:
+          - condition: state
+            entity: input_boolean.advanced_mode_view
+            state: 'on'
       - type: custom:gap-card
         visibility:
           - condition: screen
@@ -437,53 +460,6 @@ views:
                   - type: custom:mushroom-title-card
                     title: Nettleie
                     subtitle: Styrer enheter kun basert på satt effektledd
-                  - type: custom:mushroom-title-card
-                    title: null
-                    subtitle: Smart Nettleiestyring
-                  - type: custom:bar-card
-                    title: Styrbar Effekt - Nettleie
-                    entities:
-                      - entity: sensor.controllable_power_percentage
-                        name: Styrbar Effekt
-                        color: rgba(76, 175, 80, 0.85)
-                        icon: mdi:flash
-                      - entity: sensor.non_controllable_power_percentage
-                        name: Ikke-Styrbar Effekt
-                        color: var(--primary-color)
-                        icon: mdi:power-plug-off
-                    max: 100
-                    height: 40px
-                    stack: vertical
-                    positions:
-                      icon: inside
-                      indicator: inside
-                      title: inside
-                      name: inside
-                      value: inside
-                    style: |
-                      bar-card-title {
-                        font-size: 1.4em;
-                        font-weight: bold;
-                        color: var(--primary-color);
-                        text-align: center;
-                        margin-bottom: 12px;
-                        text-transform: uppercase;
-                        letter-spacing: 1px;
-                      }
-                      bar-card-bar {
-                        border-radius: 15px;
-                        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
-                        margin: 5px;
-                      }
-                      bar-card-value {
-                        font-weight: bold;
-                        font-size: 1.1em;
-                      }
-                      bar-card-name {
-                        font-size: 1em;
-                        color: var(--secondary-text-color);
-                      }
-                                       
                   - type: custom:mushroom-entity-card
                     entity: sensor.remaining_energy
                     icon: mdi:lightning-bolt-circle
@@ -1104,6 +1080,133 @@ views:
                         name: Price Zone
                       - entity: input_boolean.include_vat
                         name: Include VAT
+      - type: vertical-stack
+        cards:
+          - type: custom:mushroom-title-card
+            title: Enheter
+            subtitle: Viser statusen til enheter som styres etter nettleie
+          - type: horizontal-stack
+            cards:
+              - type: vertical-stack
+                cards:
+                  - type: custom:auto-entities
+                    card:
+                      title: Devices in Category 1
+                      type: custom:layout-card
+                      layout_type: grid
+                      card_param: cards
+                    filter:
+                      template: >
+                        {% set entities_str = [
+                          states('sensor.category_2_device_entities_part1'),
+                          states('sensor.category_2_device_entities_part2'),
+                          states('sensor.category_2_device_entities_part3'),
+                          states('sensor.category_2_device_entities_part4')
+                        ] | join(',') %} {% set exclude_entities = ['No devices
+                        added', 'unknown', '', None] %} {% set entity_ids =
+                        entities_str.split(',') | map('trim') | reject('in',
+                        exclude_entities) | list %} {% set entities =
+                        expand(entity_ids)
+                          | rejectattr('state', 'equalto', 'unavailable')
+                          | sort(attribute='attributes.friendly_name')
+                          | map(attribute='entity_id')
+                          | list %}
+                        {{ entities }}
+                    card_options:
+                      type: custom:mushroom-entity-card
+                      layout: horizontal
+                      fill_container: true
+                      primary_info: name
+                      secondary_info: state
+                    debug: true
+              - type: vertical-stack
+                cards:
+                  - type: custom:auto-entities
+                    card:
+                      title: Category 1 Device Power Consumption
+                      type: custom:layout-card
+                      layout_type: grid
+                      card_param: cards
+                    filter:
+                      template: >
+                        {% set entities_str = [
+                          states('sensor.category_2_device_power_entities_part1'),
+                          states('sensor.category_2_device_power_entities_part2'),
+                          states('sensor.category_2_device_power_entities_part3'),
+                          states('sensor.category_2_device_power_entities_part4')
+                        ] | join(',') %} {% set exclude_entities = ['No power
+                        sensors available', 'unknown', '', None] %} {% set
+                        entity_list = entities_str.split(',') | map('trim') |
+                        list %} {% set entity_ids = entity_list | reject('in',
+                        exclude_entities) | list %} {% set entities =
+                        expand(entity_ids)
+                          | rejectattr('state', 'equalto', 'unavailable')
+                          | sort(attribute='attributes.friendly_name')
+                          | map(attribute='entity_id')
+                          | list %}
+                        {{ entities }}
+                    card_options:
+                      type: custom:mushroom-entity-card
+                      layout: horizontal
+                      fill_container: true
+                      primary_info: name
+                      secondary_info: state
+                    debug: true
+          - type: custom:mushroom-title-card
+            title: Legg til / fjern enhet
+            subtitle: Enheter som styres etter nettleie
+          - type: horizontal-stack
+            cards:
+              - type: vertical-stack
+                cards:
+                  - type: entities
+                    entities:
+                      - entity: input_select.new_category_2_device
+                        name: Select Device to Add
+                  - type: custom:button-card
+                    name: Legg til enhet
+                    icon: mdi:plus-circle
+                    tap_action:
+                      action: call-service
+                      service: input_button.press
+                      service_data:
+                        entity_id: input_button.add_device_category_2_button
+                    styles:
+                      card:
+                        - background-color: rgba(76, 175, 80, 0.85)
+                        - color: white
+                        - height: 50px
+                        - display: flex
+                        - align-items: center
+                        - justify-content: center
+                      name:
+                        - font-size: 14px
+                        - font-weight: bold
+              - type: vertical-stack
+                cards:
+                  - type: entities
+                    entities:
+                      - entity: input_select.delete_category_2_device
+                        name: Select Device to Delete
+                  - type: custom:button-card
+                    name: Slett Enhet
+                    icon: mdi:delete
+                    tap_action:
+                      action: call-service
+                      service: input_button.press
+                      service_data:
+                        entity_id: input_button.delete_category_2_device_button
+                    styles:
+                      card:
+                        - background-color: red
+                        - color: white
+                        - height: 50px
+                        - display: flex
+                        - align-items: center
+                        - justify-content: center
+                      name:
+                        - font-size: 14px
+                        - font-weight: bold
     badges:
       - type: custom:button-card
         name: Update Device Options

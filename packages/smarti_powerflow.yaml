@@ -24,7 +24,7 @@ input_button:
     name: "Add Selected Device to Category 2"
 
   add_device_category_3_button:
-    name: "Add Selected Device to Category 2"
+    name: "Add Selected Device to Category 3"
 
 ###### INPUT TEXT #################################################
 input_text:
@@ -46,6 +46,7 @@ input_text:
 
   lowest_price_hours:
     name: Lowest Price Hours
+    max: 255
     initial: "[]"
 
   ###### CONTROL RELATED ################################
@@ -98,6 +99,47 @@ input_text:
   hvac_mode_19:
     name: HVAC Mode 19
   hvac_mode_20:
+    name: HVAC Mode 20
+
+  hvac_mode_1_category2:
+    name: HVAC Mode 1
+  hvac_mode_2_category2:
+    name: HVAC Mode 2
+  hvac_mode_3_category2:
+    name: HVAC Mode 3
+  hvac_mode_4_category2:
+    name: HVAC Mode 4
+  hvac_mode_5_category2:
+    name: HVAC Mode 5
+  hvac_mode_6_category2:
+    name: HVAC Mode 6
+  hvac_mode_7_category2:
+    name: HVAC Mode 7
+  hvac_mode_8_category2:
+    name: HVAC Mode 8
+  hvac_mode_9_category2:
+    name: HVAC Mode 9
+  hvac_mode_10_category2:
+    name: HVAC Mode 10
+  hvac_mode_11_category2:
+    name: HVAC Mode 11
+  hvac_mode_12_category2:
+    name: HVAC Mode 12
+  hvac_mode_13_category2:
+    name: HVAC Mode 13
+  hvac_mode_14_category2:
+    name: HVAC Mode 14
+  hvac_mode_15_category2:
+    name: HVAC Mode 15
+  hvac_mode_16_category2:
+    name: HVAC Mode 16
+  hvac_mode_17_category2:
+    name: HVAC Mode 17
+  hvac_mode_18_category2:
+    name: HVAC Mode 18
+  hvac_mode_19_category2:
+    name: HVAC Mode 19
+  hvac_mode_20_category2:
     name: HVAC Mode 20
 
 ###### INPUT SELECT #################################################
@@ -379,6 +421,51 @@ input_boolean:
   device_turned_off_20:
     name: Device Turned Off 20
 
+    #CATEGORY POART 2
+  device_turned_off_1_category2:
+    name: Device Turned Off 1
+  device_turned_off_2_category2:
+    name: Device Turned Off 2
+  device_turned_off_3_category2:
+    name: Device Turned Off 3
+  device_turned_off_4_category2:
+    name: Device Turned Off 4
+  device_turned_off_5_category2:
+    name: Device Turned Off 5
+  device_turned_off_6_category2:
+    name: Device Turned Off 6
+  device_turned_off_7_category2:
+    name: Device Turned Off 7
+  device_turned_off_8_category2:
+    name: Device Turned Off 8
+  device_turned_off_9_category2:
+    name: Device Turned Off 9
+  device_turned_off_10_category2:
+    name: Device Turned Off 10
+  device_turned_off_11_category2:
+    name: Device Turned Off 11
+  device_turned_off_12_category2:
+    name: Device Turned Off 12
+  device_turned_off_13_category2:
+    name: Device Turned Off 13
+  device_turned_off_14_category2:
+    name: Device Turned Off 14
+  device_turned_off_15_category2:
+    name: Device Turned Off 15
+  device_turned_off_16_category2:
+    name: Device Turned Off 16
+  device_turned_off_17_category2:
+    name: Device Turned Off 17
+  device_turned_off_18_category2:
+    name: Device Turned Off 18
+  device_turned_off_19_category2:
+    name: Device Turned Off 19
+  device_turned_off_20_category2:
+    name: Device Turned Off 20
+
+  power_saver:
+    name: Power Saver
+
   mode_pris:
     name: Nettleie
   mode_nettleie:
@@ -527,6 +614,7 @@ template:
             unknown
           {% endif %}
 
+      # POWER SENSORS FOR CATEGORY 1
       # Part 1 (devices 0-4)
       - name: "category_1_device_power_entities_part1"
         state: >
@@ -582,6 +670,75 @@ template:
       - name: "category_1_device_power_entities_part4"
         state: >
           {% set devices = state_attr('input_select.category_1_devices', 'options') | list %}
+          {% set power_sensors = namespace(sensors=[]) %}
+
+          {% for device in devices[15:20] if device != "No devices added" %}
+            {% set base_name = device.split('.')[1] %}
+            {% set power_sensor_id = 'sensor.' ~ base_name ~ '_power' %}
+
+            {% if states(power_sensor_id) != 'unknown' and states(power_sensor_id) != 'unavailable' %}
+              {% set power_sensors.sensors = power_sensors.sensors + [power_sensor_id] %}
+            {% endif %}
+          {% endfor %}
+
+          {{ power_sensors.sensors | join(', ') if power_sensors.sensors else 'No power sensors available' }}
+
+      #POWER SENSORS FOR CATGORY 2
+      # Part 1 (devices 0-4)
+      - name: "category_2_device_power_entities_part1"
+        state: >
+          {% set devices = state_attr('input_select.category_2_devices', 'options') | list %}
+          {% set power_sensors = namespace(sensors=[]) %}
+
+          {% for device in devices[0:5] if device != "No devices added" %}
+            {% set base_name = device.split('.')[1] %}
+            {% set power_sensor_id = 'sensor.' ~ base_name ~ '_power' %}
+
+            {% if states(power_sensor_id) != 'unknown' and states(power_sensor_id) != 'unavailable' %}
+              {% set power_sensors.sensors = power_sensors.sensors + [power_sensor_id] %}
+            {% endif %}
+          {% endfor %}
+
+          {{ power_sensors.sensors | join(', ') if power_sensors.sensors else 'No power sensors available' }}
+
+      # Part 2 (devices 5-9)
+      - name: "category_2_device_power_entities_part2"
+        state: >
+          {% set devices = state_attr('input_select.category_2_devices', 'options') | list %}
+          {% set power_sensors = namespace(sensors=[]) %}
+
+          {% for device in devices[5:10] if device != "No devices added" %}
+            {% set base_name = device.split('.')[1] %}
+            {% set power_sensor_id = 'sensor.' ~ base_name ~ '_power' %}
+
+            {% if states(power_sensor_id) != 'unknown' and states(power_sensor_id) != 'unavailable' %}
+              {% set power_sensors.sensors = power_sensors.sensors + [power_sensor_id] %}
+            {% endif %}
+          {% endfor %}
+
+          {{ power_sensors.sensors | join(', ') if power_sensors.sensors else 'No power sensors available' }}
+
+      # Part 3 (devices 10-14)
+      - name: "category_2_device_power_entities_part3"
+        state: >
+          {% set devices = state_attr('input_select.category_2_devices', 'options') | list %}
+          {% set power_sensors = namespace(sensors=[]) %}
+
+          {% for device in devices[10:15] if device != "No devices added" %}
+            {% set base_name = device.split('.')[1] %}
+            {% set power_sensor_id = 'sensor.' ~ base_name ~ '_power' %}
+
+            {% if states(power_sensor_id) != 'unknown' and states(power_sensor_id) != 'unavailable' %}
+              {% set power_sensors.sensors = power_sensors.sensors + [power_sensor_id] %}
+            {% endif %}
+          {% endfor %}
+
+          {{ power_sensors.sensors | join(', ') if power_sensors.sensors else 'No power sensors available' }}
+
+      # Part 4 (devices 15-19)
+      - name: "category_2_device_power_entities_part4"
+        state: >
+          {% set devices = state_attr('input_select.category_2_devices', 'options') | list %}
           {% set power_sensors = namespace(sensors=[]) %}
 
           {% for device in devices[15:20] if device != "No devices added" %}
@@ -1283,33 +1440,71 @@ sensor:
 ################################### AUTOMATIONS ###################################
 
 ###### NORDPOOL RELATED #################################
+###### NORDPOOL RELATED #################################
 automation:
-  - alias: "Calculate Lowest Priced Hours"
-    triggers:
-      - trigger: time
-        at: "00:05:00" # Runs at 5 minutes past midnight
-      - trigger: homeassistant
+  #  - alias: "Calculate Lowest Priced Hours (Effective Price)"
+  #    trigger:
+  #      - platform: time
+  #        at: "00:05:00" # Runs at 5 minutes past midnight
+  #      - platform: homeassistant
+  #        event: start # Runs when Home Assistant starts
+  #      - platform: state
+  #        entity_id: input_number.cheapest_hours # Recalculate when the user changes the number
+  #    action:
+  #      - variables:
+  #          prices: >
+  #            {% set hours = state_attr('sensor.effective_electricity_price', 'hours') %}
+  #            {% if hours %}
+  #              {% set ns = namespace(prices=[]) %}
+  #              {% for hour in hours %}
+  #                {% set ns.prices = ns.prices + [{'index': loop.index0, 'price': hour.price}] %}
+  #              {% endfor %}
+  #              {{ ns.prices }}
+  #            {% else %}
+  #              []
+  #            {% endif %}
+  #          sorted_prices: >
+  #            {{ prices | sort(attribute='price') }}
+  #          lowest_hours: >
+  #            {% set count = states('input_number.cheapest_hours') | int %}
+  #            {{ sorted_prices[:count] | map(attribute='index') | list }}
+  #      - service: input_text.set_value
+  #        target:
+  #          entity_id: input_text.lowest_price_hours
+  #        data:
+  #          value: "{{ lowest_hours | to_json }}"
+
+  - alias: "Calculate Lowest Priced Hours (Effective Price)"
+    trigger:
+      - platform: time
+        at: "00:00:00" # Runs at midnight
+      - platform: homeassistant
         event: start # Runs when Home Assistant starts
-      - trigger: state
+      - platform: state
         entity_id: input_number.cheapest_hours # Recalculate when the user changes the number
-    actions:
+    action:
       - variables:
-          today: "{{ state_attr('sensor.nordpool_price', 'today') or [] }}"
-          tomorrow: "{{ state_attr('sensor.nordpool_price', 'tomorrow') or [] }}"
-          prices: "{{ today + tomorrow }}"
-      - variables:
-          indexed_prices: >
-            {% set ns = namespace(prices=[]) %}
-            {% for i in range(prices | length) %}
-              {% set ns.prices = ns.prices + [{'index': i, 'price': prices[i]}] %}
-            {% endfor %}
-            {{ ns.prices }}
+          prices: >
+            {% set hours = state_attr('sensor.effective_electricity_price', 'hours') %}
+            {% if hours %}
+              {% set today = now().date() %}
+              {% set ns = namespace(prices=[]) %}
+              {% for hour in hours %}
+                {% set start_time = as_datetime(hour.start) %}
+                {% if start_time.date() == today and 0 <= start_time.hour <= 22 and hour.price is not none %}
+                  {% set ns.prices = ns.prices + [{'index': loop.index0, 'price': hour.price}] %}
+                {% endif %}
+              {% endfor %}
+              {{ ns.prices }}
+            {% else %}
+              []
+            {% endif %}
           sorted_prices: >
-            {{ indexed_prices | sort(attribute='price') }}
+            {{ prices | sort(attribute='price') }}
           lowest_hours: >
             {% set count = states('input_number.cheapest_hours') | int %}
             {{ sorted_prices[:count] | map(attribute='index') | list }}
-      - action: input_text.set_value
+      - service: input_text.set_value
         target:
           entity_id: input_text.lowest_price_hours
         data:
@@ -1319,7 +1514,7 @@ automation:
   - alias: "Monitor Power Consumption for Category 1 (Turn Off)"
     mode: restart
     triggers:
-      - platform: state
+      - trigger: state
         entity_id: sensor.dynamic_power_sensor
     conditions:
       - condition: state
@@ -1330,29 +1525,29 @@ automation:
       - condition: template
         value_template: "{{ states('sensor.total_controllable_power') | float(0) > 0 }}"
     actions:
-      - service: logbook.log
+      - action: logbook.log
         data:
           name: "Power Management"
           message: "Starting Category 1 peak day check due to high power consumption"
-      - service: script.check_category_1_peak_days
+      - action: script.check_category_1_peak_days
 
   - alias: "Monitor Power Consumption Decrease for Category 1 (Turn On)"
     mode: restart
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id: sensor.dynamic_power_sensor
-    condition:
+    conditions:
       - condition: state
         entity_id: input_boolean.mode_nettleie
         state: "on"
       - condition: template
         value_template: "{{ states('sensor.dynamic_power_sensor') | float(0) < (states('input_number.energy_target') | float(0) * 1000) }}"
-    action:
-      - service: logbook.log
+    actions:
+      - action: logbook.log
         data:
           name: "Power Management"
           message: "Starting power gap calculation to turn on devices in Category 1 due to low power consumption"
-      - service: script.calculate_power_gap_to_turn_on
+      - action: script.calculate_power_gap_to_turn_on
 
   - alias: "Delete Device from Category 1"
     triggers:
@@ -1385,14 +1580,30 @@ automation:
   - alias: "Delete Device from Category 2"
     triggers:
       - trigger: state
-        entity_id: input_button.delete_category_2_device_button
+        entity_id: input_button.delete_category_2_device_button # Trigger on button press
     actions:
+      # Step 1: Remove the selected device from input_text.category_2_devices
+      - action: input_text.set_value
+        target:
+          entity_id: input_text.category_2_devices
+        data:
+          value: >
+            {% set device_to_delete = states('input_select.delete_category_2_device') %}
+            {% set current_devices = states('input_text.category_2_devices').split(',') %}
+            {% set updated_devices = current_devices | reject('equalto', device_to_delete) | list %}
+            {{ updated_devices | join(',') if updated_devices | length > 0 else 'No devices added' }}
+      # Step 2: Update input_select.category_2_devices, enforcing a non-empty list
       - action: input_select.set_options
         target:
           entity_id: input_select.category_2_devices
         data:
           options: >
-            {{ state_attr('input_select.category_2_devices', 'options') | reject('equalto', states('input_select.delete_category_2_device')) | list }}
+            {% set current_text = states('input_text.category_2_devices') %}
+            {% if current_text == 'No devices added' or current_text | length == 0 %}
+              ['No devices added']
+            {% else %}
+              {{ current_text.split(',') | list }}
+            {% endif %}
 
   - alias: "Delete Device from Category 3"
     triggers:
@@ -1480,24 +1691,24 @@ automation:
               - condition: template
                 value_template: "{{ states('input_select.new_category_2_device') != 'Select a device' }}"
             sequence:
+              - action: input_text.set_value
+                target:
+                  entity_id: input_text.category_2_devices
+                data:
+                  value: >
+                    {% set new_device = states('input_select.new_category_2_device') %}
+                    {% set current_devices = states('input_text.category_2_devices').split(',') %}
+                    {% if new_device not in current_devices %}
+                      {{ (current_devices + [new_device]) | join(',') }}
+                    {% else %}
+                      {{ current_devices | join(',') }}
+                    {% endif %}
               - action: input_select.set_options
                 target:
                   entity_id: input_select.category_2_devices
                 data:
                   options: >
-                    {{ (state_attr('input_select.category_2_devices', 'options') | list + [states('input_select.new_category_2_device')]) | unique | list }}
-              - choose:
-                  - conditions:
-                      - condition: template
-                        value_template: >
-                          {{ 'input_number.priority_' ~ states('input_select.new_category_2_device') | replace(' ', '_') | replace('.', '_') | replace('-', '_') | lower }} is defined }}
-                    sequence:
-                      - action: input_number.set_value
-                        target:
-                          entity_id: >
-                            input_number.priority_{{ states('input_select.new_category_2_device') | replace(' ', '_') | replace('.', '_') | replace('-', '_') | lower }}_category_2
-                        data:
-                          value: 1
+                    {{ states('input_text.category_2_devices').split(',') | list }}
 
   - id: "add_device_category_3"
     alias: "Add Device to Category 3"
@@ -1570,6 +1781,23 @@ automation:
         data:
           options: >
             {% set current_text = states('input_text.category_1_devices') %}
+            {% if current_text == 'No devices added' or current_text | length == 0 %}
+              ['No devices added']
+            {% else %}
+              {{ current_text.split(',') | list }}
+            {% endif %}
+
+  - alias: "Populate Category 2 Devices on Startup"
+    triggers:
+      - trigger: homeassistant
+        event: start
+    actions:
+      - action: input_select.set_options
+        target:
+          entity_id: input_select.category_2_devices
+        data:
+          options: >
+            {% set current_text = states('input_text.category_2_devices') %}
             {% if current_text == 'No devices added' or current_text | length == 0 %}
               ['No devices added']
             {% else %}
@@ -1944,8 +2172,8 @@ automation:
     mode: single
 
   - alias: Validate Day and Night Tariff Times
-    trigger:
-      - platform: state
+    triggers:
+      - trigger: state
         entity_id:
           - input_datetime.day_tariff_start
           - input_datetime.day_tariff_end
@@ -1963,12 +2191,12 @@ automation:
               - condition: template
                 value_template: "{{ day_end > night_start }}"
             sequence:
-              - service: input_datetime.set_datetime
+              - action: input_datetime.set_datetime
                 target:
                   entity_id: input_datetime.night_tariff_start
                 data:
                   datetime: "{{ day_end }}"
-              - service: persistent_notification.create
+              - action: persistent_notification.create
                 data:
                   title: "Tariff Conflict Resolved"
                   message: >
@@ -1978,20 +2206,45 @@ automation:
               - condition: template
                 value_template: "{{ night_end < day_start }}"
             sequence:
-              - service: input_datetime.set_datetime
+              - action: input_datetime.set_datetime
                 target:
                   entity_id: input_datetime.night_tariff_end
                 data:
                   datetime: "{{ day_start }}"
-              - service: persistent_notification.create
+              - action: persistent_notification.create
                 data:
                   title: "Tariff Conflict Resolved"
                   message: >
                     The night tariff end time overlapped with the day tariff start time.
                     The night tariff end time has been adjusted to {{ day_start }}.
 
+  - alias: "Manage Category 2 Devices Based on Power Saver Status"
+    trigger:
+      - platform: state
+        entity_id:
+          - sensor.power_saver_status
+          - input_number.cheapest_hours
+    condition:
+      - condition: template
+        value_template: "{{ states('input_text.category_2_devices') != 'No devices added' }}"
+    action:
+      - choose:
+          - conditions:
+              - condition: state
+                entity_id: sensor.power_saver_status
+                state: "on"
+            sequence:
+              - service: script.turn_on_category_2_devices
+          - conditions:
+              - condition: state
+                entity_id: sensor.power_saver_status
+                state: "off"
+            sequence:
+              - service: script.turn_off_category_2_devices
+
 ################################### SCRIPTS ###################################
 ###### GRID FEE RELATED #################################
+
 script:
   check_category_1_peak_days:
     alias: Check Category 1 Peak Days
@@ -2197,3 +2450,102 @@ script:
             - action: input_boolean.turn_off
               target:
                 entity_id: "{{ input_boolean_id }}"
+
+  turn_off_category_2_devices:
+    alias: Turn Off Devices in Category 2
+    sequence:
+      - variables:
+          category_2_devices: >
+            {{ states('input_text.category_2_devices').split(',') | map('trim') | reject('equalto', '') | list }}
+      - repeat:
+          count: "{{ category_2_devices | length }}"
+          sequence:
+            - variables:
+                entity_id: "{{ category_2_devices[repeat.index0] }}"
+                input_boolean_id: "input_boolean.device_turned_off_{{ repeat.index }}_category2"
+                input_text_id: "input_text.hvac_mode_{{ repeat.index }}_category2"
+                hvac_mode: >
+                  {% set mode = state_attr(entity_id, 'hvac_mode') %}
+                  {% if mode in ['off', 'dry', 'heat', 'auto', 'heat_cool', 'fan_only', 'cool'] %}
+                    {{ mode }}
+                  {% else %}
+                    'off'
+                  {% endif %}
+            - choose:
+                - conditions:
+                    - condition: template
+                      value_template: "{{ entity_id.startswith('climate.') }}"
+                  sequence:
+                    - service: input_text.set_value
+                      entity_id: "{{ input_text_id }}"
+                      data:
+                        value: "{{ hvac_mode }}"
+                    - service: climate.set_hvac_mode
+                      entity_id: "{{ entity_id }}"
+                      data:
+                        hvac_mode: "off"
+                    - service: logbook.log
+                      data:
+                        name: "Power Saver Management"
+                        message: "Turning off {{ entity_id }} (climate entity) in Category 2."
+                - conditions:
+                    - condition: template
+                      value_template: "{{ entity_id.startswith('switch.') }}"
+                  sequence:
+                    - service: homeassistant.turn_off
+                      entity_id: "{{ entity_id }}"
+                    - service: logbook.log
+                      data:
+                        name: "Power Saver Management"
+                        message: "Turning off {{ entity_id }} (switch entity) in Category 2."
+            - service: input_boolean.turn_on
+              entity_id: "{{ input_boolean_id }}"
+
+  turn_on_category_2_devices:
+    alias: Turn On Devices in Category 2
+    sequence:
+      - variables:
+          category_2_devices: >
+            {{ states('input_text.category_2_devices').split(',') | map('trim') | reject('equalto', '') | list }}
+      - repeat:
+          count: "{{ category_2_devices | length }}"
+          sequence:
+            - variables:
+                entity_id: "{{ category_2_devices[repeat.index0] }}"
+                input_boolean_id: "input_boolean.device_turned_off_{{ repeat.index }}_category2"
+                input_text_id: "input_text.hvac_mode_{{ repeat.index }}_category2"
+                hvac_mode: >
+                  {% set mode = states(input_text_id) %}
+                  {% if mode in ['off', 'dry', 'heat', 'auto', 'heat_cool', 'fan_only', 'cool'] %}
+                    {{ mode }}
+                  {% else %}
+                    'auto'  # Default to 'auto' if invalid
+                  {% endif %}
+            - condition: state
+              entity_id: "{{ input_boolean_id }}"
+              state: "on"
+            - choose:
+                - conditions:
+                    - condition: template
+                      value_template: "{{ entity_id.startswith('climate.') }}"
+                  sequence:
+                    - service: climate.set_hvac_mode
+                      entity_id: "{{ entity_id }}"
+                      data:
+                        hvac_mode: "{{ hvac_mode }}"
+                    - service: logbook.log
+                      data:
+                        name: "Power Saver Management"
+                        message: "Restored HVAC mode for {{ entity_id }} in Category 2."
+                - conditions:
+                    - condition: template
+                      value_template: "{{ entity_id.startswith('switch.') }}"
+                  sequence:
+                    - service: homeassistant.turn_on
+                      entity_id: "{{ entity_id }}"
+                    - service: logbook.log
+                      data:
+                        name: "Power Saver Management"
+                        message: "Turning on {{ entity_id }} (switch entity) in Category 2."
+            - service: input_boolean.turn_off
+              entity_id: "{{ input_boolean_id }}"
